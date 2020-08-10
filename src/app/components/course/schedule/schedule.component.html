@@ -1,0 +1,67 @@
+<div class="row"></div>
+<div class="schedule">
+  <form class="schedule-form" [formGroup]="form1">
+    <ng-container formArrayName="extra_hours">
+      <div
+        *ngFor="let ctrl of form1.get('extra_hours')['controls']; let i = index"
+        [formGroupName]="i"
+      >
+        <div *ngIf="i !== 0" class="divider"></div>
+        <div class="row bottom-xs">
+          <div class="col-xs-4">
+            <label for="">Desde:</label>
+            <input
+              nbInput
+              status="basic"
+              fullWidth
+              type="time"
+              fieldSize="small"
+              formControlName="extra_from"
+              min="0"
+              max="23"
+              (change)="changeHourFrom($event)"
+            />
+          </div>
+          <div class="col-xs-4">
+            <label for="">Hasta:</label>
+            <input
+              nbInput
+              status="basic"
+              fullWidth
+              type="time"
+              fieldSize="small"
+              formControlName="extra_to"
+              min="0"
+              max="23"
+              (change)="changeHourTo($event)"
+            />
+          </div>
+          <div class="col-xs-4">
+            <button
+              nbButton
+              status="danger"
+              ghost
+              size="small"
+              (click)="removeHour(i)"
+              *ngIf="i > 0"
+            >
+              <nb-icon
+                icon="trash-2-outline"
+                [options]="{ animation: { type: 'pulse' } }"
+              ></nb-icon>
+            </button>
+            <button
+              nbButton
+              status="info"
+              fullWidth
+              size="small"
+              (click)="setSchedule(day)"
+            >
+              Confirmar horario
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </form>
+</div>

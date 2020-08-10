@@ -1,0 +1,12 @@
+a {
+  margin: 0 3px;
+  height: 23px;
+  width: 23px;
+  min-width: initial;
+  font-size: 0.65rem !important;
+  opacity: 0.6;
+  border-radius: 9999px;
+  &:hover {
+    opacity: 1;
+  }
+}

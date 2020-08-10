@@ -1,0 +1,146 @@
+%scrollbar {
+  &::-webkit-scrollbar {
+    height: 8px;
+    width: var(--scrollbar-width);
+
+    &-thumb {
+      background: var(--scrollbar-color);
+      border-radius: var(--border-radius);
+
+      &:hover,
+      &:active {
+        background: var(--scrollbar-color);
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+      }
+    }
+    &-track {
+      background: var(--scrollbar-background-color);
+      border-radius: var(--border-radius);
+
+      &:active,
+      &:hover {
+        background: #d4d4d4;
+      }
+    }
+  }
+}
+
+*:focus {
+  outline: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.container-fluid {
+  height: calc(100vh - #{var(--header-height)});
+  left: var(--sidebar-width);
+  padding: 0;
+  position: absolute;
+  top: var(--header-height);
+  width: calc(100% - #{var(--sidebar-width)});
+}
+
+.paddingless {
+  padding: 0 !important;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.no-padding-top {
+  padding-top: 0;
+}
+
+.marginless {
+  margin: 0 !important;
+}
+
+.border-right {
+  border-right: var(--card-divider-width) var(--card-divider-style)
+    var(--card-divider-color);
+}
+
+.no-border-bottom {
+  border-bottom: 0;
+}
+
+.box-shadow-none {
+  box-shadow: none;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+button.plain {
+  background: transparent;
+  border: none;
+
+  &:not([disabled]) {
+    cursor: pointer;
+  }
+
+  &:focus {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.text-secondary {
+  color: var(--color-info-500);
+}
+
+.text-gray {
+  color: #b6b6b6;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.bolder {
+  font-weight: bolder;
+}
+
+.nb-scrollbar {
+  @extend %scrollbar;
+}
+
+.wrapper {
+  height: calc(100vh - #{var(--header-height)} - 50px);
+  overflow-y: auto;
+
+  @extend %scrollbar;
+}
+
+.first-letter-uppercase {
+  text-transform: lowercase;
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}

@@ -1,0 +1,71 @@
+$border-radius: 15px;
+
+.onboarding {
+  width: 308px;
+
+  nb-card {
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    box-shadow: 10px 10px 50px 13px rgba(0, 0, 0, 0.2);
+
+    &-header {
+      background-color: var(--onboarding-color);
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+      text-align: center;
+    }
+
+    &-body {
+      border-bottom-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+    }
+
+    .icon-container {
+      background-color: #fff;
+      color: var(--onboarding-color);
+      border-radius: 50%;
+      height: 79px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 79px;
+
+      svg {
+        fill: var(--onboarding-color);
+      }
+    }
+
+    nb-icon {
+      font-size: 30px;
+    }
+  }
+
+  &-message {
+    color: #4a4a4a;
+  }
+
+  &-button {
+    font-size: 14px;
+    height: 32px;
+    width: 128px;
+    background-color: var(--onboarding-color) !important;
+    border-color: var(--onboarding-color) !important;
+    color: #ffffff !important;
+  }
+
+  &-link {
+    color: #3483fa;
+    font-size: 14px;
+    text-decoration: underline;
+  }
+
+  &-close {
+    color: #ffffff;
+    font-size: 16px;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    z-index: 2;
+  }
+}

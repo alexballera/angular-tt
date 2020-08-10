@@ -1,0 +1,135 @@
+<div class="row home" [nbSpinner]="isLoading$ | async" nbSpinnerStatus="info">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="row">
+        <div class="col-xs-12 user-selector-col">
+          <div *ngIf="selectedUser$ | async as selectedUser">
+            <button
+              ghost
+              nbButton
+              class="user-selector-container"
+              [nbContextMenu]="menuItems$ | async"
+              nbContextMenuTag="impersonate-menu"
+            >
+              <nb-user
+                class="with-dropdown-arrow"
+                size="large"
+                [name]="selectedUser | fullName"
+                title="Ultima vez hoy a las xx:xx"
+              >
+              </nb-user>
+            </button>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="row">
+            <div class="col-xs-4">
+              <nb-card
+                class="section-selector"
+                (click)="selectSection('due')"
+                status="danger"
+              >
+                <nb-card-header>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-10 title">
+                      Contenidos Vendidos
+                    </div>
+                    <div class="col-xs-12 col-sm-2 counter">
+                      {{ (statusCounter$ | async)?.due }}
+                    </div>
+                  </div>
+                </nb-card-header>
+              </nb-card>
+              <!-- FEAT Esto pertenece a otra historia -->
+              <!-- <div
+                class="section-selected danger"
+                *ngIf="sectionSelected === 'due'"
+              ></div> -->
+            </div>
+            <div class="col-xs-4">
+              <nb-card
+                class="section-selector"
+                (click)="selectSection('warning')"
+                status="warning"
+              >
+                <nb-card-header>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-10 title">
+                      Contenidos no iniciados
+                    </div>
+                    <div class="col-xs-12 col-sm-2 counter">
+                      {{ (statusCounter$ | async)?.notIniciated }}
+                    </div>
+                  </div>
+                </nb-card-header>
+              </nb-card>
+              <!-- FEAT Esto pertenece a otra historia -->
+              <!-- <div
+                class="section-selected warning"
+                *ngIf="sectionSelected === 'notiniciated'"
+              ></div> -->
+            </div>
+            <div class="col-xs-4">
+              <nb-card
+                class="section-selector"
+                (click)="selectSection('success')"
+                status="success"
+              >
+                <nb-card-header>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-10 title">
+                      Contenidos en curso
+                    </div>
+                    <div class="col-xs-12 col-sm-2 counter">
+                      {{ (statusCounter$ | async)?.active }}
+                    </div>
+                  </div>
+                </nb-card-header>
+              </nb-card>
+
+              <div
+                class="section-selected success"
+                *ngIf="sectionSelected === 'active'"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div class="section-selected" *ngIf="sectionSelected === ''"></div>
+      </div>
+
+      <div class="row section-container">
+        <div
+          class="card-container col-xs-12 col-sm-6 col-md-6 col-lg-4"
+          *ngFor="let course of courseList$ | async"
+        >
+          <a
+            [routerLink]="['/padres/curso']"
+            routerLinkActive="router-link-active"
+          >
+            <nb-card accent="info">
+              <nb-card-body>
+                <div class="row">
+                  <div class="col-xs-8 title">
+                    {{ course.parentGroup.name | titlecase }}
+                  </div>
+                  <div class="col-xs-4 counter">
+                    {{ course.parentGroup.contents.length }} contenidos
+                  </div>
+                </div>
+                <!-- FEAT Esto pertenece a otra historia -->
+                <!-- <div class="row progress-container">
+                  <div class="col-xs-10 progress">
+                    <nb-progress-bar size="tiny" [value]="50"></nb-progress-bar>
+                  </div>
+                  <div class="col-xs-2 percent">
+                    50%
+                  </div>
+                </div> -->
+              </nb-card-body>
+            </nb-card>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

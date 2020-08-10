@@ -1,0 +1,22 @@
+<nb-checkbox
+  (checkedChange)="selectAll($event)"
+  status="info"
+  [checked]="allSelected"
+  *ngIf="!disabled"
+>
+  Seleccionar todo
+</nb-checkbox>
+<div [className]="disabled ? '' : 'padding-left'">
+  <nb-checkbox
+    *ngFor="let item of items"
+    (checkedChange)="itemChange(item.data)"
+    status="info"
+    [checked]="item.checked"
+    [disabled]="disabled"
+  >
+    {{ item.title }}
+  </nb-checkbox>
+</div>
+<div class="col-xs-12 text-danger paddingless error-message">
+  {{ errorMessage }}
+</div>

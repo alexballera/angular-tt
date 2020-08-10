@@ -1,0 +1,27 @@
+#!/bin/sh
+
+download_assets() {
+  BUCKET=${BUCKET:-http://assets.$THEME.ticmas.io.s3.amazonaws.com}
+  PROJECT=front-tt
+
+  wget -O index.xml $BUCKET
+  KEYS=$(xmllint --xpath "//*[local-name()='Key']/text()" index.xml | sed "s/$PROJECT\//\n$PROJECT\//g")
+
+  for KEY in $KEYS
+  do
+      FILE_PATH=$(echo $KEY | sed "s/$PROJECT\///");
+      case $KEY in
+          "$PROJECT/"*) wget -O $1/$FILE_PATH $BUCKET/$KEY ;;
+          *)  ;;
+      esac
+  done;
+
+  rm index.xml
+}
+
+set -o allexport
+. ./.env
+set +o allexport
+
+envsubst < env.template.js > ${1:-src}/env.js
+test -z $THEME || download_assets ${1:-dist}

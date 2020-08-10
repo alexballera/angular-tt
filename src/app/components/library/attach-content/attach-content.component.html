@@ -1,0 +1,253 @@
+<form [formGroup]="formAttach" (ngSubmit)="submit()">
+  <nb-card class="sidebar attach animated fadeIn">
+    <nb-card-header class="attach-header">
+      <div class="row marginless">
+        <button
+          nbButton
+          ghost
+          status="basic"
+          size="small"
+          class="plain"
+          (click)="close()"
+        >
+          <nb-icon
+            icon="close-outline"
+            [options]="{ animation: { type: 'pulse' } }"
+          ></nb-icon>
+        </button>
+        <h5 class="h5 text-primary col-xs-12 paddingless">
+          Completa este contenido adjuntando material extra
+        </h5>
+      </div>
+    </nb-card-header>
+    <nb-card-body class="attach-body">
+      <div class="row marginless">
+        <nb-card
+          [ngClass]="disabled ? 'disabled' : 'cursor-pointer'"
+          class="paddingless attach-option-container box-shadow-none"
+          *ngFor="let item of attachOptions; let i = index"
+        >
+          <nb-card-body
+            class="row marginless center-xs attach-option"
+            [ngClass]="{ active: i === active }"
+            (click)="changeOption(i, item)"
+          >
+            <div *ngIf="!item.fileShow" class="col-xs-7 attach-option-image">
+              <img src="{{ item.img }}" alt="" />
+            </div>
+            <div class="col-xs-10">
+              <ng-container *ngIf="item.fileShow; else liks">
+                <content-upload-file
+                  class="marginless attach-option-text"
+                  [allowedMimes]="[
+                    'application/msword',
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    'application/vnd.ms-excel',
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'application/vnd.ms-powerpoint',
+                    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                    'application/pdf',
+                    'image/jpeg',
+                    'image/png',
+                    'video/mp4'
+                  ]"
+                  [maxSize]="10 * 1024 * 1024"
+                  title="{{ item.text }}"
+                  src="{{ item.img }}"
+                  (fileChange)="onFileInputChange($event)"
+                  (error)="
+                    onFileError('Los formatos permitidos son: .jpg, doc y png')
+                  "
+                ></content-upload-file>
+              </ng-container>
+              <ng-template #liks>
+                <p class="marginless attach-option-text">{{ item.text }}</p>
+              </ng-template>
+            </div>
+            <div class="col-xs-8">
+              <p
+                *ngIf="item.info"
+                class="marginless attach-option-text attach-option-info"
+              >
+                <em>{{ item.info }}</em>
+              </p>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </div>
+
+      <div class="row middle-xs marginless attach-form animated fadeIn">
+        <div class="col-xs-12 col-sm-6">
+          <div class="row">
+            <div
+              *ngIf="active > 0"
+              class="col-xs-12 field field-link paddingless animated fadeIn"
+            >
+              <input
+                nbInput
+                status="basic"
+                fieldSize="small"
+                fullWidth
+                status="basic"
+                name="url"
+                type="text"
+                formControlName="url"
+                placeholder="{{
+                  active > 2
+                    ? 'Ej: https://www.genial.ly/'
+                    : 'Ej: https://www.youtube.com/'
+                }}"
+                id="url"
+                (change)="validateLink()"
+              />
+              <span>
+                <nb-icon
+                  icon="link-2-outline"
+                  [options]="{ animation: { type: 'pulse' } }"
+                ></nb-icon>
+              </span>
+              <p *ngIf="msgUrl.length > 0" class="text-danger marginless">
+                {{ msgUrl }}
+              </p>
+              <div *ngIf="url.invalid" class="text-danger animated fadeIn">
+                <span *ngIf="url.errors.incorrect">
+                  El documento debe ser publico, verifiquelo y vuelva a
+                  intentar.
+                </span>
+              </div>
+            </div>
+            <div class="col-xs-12 field paddingless">
+              <label>Título*</label>
+              <input
+                nbInput
+                status="basic"
+                fieldSize="small"
+                fullWidth
+                status="basic"
+                name="title"
+                type="text"
+                formControlName="title"
+                placeholder="Ej: El titulo"
+                id="title"
+              />
+              <div *ngIf="title.invalid" class="text-danger animated fadeIn">
+                <span *ngIf="title.errors.minlength">
+                  El título debe ser de al menos 4 caracteres.
+                </span>
+              </div>
+            </div>
+            <div class="col-xs-12 field paddingless">
+              <label>Descripción/Mensaje*</label>
+              <textarea
+                nbInput
+                status="basic"
+                fieldSize="small"
+                fullWidth
+                status="basic"
+                name="description"
+                formControlName="description"
+                id="description"
+              ></textarea>
+              <p class="marginless attach-option-info">
+                <em
+                  [ngClass]="{
+                    'text-danger animated fadeIn':
+                      description.invalid && description.errors.maxlength
+                  }"
+                  >Máximo 150 caracteres</em
+                >
+              </p>
+            </div>
+
+            <div class="col-xs-12 attach-form-tags paddingless">
+              <div class="row" *ngIf="distributionG.attachContent$">
+                <div
+                  class="tag"
+                  *ngFor="let tag of distributionG.attachContent$ | async"
+                >
+                  <label>
+                    <span>{{ tag.url }}</span>
+                    <nb-icon
+                      (click)="deleteUrl(tag.url)"
+                      class="cursor-pointer"
+                      icon="close-outline"
+                      [options]="{ animation: { type: 'pulse' } }"
+                    ></nb-icon>
+                  </label>
+                </div>
+              </div>
+
+              <div class="row" *ngIf="attachdoc">
+                <div class="tag">
+                  <label>
+                    <span>{{ attachdoc }}</span>
+                    <nb-icon
+                      (click)="deleteAttachDoc()"
+                      class="cursor-pointer"
+                      icon="close-outline"
+                      [options]="{ animation: { type: 'pulse' } }"
+                    ></nb-icon>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-5 attach-form-image">
+          <div class="row">
+            <div class="col-xs-12">
+              <nb-card class="col-xs-12 box-shadow-none">
+                <nb-card-body
+                  class="flex flex-col marginless middle-xs center-xs attach-image-bg"
+                  [ngStyle]="{
+                    backgroundImage: coverPreview
+                      ? 'url(' + coverPreview + ')'
+                      : null
+                  }"
+                >
+                  <content-upload-file
+                    hasUploadBox="true"
+                    class="resource-form-upload-file"
+                    [allowedMimes]="['image/jpeg', 'image/png']"
+                    [maxSize]="10 * 1024 * 1024"
+                    title="Agrega una imagen para este contenido*"
+                    (fileChange)="onPreviewFileInputChange($event)"
+                    (error)="
+                      onFileError('Los formatos permitidos son: .jpg y png')
+                    "
+                    [coverPreviewStyles]="coverPreviewStyles"
+                  ></content-upload-file>
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+
+    <nb-card-footer class="row marginless between-xs middle-xs attach-footer">
+      <p class="footer-notifications"><em>*campos obligatorios</em></p>
+      <div class="buttons">
+        <button
+          nbButton
+          ghost
+          status="info"
+          (click)="close()"
+          [disabled]="attachCoverLoading$ | async"
+        >
+          Volver
+        </button>
+        <button
+          nbButton
+          status="info"
+          type="submit"
+          [disabled]="formAttach.invalid || (attachCoverLoading$ | async)"
+          [nbSpinner]="attachCoverLoading$ | async"
+        >
+          Confirmar
+        </button>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</form>

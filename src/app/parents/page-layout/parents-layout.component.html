@@ -1,0 +1,25 @@
+<nb-layout>
+  <nb-layout-header>
+    <div class="row header-main-row">
+      <div class="col-xs-4">
+        <img src="/ticmas-logo-padres.svg" alt="" />
+      </div>
+      <div class="col-xs-8">
+        <div class="nav">
+          <nb-icon class="nav-icon" icon="search-outline"></nb-icon>
+          <nb-icon class="nav-icon home-icon" icon="home-outline"></nb-icon>
+          <nb-icon class="nav-icon" icon="bell-outline"></nb-icon>
+          <nb-icon
+            class="nav-icon"
+            icon="menu-outline"
+            [nbContextMenu]="menuItems"
+            nbContextMenuTag="header-menu"
+          ></nb-icon>
+        </div>
+      </div>
+    </div>
+  </nb-layout-header>
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>

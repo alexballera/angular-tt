@@ -1,0 +1,10 @@
+<swiper [config]="swiperConfig">
+  <span *ngFor="let file of files">
+    <ng-container *ngIf="file.split('.').pop() === 'pdf'; else image">
+      <embed frameborder="0" height="600" width="100%" [src]="file | safeUrl" />
+    </ng-container>
+    <ng-template #image>
+      <img [src]="file" height="600" />
+    </ng-template>
+  </span>
+</swiper>

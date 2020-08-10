@@ -1,0 +1,20 @@
+<nb-layout>
+  <nb-layout-header fixed *ngIf="!(classroomLoading$ | async)">
+    <ticmas-header [logo]="logo" [defaultAvatar]="defaultAvatar">
+      <ng-content select="[layoutHeader]:not([right])" slot="left"></ng-content>
+      <ng-content select="[layoutHeader][right]" slot="right"></ng-content>
+    </ticmas-header>
+  </nb-layout-header>
+
+  <nb-sidebar
+    *ngIf="!(classroomLoading$ | async) && sidenavItems"
+    state="expanded"
+    tag="left"
+  >
+    <ticmas-sidenav [items]="sidenavItems"></ticmas-sidenav>
+  </nb-sidebar>
+
+  <nb-layout-column [ngClass]="{ paddingless: classroomLoading$ | async }">
+    <ng-content select="[layoutMain]"></ng-content>
+  </nb-layout-column>
+</nb-layout>

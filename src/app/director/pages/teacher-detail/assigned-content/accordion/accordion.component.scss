@@ -1,0 +1,71 @@
+@import '../../../../../../scss/base/colors';
+:host ::ng-deep {
+  .nb-accordion {
+    &-title {
+      color: $grey;
+      font-weight: bold;
+      margin-bottom: 0;
+      margin-top: 8px;
+    }
+    nb-accordion {
+      &-item {
+        &-header {
+          font-weight: 300;
+          padding-left: 0;
+          padding-top: 0;
+
+          &.hideIcon {
+            cursor: default;
+            nb-icon[icon='chevron-down-outline'] {
+              display: none;
+            }
+          }
+
+          nb-icon[icon='chevron-down-outline'] {
+            right: 4rem;
+          }
+
+          nb-icon[icon='clock-outline'] {
+            font-size: 14px;
+          }
+
+          .quantity {
+            align-items: center;
+            display: flex;
+            position: absolute;
+            right: 24px;
+
+            nb-icon[icon='attach-2-outline'] {
+              font-size: 14px;
+            }
+          }
+        }
+
+        &-body {
+          .quantity {
+            align-items: center;
+            color: $grey;
+            display: flex;
+
+            nb-icon[icon='attach-2-outline'] {
+              font-size: 14px;
+              margin-right: 4px;
+            }
+          }
+          .item-body {
+            padding-left: 0;
+          }
+
+          nb-user {
+            margin: 8px 0;
+
+            .user-name {
+              color: $grey;
+              font-weight: 300;
+            }
+          }
+        }
+      }
+    }
+  }
+}

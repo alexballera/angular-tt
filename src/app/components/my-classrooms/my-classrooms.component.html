@@ -1,0 +1,59 @@
+<div class="container-fluid my-classrooms-component">
+  <div class="header">
+    <app-group-selector class="group-class"></app-group-selector>
+    <div class="button-container">
+      <button
+        *ngIf="hasHomework$ | async"
+        nbButton
+        ghost
+        size="small"
+        (click)="panelIndex = 0"
+        [ngClass]="{ active: panelIndex === 0 }"
+      >
+        Tareas clase
+      </button>
+      <button
+        nbButton
+        ghost
+        size="small"
+        (click)="panelIndex = 1"
+        [ngClass]="{ active: panelIndex === 1 }"
+      >
+        Contenidos clase
+      </button>
+      <button
+        nbButton
+        ghost
+        size="small"
+        (click)="panelIndex = 2"
+        [ngClass]="{ active: panelIndex === 2 }"
+      >
+        Datos clase
+      </button>
+      <button
+        nbButton
+        ghost
+        size="small"
+        (click)="panelIndex = 3"
+        [ngClass]="{ active: panelIndex === 3 }"
+        autofocus
+      >
+        Datos estudiantes
+      </button>
+    </div>
+  </div>
+  <app-homework *ngIf="panelIndex === 0" class="animated fadeIn">
+  </app-homework>
+  <app-course-content
+    *ngIf="panelIndex === 1"
+    class="animated fadeIn"
+  ></app-course-content>
+  <app-course-progress
+    *ngIf="panelIndex === 2"
+    class="animated fadeIn"
+  ></app-course-progress>
+  <app-student
+    *ngIf="panelIndex === 3"
+    class="sections animated fadeIn"
+  ></app-student>
+</div>

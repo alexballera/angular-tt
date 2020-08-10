@@ -1,0 +1,46 @@
+.container {
+  position: absolute;
+  background-color: #6e6e6e;
+  border-radius: 10px;
+  width: 140px;
+  top: 20px;
+  right: 0px;
+  p {
+    color: white;
+    font-size: 12px;
+    margin: 0.4rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .groupList {
+    border-top: solid 1px #808080;
+  }
+}
+
+.dialog-header {
+  border: none;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dialog-container {
+  text-align: center;
+  padding: 10px 50px 30px 50px;
+}
+
+.dialog-text {
+  margin: 5px 70px 20px 70px;
+}
+
+.dialog-footer {
+  display: flex;
+  border: none;
+  justify-content: space-between;
+  padding: 0px 160px;
+}
+
+.close-button {
+  color: black !important;
+  font-size: 26px;
+}

@@ -1,0 +1,70 @@
+<div class="listing">
+  <div
+    class="breadcrumb"
+    *ngIf="(metricsServices.selectTeacher$ | async)?.name"
+  >
+    <p class="breadcrumb-item marginless cursor-pointer" (click)="backList()">
+      <button
+        nbButton
+        ghost
+        status="basic"
+        size="small"
+        class="plain"
+        shape="round"
+      >
+        <nb-icon
+          icon="arrow-back-outline"
+          [options]="{ animation: { type: 'pulse' } }"
+        ></nb-icon>
+      </button>
+      Listado de docentes
+    </p>
+  </div>
+  <nb-tabset class="rtl shadowed">
+    <nb-tab tabTitle="Docentes">
+      <nb-card class="marginless">
+        <nb-card-body>
+          <!-- FIXME: Ocultamos el select del orden por ahora
+             https://vi-datec.atlassian.net/secure/RapidBoard.jspa?rapidView=87&modal=detail&selectedIssue=TP-1669
+            <div class="selector">
+            <nb-select [(selected)]="sortBy" class="select-naked">
+              <nb-option [value]="0">Orden Alfabético</nb-option>
+              <nb-option [value]="1">Asignatura</nb-option>
+              <nb-option [value]="2">Clase</nb-option>
+            </nb-select>
+          </div>-->
+          <div class="row" *ngIf="!showDetail">
+            <ng-container
+              *ngFor="
+                let item of director.dataTeachers$ | async;
+                let teacherIndex = index
+              "
+            >
+              <app-teacher-card
+                class="col-xs-12 col-sm-11 col-md-4 col-lg-2"
+                [index]="teacherIndex"
+                [sub]="item.sub"
+                [avatar]="item.picture"
+                [name]="item.given_name"
+                [familyName]="item.family_name"
+                [courses]="item.courses"
+                [countCourses]="item.countCourses"
+                [countStudent]="item.countStudent"
+                (detail)="goDetail($event)"
+              ></app-teacher-card>
+            </ng-container>
+          </div>
+          <div *ngIf="showDetail">
+            <app-teacher-detail></app-teacher-detail>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </nb-tab>
+    <nb-tab tabTitle="Estudiantes" disabled>
+      (Bla de Estudiantes)
+    </nb-tab>
+    <nb-tab tabTitle="Clases" disabled>
+      (Bla de Clases)
+    </nb-tab>
+  </nb-tabset>
+</div>

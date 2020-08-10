@@ -1,0 +1,57 @@
+<div class="paddingless teacher-detail">
+  <nb-card class="box-shadow-none marginless">
+    <div class="row marginless">
+      <div class="col-xs-2 paddingless card-img">
+        <div class="initials" [ngClass]="randomcolor">
+          {{ acronym }}
+        </div>
+      </div>
+      <div class="col-xs-10 paddingless">
+        <nb-card class="box-shadow-none">
+          <nb-card-header>
+            <div
+              class="row marginless between-xs bottom-xs teacher-detail-header"
+            >
+              <div class="col-xs-6 teacher-name">
+                <h2>
+                  {{ (teacher$ | async)?.name }}
+                  {{ (teacher$ | async)?.family_name }}
+                </h2>
+                <app-selector (course)="courseSelect = $event"></app-selector>
+              </div>
+              <div
+                class="col-xs-2 flex align-items-center justify-content-end teacher-calendar"
+              >
+                <button
+                  nbButton
+                  ghost
+                  status="basic"
+                  size="giant"
+                  fullWidth
+                  class="plain"
+                  disabled
+                >
+                  <nb-icon icon="calendar-outline" status="basic"></nb-icon>
+                  Calendario
+                </button>
+              </div>
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+            <div class="row teacher-detail-content">
+              <div class="col-xs-12 col-sm-6 content-assigned">
+                <app-assigned-content
+                  [courseSelect]="courseSelect"
+                ></app-assigned-content>
+              </div>
+              <!-- TODO  Ocultado hasta que se defina funcionalidad-->
+              <!-- <div class="col-xs-12 col-sm-6 content-assigned">
+                <app-latest-actions></app-latest-actions>
+              </div> -->
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </nb-card>
+</div>

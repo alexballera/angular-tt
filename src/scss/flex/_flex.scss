@@ -1,0 +1,45 @@
+@import 'breakpoints';
+@import '../base/mixins';
+@import 'xl';
+@import 'xxl';
+@import 'xxxl';
+
+.inline {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+
+  &-col {
+    flex-direction: column;
+  }
+
+  &-row {
+    flex-direction: row;
+  }
+
+  &-stretch {
+    flex: 1;
+  }
+
+  &.wrap {
+    flex-wrap: wrap;
+  }
+
+  &.align-items-center {
+    align-items: center;
+  }
+
+  &.justify-content-center {
+    justify-content: center;
+  }
+
+  &.justify-content-end {
+    justify-content: flex-end;
+  }
+
+  &.justify-content-between {
+    justify-content: space-between;
+  }
+}

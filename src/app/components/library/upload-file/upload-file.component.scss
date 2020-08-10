@@ -1,0 +1,67 @@
+.app-upload-file {
+  .progress {
+    background-color: transparent;
+    margin-bottom: 8px;
+  }
+
+  .field {
+    margin-bottom: 4px;
+
+    label {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    input,
+    textarea {
+      font-size: 12px;
+    }
+  }
+
+  &-label {
+    margin-bottom: 0px !important;
+
+    .coverPreview {
+      bottom: 6px;
+      position: absolute;
+      right: 30px;
+    }
+
+    .upload {
+      &-box {
+        text-align: center;
+      }
+    }
+
+    .attach-option-image {
+      height: 75px;
+      margin: 0 auto;
+
+      img {
+        height: 100%;
+      }
+    }
+
+    .button {
+      border-radius: 7px;
+      font-size: 12px;
+      height: 27px;
+      margin-left: 0;
+
+      .icon-svg {
+        height: 20px;
+        width: 20px;
+        margin-right: 6px;
+        svg {
+          height: 20px;
+          width: 20px;
+          fill: currentColor;
+        }
+      }
+    }
+  }
+}
+
+.is-hidden {
+  display: none;
+}

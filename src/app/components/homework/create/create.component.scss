@@ -1,0 +1,110 @@
+$customBlue: #1355cc;
+$darkGray: #7c7c7c;
+$lightGray: #f5f5f5;
+
+:host ::ng-deep {
+  nb-checkbox {
+    display: block;
+    .text {
+      font-weight: normal;
+    }
+  }
+  input,
+  textarea {
+    background-color: transparent !important;
+    font-weight: normal !important;
+  }
+  nb-card {
+    margin-bottom: 0;
+  }
+  nb-select {
+    .select-button {
+      background-color: transparent !important;
+      font-weight: normal !important;
+    }
+  }
+  app-group-selector {
+    .group-selector-container {
+      padding-bottom: 2.5rem;
+      p {
+        margin-top: 0;
+      }
+    }
+  }
+  nb-icon {
+    height: 15px;
+    color: $darkGray;
+    i {
+      height: 15px;
+    }
+  }
+}
+.app-create-page {
+  background-color: #fff;
+  padding-right: 2rem;
+
+  .error-message {
+    margin-bottom: 0.4rem;
+    font-size: 0.725rem;
+    max-height: 18px;
+  }
+  .form-padding-bottom {
+    margin-bottom: 2rem;
+  }
+  nb-checkbox,
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .buttons {
+    align-self: flex-end;
+    text-align: right;
+  }
+  .text-hint {
+    margin: 0;
+  }
+}
+
+.attachments {
+  margin-top: 2rem;
+}
+
+.label-container {
+  margin-bottom: 1rem;
+}
+
+.is-invalid {
+  border-color: red;
+  &:hover {
+    border-color: red;
+  }
+}
+
+.tags-container {
+  margin-top: 20px;
+}
+
+.tag-container {
+  width: 300px;
+  height: 25px;
+  background-color: $lightGray;
+  margin-bottom: 3px !important;
+}
+
+.attachment-name {
+  font-size: 13px;
+  color: $customBlue;
+  font-weight: bold;
+  max-width: 210px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 4px !important;
+}
+
+.attachment-size {
+  font-size: 13px;
+  margin-left: 5px;
+  color: $darkGray;
+  font-weight: bold;
+}

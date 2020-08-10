@@ -1,0 +1,8 @@
+<nb-icon
+  icon="bell-outline"
+  class="cursor-pointer"
+  [options]="{ animation: { type: 'pulse' } }"
+  nbTooltip="Notificaciones"
+  nbTooltipPlacement="bottom"
+></nb-icon>
+<div *ngIf="notificationsPending" class="is-pending"></div>

@@ -1,0 +1,126 @@
+<ng-container *ngIf="selectedCourseGroups$ | async as groups">
+  <nb-card class="groups">
+    <nb-card-header class="group-header" *ngIf="courseHasStudents">
+      <nb-icon
+        icon="search-outline"
+        status="basic"
+        class="search-icon"
+      ></nb-icon>
+      <input
+        nbInput
+        placeholder="Buscar estudiante"
+        fullWidth
+        status="basic"
+        [(ngModel)]="searchText"
+        type="search"
+      />
+      <button nbButton status="info" (click)="openGroupForm()">
+        Crear grupo
+      </button>
+    </nb-card-header>
+    <nb-card-body
+      [ngClass]="{ paddingless: true, 'container-empty': !courseHasStudents }"
+    >
+      <ng-template [ngIf]="courseHasStudents" [ngIfElse]="noStudentsMessage">
+        <nb-accordion
+          multi
+          *ngFor="let group of groups | filterGroup: searchText; let g = index"
+        >
+          <nb-accordion-item [expanded]="g === 0">
+            <nb-accordion-item-header class="group-accordion">
+              <strong class="text-secondary group-name marginless">
+                {{ group.parent ? group.name : 'Todos' }}
+              </strong>
+              <p
+                class="marginless text-gray students"
+                [ngPlural]="group?.users?.length"
+              >
+                {{ (group.users | filterName: searchText)?.length }}
+                <ng-template ngPluralCase="=1">Estudiante</ng-template>
+                <ng-template ngPluralCase="other">Estudiantes</ng-template>
+              </p>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <app-student-list
+                *ngFor="
+                  let student of group?.users | filterName: searchText;
+                  let u = index
+                "
+                (selectedStudent)="onSelectStudent($event)"
+                [selectedGroup]="group"
+                [student]="student"
+                [isFirst]="u === 0"
+                [isActive]="student.sub === selectedStudent"
+              >
+              </app-student-list>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+      </ng-template>
+      <ng-template #noStudentsMessage>
+        <nb-icon status="basic" icon="person-outline"></nb-icon>
+        <p status="basic">
+          Aquí verás el listado
+          <br />
+          de estudiantes
+        </p>
+      </ng-template>
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card class="details">
+    <div
+      [nbSpinner]="true"
+      nbSpinnerSize="giant"
+      nbSpinnerStatus="primary"
+      *ngIf="courseHasStudents && spinner$ | async"
+      class="col-sm-12"
+      style="height: 100%"
+    ></div>
+    <nb-card-body
+      [ngClass]="{
+        'no-overflow paddingless': courseHasStudents,
+        'container-empty': !courseHasStudents
+      }"
+    >
+      <ng-template [ngIf]="courseHasStudents" [ngIfElse]="progressMessage">
+        <ng-container *ngIf="studentData$ | async as studentData">
+          <ng-template [ngIf]="!!studentData.info">
+            <h5 class="h5 text-primary student-name">
+              {{ studentData.info | fullName }}
+            </h5>
+            <p class="student-content">
+              Contenido de la clase |
+              {{ studentData.group.name | titlecase }}
+            </p>
+            <nb-tabset class="course-tabs" (changeTab)="onSelectTab($event)">
+              <nb-tab tabTitle="Progreso general" tabId="0">
+                <app-student-general-progress
+                  *ngIf="selectedTab == 0"
+                  [studentData]="studentData"
+                >
+                </app-student-general-progress>
+              </nb-tab>
+              <nb-tab tabTitle="Progreso detallado" [active]="true" tabId="1">
+                <app-content-detail
+                  [metrics]="studentData.metrics.all?.list"
+                  [selectedGroup]="studentData.group"
+                >
+                </app-content-detail>
+              </nb-tab>
+            </nb-tabset>
+          </ng-template>
+        </ng-container>
+      </ng-template>
+
+      <ng-template #progressMessage>
+        <nb-icon status="basic" icon="trending-up-outline"></nb-icon>
+        <p status="basic">
+          Aquí verás el progreso general y detallado
+          <br />
+          de cada estudiante
+        </p>
+      </ng-template>
+    </nb-card-body>
+  </nb-card>
+</ng-container>

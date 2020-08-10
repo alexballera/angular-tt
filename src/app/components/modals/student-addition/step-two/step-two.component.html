@@ -1,0 +1,107 @@
+<p class="subtitle is-6 has-text-centered">
+  Establecé la contraseña de acceso que el nuevo estudiante utilizará para
+  ingresar
+</p>
+<div class="field">
+  <label class="label"
+    >Contraseña <span class="is-size-7">(obligatorio)</span></label
+  >
+  <span class="help has-text-grey-dark">
+    La contraseña debe poseer: 1 mayúscula, 1 minúscula, 1 número y como mínimo
+    6 caracteres.
+  </span>
+  <div class="control">
+    <input
+      nbInput
+      fullWidth
+      status="basic"
+      class="input"
+      type="password"
+      [ngrxFormControlState]="
+        (formState$ | async).controls.password.controls.password
+      "
+    />
+  </div>
+  <span
+    *ngIf="
+      (formState$ | async).controls.password.controls.password.isDirty &&
+      (formState$ | async).controls.password.isInvalid
+    "
+    class="help has-text-danger has-text-weight-bold"
+  >
+    <ul *ngIf="(formStateErrors$ | async)?._password">
+      <li *ngIf="(formStateErrors$ | async)._password?._password?.required">
+        <span class="icon is-small">
+          <em class="fas fa-exclamation-circle"></em>
+        </span>
+        La contraseña es requerida
+      </li>
+      <li *ngIf="(formStateErrors$ | async)._password?.passwordPatternMatch">
+        <span class="icon is-small">
+          <em class="fas fa-exclamation-circle"></em>
+        </span>
+        La contraseña no cumple con las características requeridas
+      </li>
+    </ul>
+  </span>
+</div>
+<div class="field">
+  <label class="label"
+    >Confirmar contraseña <span class="is-size-7">(obligatorio)</span></label
+  >
+  <p class="help has-text-grey-dark">
+    Ingresá nuevamente la contraseña para asegurarte de que la escribiste bien.
+  </p>
+  <div class="control">
+    <input
+      nbInput
+      fullWidth
+      status="basic"
+      class="input"
+      type="password"
+      [ngrxFormControlState]="
+        (formState$ | async).controls.password.controls.confirmPassword
+      "
+    />
+  </div>
+  <p
+    *ngIf="
+      (formState$ | async).controls.password.controls.confirmPassword.isDirty &&
+      (formState$ | async).controls.password.isInvalid &&
+      (formStateErrors$ | async)._password?.passwordMatch
+    "
+    class="help has-text-danger has-text-weight-bold"
+  >
+    <span class="icon is-small">
+      <em class="fas fa-exclamation-circle"></em>
+    </span>
+    Las contraseñas no coinciden
+  </p>
+</div>
+<div class="field">
+  <div class="control">
+    <button
+      nbButton
+      status="basic"
+      type="button"
+      (click)="next.emit()"
+      class="button is-fullwidth is-normal"
+      [disabled]="(formState$ | async).controls.password.isInvalid"
+    >
+      Siguiente
+    </button>
+  </div>
+</div>
+<div class="field">
+  <div class="control">
+    <button
+      nbButton
+      status="basic"
+      type="button"
+      (click)="prev.emit()"
+      class="button is-fullwidth is-text"
+    >
+      Volver al paso anterior
+    </button>
+  </div>
+</div>

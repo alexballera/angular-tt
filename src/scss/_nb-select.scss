@@ -1,0 +1,26 @@
+.level-select {
+  .select-button {
+    @media (min-width: 736px) {
+      min-width: 90px !important;
+    }
+  }
+}
+
+nb-select {
+  &[size='small'] {
+    .select-button {
+      color: var(--color-basic-600) !important;
+      font-size: var(--text-paragraph-2-font-size) !important;
+      font-weight: var(--text-paragraph-2-font-weight) !important;
+      min-width: 100%;
+    }
+  }
+}
+nb-option {
+  font-weight: normal !important;
+  text-transform: capitalize;
+}
+
+.options-list {
+  @extend %scrollbar;
+}

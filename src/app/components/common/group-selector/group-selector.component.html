@@ -1,0 +1,75 @@
+<div class="flex flex-col">
+  <div *ngIf="!showGroups" class="course-selector-container">
+    <div class="col-xs-12 col-sm-6 paddingless">
+      <nb-select
+        placeholder="Selecciona una clase"
+        outline
+        fullWidth
+        size="medium"
+        status="basic"
+        shape="semi-round"
+        (selectedChange)="selectClass($event)"
+        [ngModel]="currentClass || (planification.groupId$ | async)"
+        [disabled]="isDisabled"
+      >
+        <nb-option value="">Selecciona una clase</nb-option>
+        <nb-option [value]="class._id" *ngFor="let class of classes$ | async">{{
+          class.course.name | titlecase
+        }}</nb-option>
+      </nb-select>
+    </div>
+  </div>
+  <div *ngIf="showGroups" class="row group-selector-container">
+    <p class="col-xs-12" *ngIf="showGroups">Elige una clase</p>
+    <div class="col-xs-12 col-sm-6">
+      <nb-select
+        placeholder="Selecciona una clase"
+        outline
+        size="small"
+        fullWidth
+        [className]="'appearance-outline size-small'"
+        status="basic"
+        shape="semi-round"
+        (selectedChange)="selectClass($event)"
+        [ngModel]="currentClass || (planification.groupId$ | async)"
+        [disabled]="isDisabled"
+      >
+        <nb-option value="">Selecciona una clase</nb-option>
+        <nb-option [value]="class._id" *ngFor="let class of classes$ | async">{{
+          class.course.name | titlecase
+        }}</nb-option>
+      </nb-select>
+      <div
+        *ngIf="isError"
+        class="text-danger marginless"
+        [ngClass]="{ 'error-message': smallFont }"
+      >
+        Debes primero seleccionar una clase
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showGroups" class="row group-selector-container">
+    <p class="col-xs-12">Asigna este contenido para*</p>
+    <div class="col-xs-12 col-sm-6">
+      <nb-select
+        placeholder="Toda la clase"
+        outline
+        size="small"
+        fullWidth
+        status="basic"
+        shape="semi-round"
+        (selectedChange)="selectGroup($event)"
+        [(selected)]="selectedGroup"
+        [disabled]="
+          isDisabled || !(groups$ | async) || !(groups$ | async).length
+        "
+      >
+        <nb-option value="">Toda la clase</nb-option>
+        <nb-option [value]="group._id" *ngFor="let group of groups$ | async">{{
+          group.name | titlecase
+        }}</nb-option>
+      </nb-select>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <nb-card class="content sidebar animated fadeIn">
+    <nb-card-header class="header">
+      <button
+        nbButton
+        ghost
+        status="basic"
+        size="small"
+        class="plain"
+        (click)="closeSidebar()"
+      >
+        <nb-icon
+          icon="close-outline"
+          [options]="{ animation: { type: 'pulse' } }"
+        ></nb-icon>
+      </button>
+      <p>Crear Grupo</p>
+      <app-group-selector (changeGroup)="changeGroup()"></app-group-selector>
+    </nb-card-header>
+
+    <nb-card-body class="section">
+      <div class="row form-header">
+        <div class="field col-xs-12 col-sm-9">
+          <label>Nombre del grupo*</label>
+          <input
+            nbInput
+            status="basic"
+            fieldSize="small"
+            fullWidth
+            status="basic"
+            name="name"
+            type="text"
+            formControlName="name"
+            placeholder="Ej. Literatura 2do"
+            id="name"
+          />
+        </div>
+      </div>
+      <h6 class="h6 marginless form-header">
+        Selecciona los estudiantes que conformarán este grupo
+      </h6>
+      <div class="row form-body">
+        <div class="field student-list nb-scrollbar col-xs-12 col-md-4">
+          <p
+            *ngFor="let user of (planification.selectedGroup$ | async)?.users"
+            class="unselect cursor-pointer animated fadeIn marginless"
+            (click)="userSelect(user)"
+            [ngClass]="{
+              selected: indexSelect.indexOf(user.sub) > -1
+            }"
+          >
+            {{ user.preferred_username }} {{ user.given_name }}
+          </p>
+        </div>
+        <div class="field flex col-xs-12 col-md-8">
+          <div
+            *ngFor="let usr of planification.usersForm$ | async"
+            class="tag animated fadeIn"
+          >
+            <p class="marginless">
+              {{ usr.preferred_username }} {{ usr.given_name }}
+            </p>
+            <nb-icon
+              class="cursor-pointer"
+              (click)="removeUser(usr)"
+              icon="close-outline"
+              [options]="{ animation: { type: 'pulse' } }"
+            ></nb-icon>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+
+    <nb-card-footer>
+      <div class="row between-xs middle-xs marginless">
+        <p class="footer-notifications"><em>*campos obligatorios</em></p>
+        <div class="buttons">
+          <button nbButton ghost status="info" (click)="closeSidebar()">
+            Volver
+          </button>
+          <button
+            nbButton
+            status="info"
+            type="submit"
+            [disabled]="form.invalid"
+          >
+            Confirmar
+          </button>
+        </div>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</form>

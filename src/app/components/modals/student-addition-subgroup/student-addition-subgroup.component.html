@@ -1,0 +1,141 @@
+<div
+  class="student-adition-subgroup"
+  [ngClass]="{ modal: true, 'is-active': isModalActive }"
+>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title has-text-centered">
+        Agregá estudiantes a este subgrupo
+      </p>
+      <button
+        nbButton
+        status="basic"
+        class="delete"
+        aria-label="close"
+        (click)="close()"
+        [disabled]="isLoading"
+      ></button>
+    </header>
+    <section class="modal-card-body">
+      <ng-template [ngIf]="(students$ | async).length" [ngIfElse]="message">
+        <div class="container is-fluid" *ngIf="isModalActive && !isSubmitted">
+          <div class="columns head">
+            <div class="column is-1"></div>
+            <div class="column is-7 is-uppercase is-size-7">Estudiante</div>
+            <div class="column is-uppercase is-size-7">Nombre de Usuario</div>
+          </div>
+          <div *ngFor="let student of students$ | async" class="columns body">
+            <div class="column is-1">
+              <input
+                nbInput
+                fullWidth
+                status="basic"
+                [id]="student.sub"
+                (change)="onCheckStudent(student, $event.target.checked)"
+                name="{{ student.preferred_username }}"
+                class="is-checkradio is-small"
+                type="checkbox"
+              />
+              <label [for]="student.sub"></label>
+            </div>
+            <div class="column is-7">
+              {{ student.given_name | titlecase }}
+              {{ student.family_name | titlecase }}
+            </div>
+            <div class="column">{{ student.preferred_username }}</div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button
+                nbButton
+                status="basic"
+                type="button"
+                (click)="onSubmit()"
+                [ngClass]="{
+                  'button is-link is-fullwidth is-normal': true,
+                  'is-loading': isLoading
+                }"
+                [disabled]="selectedStudents.length < 1"
+              >
+                agregar estudiantes al subgrupo
+              </button>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button
+                nbButton
+                status="basic"
+                type="button"
+                (click)="close()"
+                [disabled]="isLoading"
+                class="button is-fullwidth is-text"
+              >
+                cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #message>
+        <article class="message">
+          <div class="message-body">
+            <p>
+              Ya has añadido al subgrupo la totalidad de los estudiantes
+              registrados en tu curso.
+            </p>
+          </div>
+        </article>
+      </ng-template>
+
+      <ng-template [ngIf]="submittedSuccess$ | async">
+        <div class="container has-text-centered">
+          <span class="icon is-large has-text-success ">
+            <i class="fa fa-4x fa-check-circle"></i>
+          </span>
+          <p class="title is-4 is-spaced" [ngPlural]="selectedStudents.length">
+            <ng-template ngPluralCase="=1">El estudiante se agregó</ng-template>
+            <ng-template ngPluralCase="other"
+              >Los estudiantes se agregaron
+            </ng-template>
+            exitosamente al subgrupo
+          </p>
+          <p class="is-spaced">
+            <button
+              nbButton
+              status="basic"
+              (click)="close()"
+              class="button is-fullwidth is-text"
+            >
+              Finalizar
+            </button>
+          </p>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="submittedFailure$ | async">
+        <div class="container has-text-centered">
+          <span class="icon is-large has-text-warning ">
+            <i class="fa fa-4x fa-exclamation-circle"></i>
+          </span>
+          <p class="title is-4 is-spaced" [ngPlural]="selectedStudents.length">
+            Ocurrió un error al intentar agregar
+            <ng-template ngPluralCase="=1">al estudiante</ng-template>
+            <ng-template ngPluralCase="other">a los estudiantes</ng-template>
+            al subgrupo
+          </p>
+          <p class="is-spaced">
+            <button
+              nbButton
+              status="basic"
+              (click)="reset()"
+              class="button is-fullwidth is-text"
+            >
+              Intentar nuevamente
+            </button>
+          </p>
+        </div>
+      </ng-template>
+    </section>
+  </div>
+</div>

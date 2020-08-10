@@ -1,0 +1,275 @@
+<nb-card
+  *ngIf="type === 'abp'"
+  class="sidebar catalog animated fadeIn abp"
+  style="--color: #29b180;"
+>
+  <nb-card-header class="header">
+    <button
+      nbButton
+      ghost
+      status="basic"
+      size="small"
+      class="plain"
+      (click)="close()"
+    >
+      <nb-icon
+        icon="close-outline"
+        [options]="{ animation: { type: 'pulse' } }"
+      ></nb-icon>
+    </button>
+    <h5 class="h5">
+      Aprendizaje basado en proyectos
+    </h5>
+    <p class="header-info">
+      Ticmas ofrece una herramienta que permite la gestión online de proyectos
+      interdisciplinarios mediante los siguientes pasos:
+    </p>
+  </nb-card-header>
+  <nb-card-body class="abp-content">
+    <div class="row marginless content">
+      <div class="col-xs-12 col-sm-3">
+        <div class="flex">
+          <div class="chevron open">Desafío</div>
+          <div class="abp-line"></div>
+        </div>
+        <ul class="list">
+          <li>
+            <span>Presentación del problema.</span>
+          </li>
+          <li>
+            <span>Planteo del problema.</span>
+          </li>
+          <li>
+            <span>Definición del producto final.</span>
+          </li>
+          <li>
+            <span>Conformación de equipos de trabajo.</span>
+          </li>
+        </ul>
+        <img src="/img/abpinfo-img1.svg" class="abp-image" />
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <div class="chevron">Investigación</div>
+        <ul class="list" style="--color: #29b180;">
+          <li>
+            <span
+              >Análisis de la problemática a través de distintas
+              disciplinas.</span
+            >
+          </li>
+          <li>
+            <span>Comprensión interdisciplinaria del problema.</span>
+          </li>
+        </ul>
+        <img src="/img/abpinfo-img2.svg" class="abp-image" />
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <div class="chevron">Creación</div>
+        <ul class="list" style="--color: #29b180;">
+          <li>
+            <span>Prototipado del producto final.</span>
+          </li>
+          <li>
+            <span>Elaboración de la versión final del producto.</span>
+          </li>
+        </ul>
+        <img src="/img/abpinfo-img3.svg" class="abp-image" />
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <div class="chevron">Presentación</div>
+        <ul class="list" style="--color: #29b180;">
+          <li>Presentación del producto final.</li>
+          <li>Reflexión final sobre lo aprendido.</li>
+        </ul>
+        <img src="/img/abpinfo-img4.svg" class="abp-image" />
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<nb-card
+  *ngIf="type === 'sxxi'"
+  class="sidebar catalog animated fadeIn sxxi"
+  style="--color: #fc9f00;"
+>
+  <nb-card-header class="header">
+    <button
+      nbButton
+      ghost
+      status="basic"
+      size="small"
+      class="plain"
+      (click)="close()"
+    >
+      <nb-icon
+        icon="close-outline"
+        [options]="{ animation: { type: 'pulse' } }"
+      ></nb-icon>
+    </button>
+    <h5 class="h5">
+      Habilidades del SXXI
+    </h5>
+
+    <p class="header-info">
+      Desde Ticmas fomentamos el enfoque de enseñanza por habilidades ya que
+      contribuye a la formación integral de los <br />
+      estudiantes. Este enfoque estimula habilidades esenciales que impulsan
+      tanto al desarrollo personal como social.
+    </p>
+  </nb-card-header>
+
+  <nb-card-body>
+    <section class="row marginless">
+      <div class="col-xs-12 col-md-6">
+        <img
+          src="/img/hb/info-art.svg"
+          alt="Catalogo de Habilidades del Siglo XXI"
+          class="sxxi-image"
+        />
+      </div>
+      <div class="col-xs-12 col-md-6 sxxi-content">
+        <div class="content">
+          <p class="content-subtitle">
+            Formación para estudiantes en plataforma:
+          </p>
+          <ul class="list">
+            <li>
+              <span>Definición de cada habilidad.</span>
+            </li>
+            <li>
+              <span>Operacionalización de cada habilidad.</span>
+            </li>
+            <li>
+              <span>Ejercicios prácticos.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="content">
+          <p class="content-subtitle">
+            Guía para docentes:
+          </p>
+          <ul class="list">
+            <li>
+              <span
+                >Orientaciones para la enseñanza-aprendizaje de
+                habilidades.</span
+              >
+            </li>
+            <li>
+              <span>Dinámicas para el aula.</span>
+            </li>
+            <li>
+              <span>Recursos bibliográficos.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </nb-card-body>
+</nb-card>
+
+<nb-card
+  *ngIf="type === 'programming'"
+  class="sidebar catalog animated fadeIn programming"
+  style="--color: #6f53c1;"
+>
+  <nb-card-header class="header">
+    <button
+      nbButton
+      ghost
+      status="basic"
+      size="small"
+      class="plain"
+      (click)="close()"
+    >
+      <nb-icon
+        icon="close-outline"
+        [options]="{ animation: { type: 'pulse' } }"
+      ></nb-icon>
+    </button>
+    <h5 class="h5">
+      Programación
+    </h5>
+
+    <p class="header-info">
+      Ticmas ofrece cursos de programación de desarrollo web, dentro y fuera del
+      aula junto con formación para los docentes.
+    </p>
+  </nb-card-header>
+
+  <nb-card-body>
+    <section class="row marginless bottom-md">
+      <div class="col-xs-12 col-md-6">
+        <img src="img/programacion2-01.svg" alt="Catalogo de Programación" />
+      </div>
+      <div class="col-xs-12 col-md-6 programming-content">
+        <div class="content">
+          <p class="content-subtitle">
+            Para secundaria: 120 hs distribuidas en 3 niveles
+          </p>
+          <ul class="list">
+            <li>
+              <span
+                >1er año: Pensamiento computacional - Programación web desde
+                cero - HTML - CSS.</span
+              >
+            </li>
+            <li>
+              <span
+                >2do año: Repaso de lenguajes - JavaScript - FrontEnd - Proyecto
+                Final.</span
+              >
+            </li>
+            <li>
+              <span
+                >3er año: JavaScript - BackEnd - Node.js - Base de datos -
+                Proyecto Final.</span
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="content">
+          <p class="content-subtitle">
+            Para empleabilidad: 200 hs distribuidas 70% online y 30% presencial
+          </p>
+          <ul class="list">
+            <li>
+              <span>Ingreso: pre-curso de 20 hs 100% online.</span>
+            </li>
+            <li>
+              <span>Fase 1: pensamiento computacional.</span>
+            </li>
+            <li>
+              <span>Fase 2: lenguajes de programación.</span>
+            </li>
+            <li>
+              <span>Fase 3: proyecto final.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="content">
+          <p class="content-subtitle">
+            Nuestro diferencial
+          </p>
+          <ul class="list">
+            <li>
+              <span>Formación integral de docentes.</span>
+            </li>
+            <li>
+              <span>Abordaje pedagógico utilizando Habilidades del SXXI.</span>
+            </li>
+            <li>
+              <span
+                >Herramienta con funcionalidad online, offline y consola
+                embebida.</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </nb-card-body>
+</nb-card>

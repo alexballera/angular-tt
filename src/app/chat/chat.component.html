@@ -1,0 +1,10 @@
+<ng-container *ngIf="chatService.loggedIn$ | async; else notLoggedIn">
+  <ticmas-group-list></ticmas-group-list>
+  <ticmas-chat-panel></ticmas-chat-panel>
+</ng-container>
+
+<ng-template #notLoggedIn>
+  <nb-card [nbSpinner]="true" nbSpinnerStatus="primary">
+    <nb-card-body> </nb-card-body>
+  </nb-card>
+</ng-template>

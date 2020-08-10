@@ -1,0 +1,9 @@
+<div class="page-title">
+  <h2 *ngIf="title">{{ title }}</h2>
+  <h3 *ngIf="subtitle1">{{ subtitle1 }}</h3>
+  <h3 *ngIf="subtitle2">{{ subtitle2 }}</h3>
+
+  <div>
+    <ng-content></ng-content>
+  </div>
+</div>

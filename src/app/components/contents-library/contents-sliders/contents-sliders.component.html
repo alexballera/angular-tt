@@ -1,0 +1,24 @@
+<div
+  class="contents-library-sliders"
+  [nbSpinner]="loading"
+  nbSpinnerStatus="primary"
+  nbSpinnerSize="giant"
+  *ngIf="show"
+>
+  <h5 class="h5 contents-library-carousel-title">
+    {{ titleTop }}
+  </h5>
+  <div class="animated fadeIn slower contents-library-sliders-container">
+    <swiper [config]="config" (indexChange)="sliderChange($event)">
+      <ticmas-content
+        *ngFor="let resource of resources; let i = index"
+        [resource]="resource"
+        (resourceSelected)="contentClick($event)"
+        (resourceAsign)="asignResource($event)"
+        [ngClass]="{
+          'hidden-slider': i === activeIndex + slideShadow
+        }"
+      ></ticmas-content>
+    </swiper>
+  </div>
+</div>

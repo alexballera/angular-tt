@@ -1,0 +1,61 @@
+<div class="contact container-fluid">
+  <div class="marginless row flex justify-content-center">
+    <div class="col-xs-12">
+      <button
+        nbButton
+        ghost
+        status="basic"
+        size="medium"
+        class="plain contact-back-button"
+        (click)="goBack()"
+      >
+        <nb-icon
+          icon="arrow-back-outline"
+          [options]="{ animation: { type: 'pulse' } }"
+        ></nb-icon>
+        Volver
+      </button>
+    </div>
+    <div class="col-xs-12 col-sm-5 content-container">
+      <nb-card class="marginless">
+        <nb-card-header>
+          <h2 class="contact-title">¿Necesitás ayuda?</h2>
+        </nb-card-header>
+        <nb-card-body>
+          <p>Comunicate con nosotros, especificando los siguientes</p>
+          <ul>
+            <li>
+              Usuario
+              <nb-icon
+                class="cursor-pointer"
+                icon="alert-circle-outline"
+                [options]="{ animation: { type: 'pulse' } }"
+                nbTooltip="Con el que ingresas a la plataforma"
+                nbTooltipPlacement="right"
+              ></nb-icon>
+            </li>
+            <li>Nombre y apellido</li>
+            <li>Institución y curso</li>
+            <li>Detalle de la consulta</li>
+          </ul>
+        </nb-card-body>
+        <nb-card-footer>
+          <footer
+            class="flex wrap align-items-center justify-content-center marginless"
+          >
+            <span class="flex align-items-center">
+              <nb-icon icon="email-outline"></nb-icon>
+              <span>Envíanos un mail a:</span>
+            </span>
+            <a
+              class="contact-link-mail"
+              target="_blank"
+              href="mailto:soporte@ticmas.com"
+              >soporte@ticmas.com</a
+            >
+          </footer>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</div>

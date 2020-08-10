@@ -1,0 +1,11 @@
+<ticmas-layout
+  logo="/logo.svg"
+  defaultAvatar="/defaultAvatar.svg"
+  [sidenavItems]="sidenavItems"
+>
+  <div layoutHeader right class="flex">
+    <app-impersonation-selector></app-impersonation-selector>
+    <app-selector></app-selector>
+  </div>
+  <router-outlet layoutMain></router-outlet>
+</ticmas-layout>

@@ -1,0 +1,94 @@
+<nb-card
+  class="homework-detail"
+  *ngIf="studentAssignments$ | async as studentHomework"
+>
+  <nb-card-header
+    *ngIf="studentHomework.length > 0"
+    class="homework-detail-header"
+  >
+    <strong>{{ studentHomework[0].assignment.title }}</strong>
+    <div class="row table-header">
+      <p class="col-xs-5">
+        Estudiantes
+      </p>
+
+      <p
+        class="col-xs-4 content-header-title date cursor-pointer"
+        (click)="handleOrderDate()"
+      >
+        <span>Fecha de entrega</span>
+        <nb-icon
+          icon="arrow-upward-outline"
+          [options]="{ animation: { type: 'pulse' } }"
+          [ngClass]="{ rotate: orderType !== 'asc' }"
+        ></nb-icon>
+      </p>
+      <p class="col-xs-3 paddingless">
+        Estado de la tarea
+      </p>
+    </div>
+  </nb-card-header>
+  <nb-card-body *ngIf="studentHomework.length > 0; else placeholder">
+    <div
+      *ngFor="
+        let homework of studentHomework | orderBySubmissionDate: orderType;
+        let i = index
+      "
+      class="row table-header table-body"
+    >
+      <p class="col-xs-5">
+        {{ homework.student | fullName }}
+
+        <span class="position-relative" *ngIf="homework.submissions.length">
+          <nb-icon icon="message-circle-outline"></nb-icon>
+          <nb-badge text="9" status="danger" position="top right"> </nb-badge>
+        </span>
+      </p>
+      <p class="col-xs-4 date">
+        {{
+          homework.submissions.length
+            ? (homework.submissions[homework.submissions.length - 1].createdAt
+              | date: 'dd / MM')
+            : '--/--'
+        }}
+      </p>
+      <p class="col-xs-3 paddingless">
+        <button
+          nbButton
+          class="plain paddingless homework-state"
+          ghost
+          status="basic"
+          size="tiny"
+          [style.color]="homework.submissions.length ? '#3483fa' : '#707070'"
+          [style.text-decoration]="
+            homework.submissions.length ? 'underline' : 'none'
+          "
+          (click)="goToReview(homework)"
+          [disabled]="!homework.submissions.length"
+        >
+          {{
+            homework.submissions.length
+              ? getState(
+                  homework.submissions[homework.submissions.length - 1].state
+                    .description
+                )
+              : '--'
+          }}
+        </button>
+      </p>
+    </div>
+  </nb-card-body>
+
+  <ng-template #placeholder>
+    <nb-card-body
+      class="flex flex-col align-items-center justify-content-center without-content"
+    >
+      <app-homework-placeholder
+        text="Aquí verás el estado de entrega<br>
+        por estudiante"
+        icon="checkmark-square-outline"
+      >
+      </app-homework-placeholder>
+    </nb-card-body>
+  </ng-template>
+</nb-card>

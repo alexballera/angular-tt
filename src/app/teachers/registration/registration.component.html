@@ -1,0 +1,307 @@
+<nb-card class="register-card">
+  <nb-card-body class="registration-container">
+    <div *ngIf="!showConfirmMessage" class="animate fadeIn">
+      <nb-stepper
+        orientation="horizontal"
+        disableStepNavigation="true"
+        selectedIndex="0"
+      >
+        <nb-step label="Carga de datos">
+          <p>Para registrarte completá los siguentes datos</p>
+
+          <form [formGroup]="infoForm">
+            <label class="label" for="">Escuela en la que trabajás</label>
+
+            <br />
+            <div class="search-container">
+              <nb-icon
+                class="search-icon"
+                icon="search-outline"
+                status="basic"
+              ></nb-icon>
+
+              <p-autoComplete
+                class="registration-autocomplete"
+                formControlName="school"
+                [suggestions]="suggestions"
+                (completeMethod)="searchSchool($event)"
+                emptyMessage="No se encontraron resultados"
+                placeholder="Buscar"
+                field="name"
+                scrollHeight="300px"
+              >
+                <ng-template let-school pTemplate="item">
+                  <div class="ui-helper-clearfix">
+                    <div>{{ school.name }} {{ school.parent.name }}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </div>
+            <br />
+
+            <label class="label" for="">Nombre</label>
+            <input
+              type="text"
+              nbInput
+              fullWidth
+              status="basic"
+              placeholder=""
+              formControlName="firstname"
+            />
+
+            <label class="label" for="">Apellido</label>
+            <input
+              type="text"
+              nbInput
+              fullWidth
+              status="basic"
+              placeholder=""
+              formControlName="lastname"
+            />
+
+            <label class="label" for="">Email</label>
+            <input
+              type="email"
+              nbInput
+              fullWidth
+              status="basic"
+              placeholder=""
+              formControlName="email"
+              [email]="true"
+            />
+            <div
+              *ngIf="
+                infoForm.controls['email'].errors &&
+                infoForm.controls['email'].errors.available
+              "
+            >
+              Este email ya existe en el sistema. Intente recordar su
+              contraseña.
+            </div>
+          </form>
+
+          <div class="control-buttons">
+            <button
+              nbButton
+              [attr.disabled]="infoForm.invalid ? 'disabled' : null"
+              nbStepperNext
+            >
+              Siguiente
+            </button>
+          </div>
+
+          <div class="diclaimer">
+            <p class="paragraph text-hint">
+              Ante cualquier inconveniente en el registro escribinos a
+              <a
+                target="_blank"
+                href="mailto:ayuda@vi-datec.com"
+                class="text-strong"
+                >ayuda@vi-datec.com</a
+              >
+            </p>
+          </div>
+        </nb-step>
+
+        <nb-step label="Adjuntar documentación">
+          <div class="files-step">
+            <p>
+              Para que podamos validar que sos docente en esta escuela te
+              pedimos adjuntar:
+            </p>
+            <ul>
+              <li>Frente y dorso de tu DNI</li>
+            </ul>
+
+            <button nbButton status="basic" [nbSpinner]="uploadingFile">
+              <app-upload-file
+                class="marginless attach-option-text"
+                [allowedMimes]="['image/jpeg', 'image/png']"
+                [maxSize]="10 * 1024 * 1024"
+                (fileChange)="onFileInputChange($event)"
+                (error)="
+                  onFileError('Los formatos permitidos son: .jpg, pdf y png')
+                "
+              ></app-upload-file>
+              <nb-icon icon="attach-2-outline" status="basic"></nb-icon>
+            </button>
+            <ul>
+              <li *ngFor="let file of attachements; index as i; trackBy: i">
+                {{ file.name }}
+                <nb-icon
+                  (click)="removeAttachment(i)"
+                  icon="close-outline"
+                  status="basic"
+                ></nb-icon>
+              </li>
+            </ul>
+
+            <div class="control-buttons">
+              <button status="basic" nbButton nbStepperPrevious>Volver</button>
+              <button
+                nbButton
+                nbStepperNext
+                [attr.disabled]="attachements.length == 0 ? 'disabled' : null"
+              >
+                Siguiente
+              </button>
+            </div>
+          </div>
+
+          <div class="diclaimer">
+            <p class="paragraph text-hint">
+              Ante cualquier inconveniente en el registro escribinos a
+              <a
+                target="_blank"
+                href="mailto:ayuda@vi-datec.com"
+                class="text-strong"
+                >ayuda@vi-datec.com</a
+              >
+            </p>
+          </div>
+        </nb-step>
+
+        <nb-step label="Crear usuario">
+          <form [formGroup]="userNameForm">
+            <label class="label" for="">Elegí un nombre de usuario</label>
+            <input
+              type="text"
+              nbInput
+              fullWidth
+              status="basic"
+              placeholder=""
+              formControlName="username"
+            />
+            <div
+              *ngIf="
+                userNameForm.controls['username'].errors &&
+                userNameForm.controls['username'].errors.available
+              "
+            >
+              Este nombre de usuario no esta disponible.
+            </div>
+          </form>
+
+          <nb-alert outline="primary" class="registration-alert">
+            <div class="disclaimer-icon-container">
+              <nb-icon
+                class="disclaimer-icon"
+                icon="info-outline"
+                status="primary"
+              ></nb-icon>
+            </div>
+            <p>
+              Recordá el nombre de usuario que elijas,<br />
+              ya que lo utilizarás en el acceso a la plataforma
+            </p>
+          </nb-alert>
+          <div class="control-buttons">
+            <button status="basic" nbButton nbStepperPrevious>Volver</button>
+            <button
+              nbButton
+              [attr.disabled]="userNameForm.invalid ? 'disabled' : null"
+              nbStepperNext
+            >
+              Siguiente
+            </button>
+            <div class="diclaimer">
+              <p class="paragraph text-hint">
+                Ante cualquier inconveniente en el registro escribinos a
+                <a
+                  target="_blank"
+                  href="mailto:ayuda@vi-datec.com"
+                  class="text-strong"
+                  >ayuda@vi-datec.com</a
+                >
+              </p>
+            </div>
+          </div>
+        </nb-step>
+
+        <nb-step label="Confirmación">
+          <div class="confirmation-step">
+            <p>Para finalizar, confirma los siguientes datos</p>
+
+            <p>
+              <span>Nombre:</span>
+              {{ infoForm.controls.firstname.value | titlecase }}
+            </p>
+
+            <p>
+              <span>Apellido:</span>
+              {{ infoForm.controls.lastname.value | titlecase }}
+            </p>
+
+            <p>
+              <span>Escuela:</span>
+              {{ infoForm.controls.school.value.name }}
+            </p>
+
+            <p><span>Email:</span> {{ infoForm.controls.email.value }}</p>
+
+            <p>
+              <span>Usuario:</span> {{ userNameForm.controls.username.value }}
+              <br />
+              <span class="username-disclaimer">
+                <nb-icon icon="info-outline" status="primary"></nb-icon>
+                Lo utilizarás en el acceso a la plataforma
+              </span>
+            </p>
+
+            <div class="control-buttons">
+              <button status="basic" nbButton nbStepperPrevious>Volver</button>
+              <button nbButton (click)="registrationRequest()">
+                Confirmar
+              </button>
+            </div>
+          </div>
+          <div class="diclaimer">
+            <p class="paragraph text-hint">
+              Ante cualquier inconveniente en el registro escribinos a
+              <a
+                target="_blank"
+                href="mailto:ayuda@vi-datec.com"
+                class="text-strong"
+                >ayuda@vi-datec.com</a
+              >
+            </p>
+          </div>
+        </nb-step>
+      </nb-stepper>
+    </div>
+    <div class="confirmation-message-container" *ngIf="showConfirmMessage">
+      <div class="checkmark-icon-container">
+        <nb-icon icon="checkmark-outline" status="basic"></nb-icon>
+      </div>
+      <h4>
+        Tu nombre de usuario es: {{ userNameForm.controls.username.value }}
+      </h4>
+
+      <nb-alert outline="primary" class="registration-alert animate fadeIn">
+        <div class="email-icon-container">
+          <nb-icon icon="email-outline" status="primary"> </nb-icon>
+        </div>
+        <p>
+          Gracias {{ infoForm.controls.firstname.value }} por registrarte, en
+          breve estaremos confirmando tus datos. <br />
+          Te llegará un correo electrónico al email ingresado con un link <br />
+          para que puedas comenzar a utilizar la plataforma
+        </p>
+      </nb-alert>
+      <div class="control-buttons">
+        <a nbButton routerLink="/">Entendido</a>
+      </div>
+      <div class="diclaimer">
+        <p class="paragraph text-hint">
+          Ante cualquier inconveniente en el registro escribinos a
+          <a
+            target="_blank"
+            href="mailto:ayuda@vi-datec.com"
+            class="text-strong"
+            >ayuda@vi-datec.com</a
+          >
+        </p>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

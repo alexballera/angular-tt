@@ -1,0 +1,106 @@
+@import '../../../../../themes.scss';
+
+.card {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  margin: auto auto 130px auto;
+  max-width: 320px;
+  cursor: pointer;
+  &:hover {
+    .card-img,
+    .card-body {
+      box-shadow: 0px 3px 10px #00000050;
+    }
+  }
+  .card-img {
+    max-width: 100%;
+    background: #f8f7f7;
+    height: 200px;
+    box-shadow: 0px 3px 6px #00000030;
+    border-radius: nb-theme(border-radius);
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .initials {
+      color: white;
+      width: 116px;
+      height: 116px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5625rem;
+      margin-bottom: 2rem;
+      font-weight: bold;
+      &.color-ticmas-1 {
+        background-color: nb-theme(color-ticmas-1);
+      }
+      &.color-ticmas-2 {
+        background-color: nb-theme(color-ticmas-2);
+      }
+      &.color-ticmas-3 {
+        background-color: nb-theme(color-ticmas-3);
+      }
+      &.color-ticmas-4 {
+        background-color: nb-theme(color-ticmas-4);
+      }
+    }
+  }
+  .card-body {
+    position: absolute;
+    bottom: -39%;
+    background: #fff;
+    width: 80%;
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    padding: 0.5rem 0 1rem 0;
+    margin: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    box-shadow: nb-theme(box-shadow);
+    border-radius: nb-theme(border-radius);
+    h3 {
+      font-size: 15px;
+      line-height: 1;
+    }
+    .metadata {
+      display: flex;
+      flex-wrap: wrap;
+      padding-right: 0.3rem;
+      > div {
+        -webkit-box-flex: 1;
+        flex: 1;
+        &:not(:last-child) {
+          h2 {
+            border-right: solid 1px #d7d7d7;
+          }
+        }
+        p {
+          color: nb-theme(link-text-color);
+          padding: 0;
+          margin: 0;
+          font-size: 12px;
+        }
+        h2 {
+          color: nb-theme(link-text-color);
+          padding: 0;
+          margin: 0;
+          font-size: 29px;
+          line-height: 29px;
+        }
+      }
+    }
+  }
+}

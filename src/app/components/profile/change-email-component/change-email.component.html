@@ -1,0 +1,102 @@
+<form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+  <nb-card class="sidebar animated fadeIn">
+    <nb-card-header class="header">
+      <button
+        nbButton
+        ghost
+        status="basic"
+        size="small"
+        class="plain"
+        (click)="closeSidebar()"
+      >
+        <nb-icon
+          icon="close-outline"
+          [options]="{ animation: { type: 'pulse' } }"
+        ></nb-icon>
+      </button>
+      <h2 class="h2 text-primary">
+        Modificar email
+      </h2>
+    </nb-card-header>
+
+    <nb-card-body class="form">
+      <div class="container-inner" *ngIf="auth.userInfo$ | async as userInfo">
+        <div class="row marginless">
+          <div class="field col-xs-6 paddingless">
+            <label>Nombre y apellido</label>
+            <input
+              nbInput
+              fullWidth
+              status="basic"
+              value="{{ userInfo.given_name }} {{ userInfo.family_name }}"
+              disabled
+            />
+          </div>
+        </div>
+        <div class="row marginless">
+          <div class="field col-xs-6 paddingless">
+            <label>Email</label>
+            <input
+              nbInput
+              fullWidth
+              value="{{ userInfo.email }}"
+              status="basic"
+              disabled
+            />
+          </div>
+        </div>
+        <div class="row marginless">
+          <div class="field col-xs-6 paddingless">
+            <label>Modificar email</label>
+            <input
+              nbInput
+              fullWidth
+              formControlName="email"
+              status="basic"
+              maxlength="67"
+            />
+          </div>
+        </div>
+
+        <div
+          class="field col-xs-6 paddingless"
+          *ngIf="formControls.email.dirty || formControls.email.touched"
+        >
+          <label
+            *ngIf="formControls.email.errors?.email"
+            class="info-label error-text"
+          >
+            Formato de email inválido
+          </label>
+        </div>
+        <div
+          class="field col-xs-6 paddingless"
+          *ngIf="formControls.email.dirty || formControls.email.touched"
+        >
+          <label
+            *ngIf="formControls.email.errors?.required"
+            class="info-label error-text"
+          >
+            Este campo es requerido
+          </label>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="row between-xs middle-xs">
+      <p class="footer-notifications"><em>*campos obligatorios</em></p>
+      <div>
+        <button nbButton ghost status="info" (click)="closeSidebar()">
+          Volver
+        </button>
+        <button
+          nbButton
+          status="info"
+          type="submit"
+          [disabled]="formControls.email.invalid"
+        >
+          Confirmar
+        </button>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</form>

@@ -1,0 +1,183 @@
+<div class="assignment">
+  <nb-card *ngIf="selectedStudentAssignmentSubmissions$ | async as submissions">
+    <nb-card-header>
+      <div class="row middle-sm between-sm">
+        <div class="col-xs-4 col-sm-5 col-md-5 col-lg-4">
+          <div class="row middle-xs minilabel">
+            <div class="col-xs-1 paddingless">
+              <button
+                nbButton
+                ghost
+                status="basic"
+                size="small"
+                class="plain"
+                [disabled]="submissionIndex === 0"
+                (click)="changeIndex(-1)"
+              >
+                <nb-icon
+                  icon="arrow-left"
+                  [options]="{ animation: { type: 'pulse' } }"
+                ></nb-icon>
+              </button>
+            </div>
+
+            <div class="col-xs-10 paddingless">
+              <div class="row marginless">
+                <div class="col-xs-6 text-align-center border-right">
+                  Entrega {{ submissionIndex + 1 }} de {{ submissions.length }}
+                </div>
+                <div class="col-xs-6 text-align-center">
+                  Fecha:
+                  {{ submissions[submissionIndex].createdAt | date: 'dd / MM' }}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-1 paddingless">
+              <button
+                nbButton
+                ghost
+                status="basic"
+                size="small"
+                class="plain"
+                [disabled]="submissionIndex === submissions.length - 1"
+                (click)="changeIndex(1)"
+              >
+                <nb-icon
+                  icon="arrow-right"
+                  [options]="{ animation: { type: 'pulse' } }"
+                ></nb-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-8 col-sm-7 col-md-7 col-lg-8 text-align-right">
+          <ng-container
+            *ngIf="
+              submissions[submissionIndex].state.description !== 'approved' &&
+                submissions[submissionIndex].state.description !== 'rejected';
+              else finalState
+            "
+          >
+            <div class="row middle-xs end-md buttons">
+              <div class="col-xs-4 container-inner">
+                <button
+                  nbButton
+                  status="info"
+                  size="small"
+                  fullWidth
+                  (click)="setCommentType('askCorrections')"
+                >
+                  Pedir correcciones
+                </button>
+              </div>
+              <div class="col-xs-4 container-inner">
+                <button
+                  nbButton
+                  status="info"
+                  size="small"
+                  fullWidth
+                  (click)="setCommentType('finishHomework')"
+                >
+                  Finalizar tarea
+                </button>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #finalState>
+            <div class="row middle-xs end-md buttons">
+              <div class="col-xs-12">
+                <div
+                  class="inline"
+                  *ngIf="
+                    submissions[submissionIndex].state.description ===
+                    'rejected'
+                  "
+                >
+                  Esperando devolución del estudiante
+                </div>
+                <div
+                  class="inline"
+                  *ngIf="
+                    submissions[submissionIndex].state.description ===
+                    'approved'
+                  "
+                >
+                  Tarea Finalizada
+                </div>
+                <p
+                  *ngIf="submissions[submissionIndex].grade"
+                  class="inline marginless"
+                >
+                  Calificación:
+                  <strong>{{ submissions[submissionIndex].grade }}</strong>
+                </p>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="assignment-content">
+        <div class="assignment-content-header row between-xs">
+          <div class="col-xs-4">
+            <span class="assignment-content-title">
+              Respuesta tarea:
+            </span>
+          </div>
+          <div class="col-xs-4 text-align-right">
+            <span
+              class="assignment-content-link cursor-pointer"
+              (click)="goToHomeworkInstructions()"
+            >
+              Ver consigna
+            </span>
+          </div>
+        </div>
+
+        <div class="assignment-content-body">
+          <p class="assignment-content-description">
+            <span
+              [ngClass]="{
+                'short-description slower':
+                  submissions[submissionIndex].content.length >=
+                    maxParagraphLength && !longDescription,
+                'animated fadeIn': true
+              }"
+            >
+              {{ submissions[submissionIndex].content }}
+            </span>
+            <span
+              class="text-primary cursor-pointer"
+              (click)="longDescription = !longDescription"
+              *ngIf="
+                submissions[submissionIndex].content.length > maxParagraphLength
+              "
+            >
+              <span
+                *ngIf="longDescription; else readMore"
+                class="animated fadeIn faster"
+                >Leer menos</span
+              >
+              <ng-template #readMore>
+                <span class="animated fadeIn faster">Leer más</span>
+              </ng-template>
+            </span>
+          </p>
+          <p class="minilabel">
+            <nb-icon icon="search-outline"></nb-icon> Para activar la lupa y
+            hacé click sobre la imagen.
+          </p>
+          <app-file-viewer
+            *ngIf="submissions[submissionIndex]?.attachments?.length > 0"
+            id="attachmentAssignment"
+            [files]="
+              submissions[submissionIndex].attachments | arrayPluckField: 'url'
+            "
+          ></app-file-viewer>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>

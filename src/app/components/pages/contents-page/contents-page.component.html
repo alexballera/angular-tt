@@ -1,0 +1,58 @@
+<ng-template [ngIf]="classroomLoading$ | async" [ngIfElse]="notLoading">
+  <div class="loading-card-container">
+    <nb-card>
+      <nb-card-body class="paddingless">
+        <img [src]="loadingCourses" class="loading-icon rotate" />
+        <p class="marginless screen-title">
+          Estamos cargando<br />
+          tus clases
+        </p>
+        <p class="marginless screen-description">
+          Si tenés clases en Google Classroom<br />
+          las vas a poder ver en Ticmas
+        </p>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ng-template>
+<ng-template #notLoading>
+  <div
+    [ngClass]="{ 'container-fluid bk-ligth': (courses$ | async)?.length === 0 }"
+    class="wrapper animated fadeIn"
+  >
+    <div class="content-create-class">
+      <div class="col-xs-2 content-button">
+        <button
+          nbButton
+          status="info"
+          fullWidth
+          size="small"
+          (click)="openCreateClass()"
+        >
+          Crear Clase
+        </button>
+      </div>
+    </div>
+    <div class="row marginless">
+      <div
+        class="col-xs-12 col-sm-6 col-md-4 col-lg-4"
+        *ngFor="let course of courses$ | async; let i = index"
+      >
+        <app-content-card
+          [course]="course"
+          [onboardingNameOpened]="onboardingNameOpened"
+          [(openOnboarding)]="isOpenOnboarding"
+          (closeOnboardingEvent)="closeOnboarding($event)"
+          *ngIf="i === onboardingIndex"
+        >
+        </app-content-card>
+
+        <app-content-card [course]="course" *ngIf="i !== onboardingIndex">
+        </app-content-card>
+      </div>
+    </div>
+    <app-without-clasess
+      *ngIf="(courses$ | async) && (courses$ | async)?.length === 0"
+    ></app-without-clasess>
+  </div>
+</ng-template>

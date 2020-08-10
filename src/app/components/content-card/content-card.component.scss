@@ -1,0 +1,87 @@
+@import '../../../themes.scss';
+
+$border-top: 4px;
+
+:host {
+  --card-header-text-font-weight: normal;
+  --text-heading-5-font-weight: normal;
+
+  & > * {
+    border-top: $border-top solid;
+    min-height: 312px;
+  }
+
+  nb-card-body {
+    padding: 20px;
+  }
+
+  display: block;
+  position: relative;
+  .card-edit {
+    display: none;
+    position: absolute;
+    top: $border-top;
+    right: 0;
+    padding: 0;
+    --icon-font-size: 1rem;
+  }
+
+  &:hover {
+    .card-edit {
+      display: block;
+    }
+  }
+}
+
+.courses-onboarding-ref-element {
+  background-color: #fff;
+  z-index: 2;
+}
+
+.card-container-empty {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  min-height: 218px;
+
+  nb-icon,
+  p {
+    color: #b6b6b6;
+  }
+}
+
+.card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.progress {
+  margin: 10px 0px;
+}
+
+.info-icon {
+  width: 18px;
+  height: 22px;
+}
+
+.progress-bar {
+  padding-top: 3px;
+}
+
+.last-week {
+  padding-top: 2px;
+  padding-right: 20px;
+}
+
+.caption {
+  font-style: italic;
+  height: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}

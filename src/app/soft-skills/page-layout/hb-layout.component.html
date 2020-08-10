@@ -1,0 +1,29 @@
+<ticmas-layout
+  [logo]="logoUrl"
+  defaultAvatar="/defaultAvatar.svg"
+  [sidenavItems]="sidenavItems"
+>
+  <div layoutHeader>
+    <nb-select
+      hero
+      shape="round"
+      placeholder="Habilidades..."
+      [selected]="softSkillsService.selectedSkill$ | async"
+      (selectedChange)="navigateSkill($event)"
+    >
+      <nb-option
+        *ngFor="let skill of softSkillsService.list$ | async"
+        [value]="skill"
+        [disabled]="!skill.publishedAt"
+      >
+        {{ skill.title }}
+      </nb-option>
+    </nb-select>
+  </div>
+  <div layoutHeader right class="flex">
+    <app-impersonation-selector></app-impersonation-selector>
+    <app-training-button *ngIf="hasTraining$ | async"></app-training-button>
+    <app-selector></app-selector>
+  </div>
+  <router-outlet layoutMain></router-outlet>
+</ticmas-layout>

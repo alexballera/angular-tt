@@ -1,0 +1,164 @@
+<ng-template
+  [ngIf]="studentMetrics.contents.total > 0"
+  [ngIfElse]="showMessage"
+>
+  <strong class="text-secondary">
+    Interacción promedio con contenidos
+  </strong>
+
+  <div class="row">
+    <div class="flex">
+      <div
+        class="time-card"
+        *ngIf="
+          lastWeekAverageInteraction$ | async as lastWeekAverageInteraction
+        "
+      >
+        <p class="marginless">Últimos 7 días</p>
+        <div class="time-display">
+          <nb-icon status="primary" icon="clock-outline"></nb-icon>
+          <ng-template [ngIf]="lastWeekAverageInteraction.hours">
+            <h5 class="h5 text-primary">
+              {{ lastWeekAverageInteraction.hours }}
+            </h5>
+            <p class="marginless">Hs</p>
+            <div class="vertical-divider"></div>
+          </ng-template>
+          <h5 class="h5 text-primary">
+            {{ lastWeekAverageInteraction.minutes }}
+          </h5>
+          <p class="marginless">Min</p>
+        </div>
+      </div>
+
+      <div
+        class="time-card"
+        size="tiny"
+        [nbSpinner]="!chartData.length"
+        nbSpinnerStatus="primary"
+      >
+        <p class="marginless">Promedio por semana</p>
+        <div class="time-display">
+          <ng-container
+            *ngIf="weeklyInteractions$ | async as weeklyInteractions"
+          >
+            <nb-icon status="primary" icon="clock-outline"></nb-icon>
+            <ng-template [ngIf]="weeklyInteractions.average.hours">
+              <h5 class="h5 text-primary">
+                {{ weeklyInteractions.average.hours }}
+              </h5>
+              <p class="marginless">Hs</p>
+              <div class="vertical-divider"></div>
+            </ng-template>
+            <h5 class="h5 text-primary">
+              {{ weeklyInteractions.average.minutes }}
+            </h5>
+            <p class="marginless">Min</p>
+          </ng-container>
+        </div>
+      </div>
+
+      <div>
+        <p class="last-view">
+          Última vista
+        </p>
+        <app-metric-card
+          title="{{ studentMetrics.lastInteraction?.month }}"
+          value="{{ studentMetrics.lastInteraction?.day }}"
+          type="calendar"
+        ></app-metric-card>
+      </div>
+    </div>
+  </div>
+  <div size="tiny" [nbSpinner]="!chartData.length" nbSpinnerStatus="primary">
+    <ticmas-chart
+      type="line"
+      [config]="chartConfig()"
+      height="30"
+      [graphData]="chartData"
+    ></ticmas-chart>
+  </div>
+
+  <strong class="text-secondary">
+    Progreso promedio
+  </strong>
+  <p class="marginless">
+    Interacción con los contenidos
+  </p>
+  <div class="row">
+    <div class="general-progress-bar col-xs-4">
+      Total
+      <div class="progress-bar-container">
+        <nb-progress-bar
+          class="group-progress-bar"
+          giant
+          [displayValue]="true"
+          [value]="studentMetrics.progress?.all || 0"
+        >
+        </nb-progress-bar>
+      </div>
+    </div>
+    <div class="general-progress-bar col-xs-4">
+      Vigente
+      <div class="progress-bar-container">
+        <nb-progress-bar
+          class="group-progress-bar"
+          giant
+          [displayValue]="true"
+          [value]="studentMetrics.progress?.active || 0"
+        >
+        </nb-progress-bar>
+      </div>
+    </div>
+  </div>
+  <p class="text-secondary bold">
+    Contenidos
+  </p>
+  <div class="row">
+    <app-metric-card
+      title="Total"
+      [value]="studentMetrics.contents.total"
+    ></app-metric-card>
+    <app-metric-card
+      title="Iniciados"
+      [value]="studentMetrics.contents.attempted"
+    ></app-metric-card>
+    <app-metric-card
+      title="Completos"
+      [value]="studentMetrics.contents.completed"
+    ></app-metric-card>
+    <app-metric-card
+      title="Sin iniciar"
+      [value]="studentMetrics.contents.pending"
+    >
+    </app-metric-card>
+  </div>
+  <p class="text-secondary bold">
+    Desempeño en actividades
+  </p>
+  <div class="row">
+    <!-- <app-metric-card
+      title="Total"
+      [value]="studentMetrics.activities.total"
+    ></app-metric-card> -->
+    <app-metric-card
+      title="Aprobados"
+      [value]="studentMetrics.activities.approved"
+    ></app-metric-card>
+    <app-metric-card
+      title="Desaprobados"
+      [value]="studentMetrics.activities.failed"
+    ></app-metric-card>
+  </div>
+</ng-template>
+
+<ng-template #showMessage>
+  <div class="container-empty">
+    <nb-icon status="basic" icon="trending-up-outline"></nb-icon>
+    <p status="basic">
+      Aquí verás el progreso general
+      <br />
+      del estudiante
+    </p>
+  </div>
+</ng-template>

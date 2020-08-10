@@ -1,0 +1,18 @@
+.cdk-overlay-container {
+  nb-popover {
+    border: transparent;
+
+    &.nb-overlay-end-bottom,
+    &.nb-overlay-right {
+      .arrow {
+        left: -14px;
+      }
+    }
+
+    .arrow {
+      &::after {
+        border-bottom-color: #6f53c1;
+      }
+    }
+  }
+}

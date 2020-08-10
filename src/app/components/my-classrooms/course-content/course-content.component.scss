@@ -1,0 +1,17 @@
+.container {
+  height: calc(100vh - 150px);
+  margin-bottom: 0;
+  width: inherit;
+}
+
+nb-card-header {
+  button {
+    position: absolute;
+    right: 70px;
+    top: 90px;
+  }
+}
+
+.overflow {
+  overflow: scroll;
+}

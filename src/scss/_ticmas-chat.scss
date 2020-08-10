@@ -1,0 +1,132 @@
+@charset "UTF-8";
+ticmas-chat {
+  padding-right: 30px;
+
+  nb-card {
+    nb-card-header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 60px;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    input::-webkit-input-placeholder {
+      /* Edge */
+      color: transparent !important;
+    }
+
+    input:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: transparent !important;
+    }
+
+    input::placeholder {
+      color: transparent !important;
+    }
+    .no-messages {
+      display: none;
+    }
+
+    &.nb-spinner-container {
+      width: 100%;
+    }
+    .header {
+      display: none;
+    }
+    nb-list-item {
+      padding: 10px 0;
+    }
+    nb-chat-message {
+      .message {
+        max-width: 450px;
+        border-radius: var(--border-radius);
+        background-color: var(--color-basic-200);
+
+        nb-chat-message-text {
+          .sender,
+          .text {
+            color: var(--text-basic-color);
+            margin: 0;
+            padding: 4px 8px;
+            font-size: 12px;
+          }
+          .text {
+            background-color: transparent;
+          }
+
+          .sender {
+            font-weight: 600;
+            padding-bottom: 0;
+          }
+        }
+      }
+      &.not-reply {
+        .message {
+          nb-chat-message-text {
+            .text {
+              padding-top: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  &-panel {
+    nb-card-header {
+      margin: 0 10px;
+
+      nb-user {
+        height: 28px !important;
+
+        .user-container {
+          height: 28px;
+        }
+      }
+    }
+
+    nb-card-body {
+      padding: 0;
+    }
+    .user-picture {
+      color: #fff;
+      font-weight: bold;
+    }
+    .user-name {
+      font-weight: bold;
+    }
+
+    nb-chat {
+      .avatar {
+        display: none;
+      }
+    }
+  }
+  .user-name {
+    font-weight: lighter;
+  }
+  .active {
+    .user-picture {
+      color: #fff;
+      font-weight: bold;
+    }
+    .user-name {
+      font-weight: bold;
+    }
+  }
+
+  ticmas-group-list {
+    margin-right: 5px;
+
+    .user-name {
+      font-weight: bolder;
+    }
+
+    .user-title {
+      font-style: italic;
+      color: #969696;
+      font-weight: bolder;
+    }
+  }
+}

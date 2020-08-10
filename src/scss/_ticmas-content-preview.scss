@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+ticmas-content-preview {
+  nb-card-header {
+    padding-left: 40px;
+  }
+}
+
+tag-input {
+  > div {
+    border-bottom: 0 !important;
+  }
+
+  tag-input-form,
+  input {
+    width: 100% !important;
+  }
+
+  input {
+    border-radius: var(--border-radius) !important;
+    border: var(--divider-width) var(--divider-style) var(--divider-color) !important;
+    color: var(--color-basic-600) !important;
+    font-size: var(--text-paragraph-2-font-size) !important;
+    font-weight: var(--text-paragraph-2-font-weight) !important;
+    height: initial !important;
+    line-height: var(--select-small-text-line-height) !important;
+    padding-bottom: 4px !important;
+    padding-top: 4px !important;
+  }
+
+  tag {
+    background-color: var(--color-primary-500) !important;
+    border-radius: var(--border-radius) !important;
+    color: var(--color-basic-100) !important;
+    margin-top: 8px !important;
+    order: 1;
+    text-transform: capitalize;
+
+    svg {
+      path {
+        fill: var(--color-basic-100) !important;
+      }
+    }
+  }
+}

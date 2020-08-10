@@ -1,0 +1,42 @@
+:host {
+  background-color: #fff;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  text-align: center;
+  button,
+  input {
+    justify-content: left;
+    margin-bottom: 1rem;
+  }
+  .appearance-ghost {
+    color: #000;
+  }
+  .profile {
+    &-avatar {
+      align-self: center;
+      height: 256px;
+      width: 256px;
+      button {
+        border-radius: 50%;
+        border: 2px solid white;
+        bottom: 50px;
+        color: #fff !important;
+        left: 80px;
+        padding: 8px;
+        position: relative;
+      }
+      .img {
+        background-size: cover;
+        background-position: center center;
+        border-radius: 50%;
+        height: 256px;
+        width: 256px;
+      }
+      input[type='file'] {
+        display: none;
+      }
+    }
+  }
+}

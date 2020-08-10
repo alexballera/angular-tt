@@ -1,0 +1,18 @@
+<nb-card>
+  <nb-card-header>
+    <button
+      nbButton
+      ghost
+      status="basic"
+      size="small"
+      class="plain"
+      (click)="close()"
+    >
+      <nb-icon
+        icon="close-outline"
+        [options]="{ animation: { type: 'pulse' } }"
+      ></nb-icon>
+    </button>
+  </nb-card-header>
+  <iframe [src]="url | safe: 'resourceUrl'" width="800" height="535"></iframe>
+</nb-card>

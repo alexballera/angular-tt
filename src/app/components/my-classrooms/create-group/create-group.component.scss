@@ -1,0 +1,69 @@
+.content {
+  .section {
+    .unselect,
+    .selected,
+    .tag {
+      border-radius: var(--border-radius);
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      width: fit-content;
+    }
+    .selected {
+      width: 100%;
+      display: none;
+    }
+    .unselect {
+      width: 100%;
+
+      &:hover {
+        background-color: var(--color-basic-200);
+      }
+    }
+    .tag {
+      align-items: center;
+      background-color: var(--color-primary-500);
+      color: var(--header-text-color);
+      display: flex;
+      height: 36px;
+      justify-content: space-between;
+      margin: 0.3rem;
+      p {
+        color: var(--header-text-color);
+        margin-right: 16px !important;
+      }
+
+      nb-icon {
+        font-size: 16px;
+      }
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      &-header {
+        flex: 0 0 auto;
+        font-weight: 300;
+        margin-bottom: 16px !important;
+      }
+      &-body {
+        flex: 1 1 auto;
+        position: relative; /* need this to position inner content */
+      }
+    }
+  }
+  .student-list {
+    height: calc(100vh - 440px);
+    overflow-y: auto;
+  }
+}
+
+form {
+  .field {
+    margin: 8px 0;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
+}

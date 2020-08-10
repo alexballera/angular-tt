@@ -1,0 +1,25 @@
+<div class="row marginless assigned-content">
+  <div class="col-xs-12">
+    <p class="text-hint bold">Contenidos asignados</p>
+  </div>
+  <div class="col-xs-12">
+    <nb-tabset badgeStatus="primary">
+      <nb-tab
+        *ngFor="
+          let tab of (metricsServices.metricsSelectCourse$ | async)[
+            courseSelect
+          ].general
+        "
+        tabTitle="{{ tab.title }}"
+        badgeText="{{ tab.value }}"
+        badgePosition="bottom end"
+        lazyLoad
+      >
+        <p *ngIf="tab.content.length > 0" class="nb-tab-title marginless">
+          Unidades
+        </p>
+        <app-accordion [data]="tab.content"></app-accordion>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+</div>

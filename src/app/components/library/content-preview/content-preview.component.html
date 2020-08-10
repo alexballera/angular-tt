@@ -1,0 +1,18 @@
+<div
+  *ngIf="contentService.isResourceLoading$ | async; else contentPreview"
+  [nbSpinner]="true"
+  nbSpinnerStatus="primary"
+  nbSpinnerSize="giant"
+  class="contents-spinner"
+></div>
+
+<ng-template #contentPreview>
+  <div class="container-fluid animated fadeIn content-preview-container">
+    <ticmas-content-preview
+      [resource]="contentService.resource$ | async"
+      *ngIf="!activePlubicator"
+      (showPublicator)="showPublicator()"
+    >
+    </ticmas-content-preview>
+  </div>
+</ng-template>

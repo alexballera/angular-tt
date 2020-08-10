@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 151.83 150.65" style="enable-background:new 0 0 151.83 150.65;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#E6E6E6;}
+	.st1{clip-path:url(#SVGID_2_);}
+	.st2{fill:#B3B4B4;}
+</style>
+<g id="Group_3335" transform="translate(-501 -490.647)">
+	<circle id="Ellipse_612" class="st0" cx="577.5" cy="565.97" r="75.32"/>
+	<g id="Group_2730" transform="translate(501 490.647)">
+		<g>
+			<defs>
+				<circle id="SVGID_1_" cx="75.32" cy="75.32" r="75.32"/>
+			</defs>
+			<clipPath id="SVGID_2_">
+				<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+			</clipPath>
+			<g id="Group_2729" class="st1">
+				<g id="Group_2728" transform="translate(23.539 20.184)">
+					<g id="Layer_2_1_" transform="translate(0 0)">
+						<g id="person" transform="translate(0 0)">
+							<path id="Path_1988" class="st2" d="M50.88,58.14c16.06,0,29.07-13.02,29.07-29.07S66.93,0,50.88,0S21.8,13.02,21.8,29.07
+								l0,0C21.8,45.13,34.82,58.14,50.88,58.14z"/>
+							<path id="Path_1989" class="st2" d="M94.48,130.82c4.01,0,7.27-3.25,7.27-7.27c0.01-28.1-22.77-50.88-50.87-50.89
+								C22.79,72.66,0.01,95.44,0,123.53c0,0.01,0,0.01,0,0.02c0,4.01,3.25,7.27,7.27,7.27H94.48z"/>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

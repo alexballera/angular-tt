@@ -1,0 +1,24 @@
+.tutorial {
+
+  &-container {
+    text-align: center;
+  }
+
+  button {
+    right: 4px;
+    top: 4px;
+    z-index: 2;
+
+    &:hover {
+      background-color: var(--color-info-transparent-600);
+
+      nb-icon {
+        color: white;
+      }
+    }
+  }
+
+  video {
+    width: 100%;
+  }
+}

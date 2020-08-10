@@ -1,0 +1,123 @@
+<nb-card class="contents-library wrapper">
+  <nb-card-header>
+    <div class="contents-library-search-box marginless row between-sm">
+      <div class="col-xs-12 col-sm-4 col-md-5 paddingless">
+        <h5 class="title h5 text-primary">
+          Biblioteca de contenidos
+        </h5>
+      </div>
+
+      <div class="col-xs-12 col-sm-8 col-md-7 paddingless">
+        <div class="row between-md marginless">
+          <div class="field col-xs-12 subject paddingless">
+            <tags-select
+              placeholder="Asignatura"
+              [tags]="subjects$"
+              [(ngModel)]="form.tags.subject"
+              (ngModelChange)="inputChange()"
+            ></tags-select>
+          </div>
+
+          <div class="field col-xs-12 col-lg-2 level paddingless">
+            <tags-select
+              placeholder="Nivel"
+              [tags]="levels$"
+              [(ngModel)]="form.tags.level"
+              (ngModelChange)="inputChange()"
+              class="level-select"
+            >
+            </tags-select>
+          </div>
+
+          <div
+            class="field col-xs-12 col-lg-6 search-input-container paddingless"
+          >
+            <input
+              nbInput
+              status="basic"
+              [(ngModel)]="form.q"
+              (ngModelChange)="inputChange()"
+              type="text"
+              placeholder="Busca un tema"
+              fieldSize="small"
+              fullWidth
+            />
+            <span>
+              <nb-icon
+                icon="search-outline"
+                [options]="{ animation: { type: 'pulse' } }"
+              ></nb-icon>
+            </span>
+          </div>
+        </div>
+        <div class="row marginless">
+          <div
+            class="field clean-filter-button col-xs-12 col-sm-3 col-sm-offset-9 paddingless"
+          >
+            <a class="clean-filters" (click)="cleanFilters()">
+              Limpiar filtros
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body
+    class="nb-card-body"
+    nbInfiniteList
+    [threshold]="500"
+    (bottomThreshold)="onScroll()"
+  >
+    <div class="contents-library-carousel">
+      <div *ngIf="!searchResults; else resultsContent">
+        <ng-container
+          *ngFor="
+            let tag of allSubjectsAndTags$ | async | slice: 0:allTagsShowCount;
+            let i = index
+          "
+        >
+          <ticmas-contents-sliders
+            [tags]="tag.subject ? [tag.level, tag.subject] : [tag.name]"
+            (resourceSelected)="selectResource($event)"
+            (resourceAsign)="asignResource($event)"
+            [titleTop]="
+              tag.subject
+                ? 'Porque tenés clase de ' +
+                  (tag.level.toLowerCase() !== 'todos'
+                    ? tag.subject + '-' + (tag.level | levelSplit)
+                    : tag.subject)
+                : (tag.name | levelSplit)
+            "
+          ></ticmas-contents-sliders>
+        </ng-container>
+      </div>
+      <ng-template #resultsContent>
+        <ng-template #showResources>
+          <div class="row marginless">
+            <ticmas-content
+              *ngFor="let resource of resources"
+              [resource]="resource"
+              (resourceSelected)="selectResource($event)"
+              (resourceAsign)="asignResource($event)"
+              class="col-xs-6 col-sm-3 col-xxl-2"
+              resultsContent="true"
+            ></ticmas-content>
+          </div>
+        </ng-template>
+        <div
+          [nbSpinner]="loading"
+          nbSpinnerStatus="primary"
+          nbSpinnerSize="giant"
+          style="height: 420px;"
+        >
+          <h5
+            class="h5 animated fadeIn"
+            *ngIf="!loading && resources.length === 0; else showResources"
+          >
+            No se encontraron resultados
+          </h5>
+        </div>
+      </ng-template>
+    </div>
+  </nb-card-body>
+</nb-card>

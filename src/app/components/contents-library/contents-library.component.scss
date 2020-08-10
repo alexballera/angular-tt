@@ -1,0 +1,82 @@
+@charset 'UTF-8';
+@import '../../../scss/base/mixins';
+
+.contents-library {
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  margin-bottom: 0;
+
+  nb-card-body {
+    padding-right: 0;
+    padding-top: 0;
+  }
+
+  &-search-box {
+    .title {
+      margin-top: 0;
+    }
+
+    .field {
+      margin-bottom: 4px;
+      margin-top: 4px;
+
+      @include respond-to(lg) {
+        margin-bottom: 0;
+        margin-top: 0;
+      }
+
+      &:not(:last-child) {
+        margin-right: 8px;
+      }
+
+      &.subject {
+        @include respond-to(lg) {
+          flex-basis: 30%;
+          max-width: 30%;
+        }
+      }
+    }
+
+    .search-input-container {
+      display: initial;
+      position: relative;
+
+      nb-icon {
+        color: #707070;
+        font-size: 14px;
+        position: absolute;
+        right: 18px;
+        top: 6px;
+      }
+
+      input {
+        background-color: white;
+        padding-right: 28px;
+      }
+    }
+    .clean-filter-button {
+      color: #5f6368;
+      cursor: pointer;
+      text-align: end;
+    }
+  }
+
+  &-carousel {
+    &-title {
+      color: #5f6368;
+      margin: 0;
+    }
+  }
+
+  &-sliders {
+    background-color: var(--layout-background-color);
+    height: 240px;
+    margin-bottom: 10px;
+
+    &-container {
+      animation-delay: 1300ms;
+    }
+  }
+}

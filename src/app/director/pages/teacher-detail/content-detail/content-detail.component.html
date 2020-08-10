@@ -1,0 +1,34 @@
+<nb-card class="sidebar animated fadeIn">
+  <nb-card-header class="header no-border-bottom">
+    <button
+      nbButton
+      ghost
+      status="basic"
+      size="small"
+      class="plain"
+      (click)="close()"
+    >
+      <nb-icon
+        icon="close-outline"
+        [options]="{ animation: { type: 'pulse' } }"
+      ></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body [ngClass]="{ 'flex align-items-center': youtubeUrl }">
+    <iframe
+      *ngIf="youtubeUrl"
+      frameborder="0"
+      width="800"
+      height="500"
+      [src]="url | safe"
+      allowfullscreen
+    >
+    </iframe>
+    <embed
+      *ngIf="!youtubeUrl"
+      frameborder="0"
+      [src]="url | safe"
+      allowfullscreen
+    />
+  </nb-card-body>
+</nb-card>

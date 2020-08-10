@@ -1,0 +1,21 @@
+app-skill-detail {
+  padding-right: 30px;
+}
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.subnav {
+  margin-right: 15px;
+}
+
+.assignee-btn {
+  margin-right: 15px;
+}

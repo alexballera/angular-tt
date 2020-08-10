@@ -1,0 +1,80 @@
+<nb-card
+  *ngIf="impersonationService.impersonationTargets$ | async | slice: 0:1"
+  size="medium"
+  class="teachers-container"
+>
+  <nb-card-header class="header-container">
+    <span class="title">Seleccioná el usuario que deseas administrar</span>
+    <div class="flex align-items-center input-container">
+      <nb-icon
+        class="search-icon"
+        icon="search-outline"
+        status="basic"
+      ></nb-icon>
+      <input
+        class="search-input"
+        placeholder="Buscar docente"
+        status="basic"
+        fieldSize="small"
+        [(ngModel)]="searchText"
+      />
+    </div>
+  </nb-card-header>
+  <nb-card-body class="paddingless">
+    <nb-list
+      *ngIf="
+        (
+          impersonationService.impersonationTargets$
+          | async
+          | filterTeacher: searchText
+        ).length;
+        else noresults
+      "
+    >
+      <nb-list-item
+        *ngFor="
+          let teacher of impersonationService.impersonationTargets$
+            | async
+            | filterTeacher: searchText
+            | orderByFamilyName
+            | paginate: { itemsPerPage: 15, currentPage: p }
+        "
+        class="teacher-item paddingless"
+      >
+        <button nbButton ghost (click)="impersonate(teacher)">
+          <nb-user
+            [name]="teacher.given_name + ' ' + teacher.family_name"
+            [picture]="teacher.picture || defaultAvatar"
+          ></nb-user>
+        </button>
+      </nb-list-item>
+    </nb-list>
+    <ng-template #noresults>
+      <div class="no-results-container">
+        <img
+          src="close-circle-outline.svg"
+          alt="no-results"
+          class="no-results-img"
+        />
+        <p class="no-results-text">
+          No se ha encontrado ningún resultado con tu búsqueda
+        </p>
+      </div>
+    </ng-template>
+  </nb-card-body>
+  <pagination-controls
+    *ngIf="
+      (
+        impersonationService.impersonationTargets$
+        | async
+        | filterTeacher: searchText
+      ).length > 2
+    "
+    class="pagination-container"
+    maxSize="9"
+    (pageChange)="p = $event"
+    previousLabel="Anterior"
+    nextLabel="Siguiente"
+    autoHide="true"
+  ></pagination-controls>
+</nb-card>

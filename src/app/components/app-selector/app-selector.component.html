@@ -1,0 +1,31 @@
+<div nbTooltip="Apps" nbTooltipPlacement="bottom">
+  <nb-icon
+    icon="grid-outline"
+    [nbPopover]="appList"
+    nbPopoverPlacement="bottom"
+    class="icon-container layout-icons"
+    [options]="{ animation: { type: 'pulse' } }"
+    *ngIf="hasModules"
+  ></nb-icon>
+
+  <ng-template #appList>
+    <nb-list class="apps">
+      <nb-list-item
+        *ngFor="let module of layoutService.modulesEnable$ | async"
+        (click)="goToModule(module)"
+      >
+        <span class="app-item">
+          <nb-icon
+            [icon]="module.icon"
+            [status]="module.status"
+            [options]="{ animation: { type: 'pulse' } }"
+            class="icons layout-icons"
+            [pack]="module.pack"
+            [ngStyle]="{ color: module.color }"
+          ></nb-icon>
+          <p>{{ module.title }}</p>
+        </span>
+      </nb-list-item>
+    </nb-list>
+  </ng-template>
+</div>

@@ -1,0 +1,82 @@
+@import '../../../../../scss//base/mixins';
+@import '../../../../../scss/base/colors';
+
+:host ::ng-deep {
+  .assigned-content {
+    nb-tabset {
+      .tabset {
+        border-bottom: 0;
+        padding: 0px !important;
+        margin-bottom: 16px;
+      }
+      .tab {
+        border-bottom: 2px solid transparent;
+        box-shadow: none;
+        height: 70px;
+        width: 100%;
+
+        @include not-last-child {
+          &::before {
+            content: '';
+            background-color: var(--card-divider-color);
+            height: 60%;
+            width: 1px;
+            position: absolute;
+            right: 0;
+            top: 20%;
+          }
+        }
+
+        &.active,
+        &:hover {
+          .tab-link {
+            &::before {
+              background-color: transparent;
+            }
+            .tab-text {
+              color: var(--tabset-tab-text-color);
+            }
+          }
+          border-bottom-color: var(--color-primary-500);
+        }
+        &:focus {
+          outline: none;
+        }
+
+        &-link {
+          font-weight: 300;
+          height: 70px;
+          width: 100%;
+          margin: auto;
+          &:focus {
+            outline: none;
+          }
+        }
+
+        &-text {
+          width: 100%;
+        }
+
+        nb-badge {
+          color: $grey;
+          cursor: pointer;
+          font-size: 30px;
+          height: 38px;
+          line-height: 30px;
+          left: 0;
+        }
+      }
+
+      nb-tab {
+        box-shadow: none;
+        overflow: hidden;
+        padding-left: 0;
+
+        .nb-tab-title {
+          color: $grey;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+@import '../../../themes.scss';
+
+.sidebar-skill {
+  margin: 20px;
+
+  .h6 {
+    max-width: 220px;
+    margin: 35px 0 15px;
+  }
+
+  .paragraph {
+    max-width: 220px;
+  }
+}
+
+.btn {
+  margin-left: 20px;
+
+  &.first {
+    margin-left: 0px;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+h6 {
+  color: nb-theme(color-primary-500);
+}
+
+button.plain {
+  background: transparent;
+  border: none;
+
+  &:not([disabled]) {
+    cursor: pointer;
+  }
+
+  &:focus {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+.btn.ml-10 {
+  margin-left: 10px;
+}

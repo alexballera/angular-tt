@@ -1,0 +1,145 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <nb-card class="app-create-page container-fluid animated fadeIn">
+    <nb-card-header class="header">
+      <h6 class="h6 text-primary">Crear Tarea</h6>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-xs-12 col-md-8">
+          <div class="label-container">
+            <label>Titulo*</label>
+            <input
+              nbInput
+              fullWidth
+              type="text"
+              name="title"
+              formControlName="title"
+              placeholder=""
+              [ngClass]="{
+                'is-invalid': (title.touched || title.dirty) && title.invalid
+              }"
+            />
+            <div
+              *ngIf="(title.touched || title.dirty) && title.invalid"
+              class="col-xs-12 text-danger paddingless error-message"
+            >
+              <span *ngIf="title.errors.required">
+                Debes completar el título
+              </span>
+              <span *ngIf="title.errors.maxlength">
+                100 caracteres máximo
+              </span>
+            </div>
+          </div>
+          <div class="label-container">
+            <label>Consigna*</label>
+            <textarea
+              nbInput
+              fullWidth
+              name="content"
+              formControlName="content"
+              placeholder=""
+              rows="4"
+              [ngClass]="{
+                'is-invalid':
+                  (content.touched || content.dirty) && content.invalid
+              }"
+            >
+            </textarea>
+            <div
+              *ngIf="(content.touched || content.dirty) && content.invalid"
+              class="col-xs-12 text-danger paddingless error-message"
+            >
+              <span *ngIf="content.errors.required">
+                Debes completar la consigna
+              </span>
+              <span *ngIf="content.errors.maxlength">
+                1000 caracteres máximo
+              </span>
+            </div>
+          </div>
+          <app-group-selector
+            [smallFont]="true"
+            [isError]="noClassSelected"
+            showGroups="true"
+          >
+          </app-group-selector>
+          <app-date-selector
+            (dateChange)="handleDateChange($event)"
+            componentLabel="Ingresa la fecha de entrega*"
+          ></app-date-selector>
+          <div
+            *ngIf="dateInvalid"
+            class="col-xs-12 text-danger paddingless error-message"
+          >
+            La fecha debe ser mayor o igual a la actual
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="flex flex-col col-xs-12 col-md-6 attachments">
+          <homework-upload-file
+            [allowedMimes]="allowedMimes"
+            [mimesMaxSize]="mimesMaxSize"
+            title="Adjuntar un archivo"
+            subtitle="Documentos: max. {{
+              maxSizeDoc
+            }} MB, imágenes y videos: max. {{ maxSizeMedia }} MB."
+            (fileChange)="onFileInputChange($event)"
+            (error)="onFileError($event)"
+            (click)="clearFileErrors()"
+            maxSizeDoc="maxSizeDoc"
+            maxSizeMedia="maxSizeMedia"
+          ></homework-upload-file>
+          <div
+            *ngIf="documentSizeError || imageSizeError"
+            class="col-xs-12 text-danger marginless paddingless error-message"
+          >
+            El archivo adjunto no debe superar los
+            {{ imageSizeError ? maxSizeMedia : maxSizeDoc }}MB
+          </div>
+          <div class="tags-container">
+            <div
+              class="row middle-xs between-xs marginless tag-container"
+              *ngFor="let attachment of attachments$ | async"
+            >
+              <div class="row marginless">
+                <span [title]="attachment.name" class="attachment-name">{{
+                  attachment.name
+                }}</span>
+                <span class="attachment-size">{{
+                  '(' + attachment.size + ')'
+                }}</span>
+              </div>
+              <nb-icon
+                (click)="removeAttachment(attachment.name)"
+                class="cursor-pointer"
+                icon="close-outline"
+                [options]="{ animation: { type: 'pulse' } }"
+              ></nb-icon>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-offset-6 col-md-6 buttons">
+          <button nbButton status="info" (click)="resetForm()" ghost>
+            Volver
+          </button>
+          <button
+            nbButton
+            status="info"
+            type="submit"
+            [disabled]="
+              form.invalid ||
+              dateInvalid ||
+              noClassSelected ||
+              (attachmentLoading$ | async)
+            "
+            [nbSpinner]="attachmentLoading$ | async"
+          >
+            Enviar tarea
+          </button>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</form>

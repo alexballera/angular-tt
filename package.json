@@ -1,0 +1,149 @@
+{
+  "name": "front-tt",
+  "version": "0.8.3-alpha.4",
+  "scripts": {
+    "ng": "ng",
+    "start": "./build_env && ng serve",
+    "test2": "./build_env && jest",
+    "test": "jest",
+    "e2e": "./build_env && ng e2e",
+    "build": "ng build --prod",
+    "lint": "ngxtslintreport",
+    "release": "standard-version"
+  },
+  "private": true,
+  "dependencies": {
+    "@amcharts/amcharts4": "^4.9.4",
+    "@angular/animations": "^9.1.11",
+    "@angular/cdk": "^9.2.4",
+    "@angular/common": "^9.1.11",
+    "@angular/compiler": "^9.1.11",
+    "@angular/core": "^9.1.11",
+    "@angular/forms": "^9.1.11",
+    "@angular/platform-browser": "^9.1.11",
+    "@angular/platform-browser-dynamic": "^9.1.11",
+    "@angular/router": "^9.1.11",
+    "@bidi/http-client": "^1.2.0",
+    "@fullcalendar/core": "^4.3.1",
+    "@fullcalendar/daygrid": "^4.3.0",
+    "@fullcalendar/interaction": "^4.3.0",
+    "@fullcalendar/rrule": "^4.3.0",
+    "@fullcalendar/timegrid": "^4.3.0",
+    "@nebular/eva-icons": "^5.1.0",
+    "@nebular/theme": "^5.1.0",
+    "@ngrx/effects": "^9.2.0",
+    "@ngrx/store": "^9.2.0",
+    "@ngrx/store-devtools": "^9.2.0",
+    "@stomp/ng2-stompjs": "^7.2.0",
+    "@ticmas/auth-service": "^2.0.1-alpha.0",
+    "@ticmas/chat": "^0.12.1-alpha.1",
+    "@ticmas/common-interfaces": "^2.8.0",
+    "@ticmas/common-services": "^4.4.0",
+    "animate.css": "^3.7.2",
+    "aws-sdk": "^2.605.0",
+    "core-js": "^2.6.2",
+    "date-fns": "^2.9.0",
+    "eva-icons": "^1.1.2",
+    "file-saver": "^2.0.2",
+    "flexboxgrid": "^6.3.1",
+    "iv-viewer": "^2.0.1",
+    "jest": "^26.1.0",
+    "jest-preset-angular": "^8.2.1",
+    "jest-worker": "^25.1.0",
+    "lodash": "^4.17.10",
+    "moment": "^2.23.0",
+    "ng-circle-progress": "^1.5.1",
+    "ng-lazyload-image": "^7.0.1",
+    "ng-pick-datetime": "^7.0.0",
+    "ngrx-forms": "^6.1.0",
+    "ngrx-store-freeze": "^0.2.4",
+    "ngx-chips": "^2.1.0",
+    "ngx-hotjar": "^9.0.2",
+    "ngx-pagination": "^5.0.0",
+    "ngx-swiper-wrapper": "^8.0.2",
+    "primeng": "^9.1.0",
+    "rollbar": "^2.7.1",
+    "rrule": "^2.3.4",
+    "rxjs": "^6.5.4",
+    "subsink": "^1.0.1",
+    "ts-jest": "^26.1.1",
+    "tslib": "^1.10.0",
+    "typesafe-actions": "^5.1.0",
+    "zone.js": "~0.10.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.901.8",
+    "@angular/cli": "^9.1.8",
+    "@angular/compiler-cli": "^9.1.11",
+    "@angular/language-service": "^9.1.11",
+    "@babel/compat-data": "^7.8.0",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@schematics/angular": "^8.3.23",
+    "@types/jest": "^26.0.3",
+    "@types/lodash": "^4.14.120",
+    "@types/node": "^12.11.1",
+    "@types/webpack-env": "^1.13.6",
+    "codelyzer": "^5.1.2",
+    "husky": "^4.2.5",
+    "karma": "^4.2.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.3",
+    "lint-staged": "^10.2.10",
+    "ngx-tslint-report": "^1.2.0",
+    "prettier": "^1.16.4",
+    "protractor": "~5.4.2",
+    "standard-version": "^7.0.0",
+    "ts-node": "~7.0.1",
+    "tslint": "~5.12.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "~3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged",
+      "pre-push": "lint-staged && npm run test && ng build --aot true"
+    }
+  },
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupJest.ts"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "header-max-length": [
+        2,
+        "always",
+        "120"
+      ],
+      "scope-case": [
+        2,
+        "always",
+        [
+          "upper-case"
+        ]
+      ],
+      "subject-case": [
+        2,
+        "never",
+        [
+          "start-case",
+          "pascal-case"
+        ]
+      ]
+    }
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "prettier --write",
+      "tslint -c tslint.json --fix"
+    ],
+    "src/**/*.*": [
+      "prettier --write"
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+$space: 32px;
+
+.course-selector-container {
+  nb-select {
+    .select-button {
+      background-color: transparent !important;
+      border-color: transparent !important;
+      color: var(--color-primary-500) !important;
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      padding-left: 0 !important;
+      padding-right: 50px !important;
+    }
+  }
+}
+
+.group-selector-container {
+  nb-select {
+    .select-button {
+      background-color: transparent !important;
+      color: var(--select-outline-basic-text-color) !important;
+    }
+  }
+}
+hr {
+  border: var(--card-divider-width) var(--card-divider-style) #f7f9ff;
+  margin-left: -$space;
+  position: relative;
+  width: 100%;
+}
+
+.group-selector-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-message {
+  margin-bottom: 0.4rem;
+  font-size: 0.725rem;
+}

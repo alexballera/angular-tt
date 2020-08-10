@@ -1,0 +1,184 @@
+<div class="comments" *ngIf="studentAssignment$ | async as studentAssignment">
+  <nb-card *ngIf="studentSubmissions$ | async as submissions">
+    <nb-card-header
+      *ngIf="
+        commentType === 'sendComment' &&
+        (submissions[submissionIndex].comments?.length ||
+          !showPlaceholder ||
+          submissions[submissionIndex].state.description !== 'pending')
+      "
+    >
+      <h2 class="marginless title">
+        Comentarios de la tarea
+      </h2>
+    </nb-card-header>
+    <nb-card-body
+      [ngClass]="{
+        'flex flex-col align-items-center justify-content-center':
+          !submissions[submissionIndex].comments?.length && showPlaceholder
+      }"
+    >
+      <ng-template
+        [ngIf]="
+          commentType === 'sendComment' &&
+          (submissions[submissionIndex].comments?.length || !showPlaceholder)
+        "
+        [ngIfElse]="placeholder"
+      >
+        <div class="comments" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+          <div
+            *ngFor="let comment of submissions[submissionIndex].comments"
+            class="comment-box"
+            [ngClass]="{
+              teacher: comment.authorId === studentAssignment.teacherId,
+              student: comment.authorId === studentAssignment.studentId
+            }"
+          >
+            <div class="flex justify-content-between">
+              <p class="name">
+                {{
+                  comment.authorId
+                    | findFullNameById: selectedSubmissionUserInfo
+                }}
+              </p>
+              <p class="date">
+                {{ comment.createdAt | date: 'd MMM HH:MM' }} Hs
+              </p>
+            </div>
+            <p class="comment">{{ comment.text }}</p>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template *ngIf="commentType === 'sendComment'" #placeholder>
+        <app-homework-placeholder
+          [text]="
+            submissions[submissionIndex].state.description === 'pending'
+              ? 'Aún no tienes comentarios ni correcciones de esta entrega'
+              : 'Esta entrega no tiene comentarios'
+          "
+          icon="message-square-outline"
+          textFontSize="18"
+          iconWidth="32"
+        >
+        </app-homework-placeholder>
+        <button
+          *ngIf="submissions[submissionIndex].state.description === 'pending'"
+          nbButton
+          size="small"
+          outline
+          (click)="setTypeAndPlaceholder('sendComment', false)"
+        >
+          Enviar comentario
+        </button>
+      </ng-template>
+    </nb-card-body>
+    <nb-card-footer
+      *ngIf="
+        (submissions[submissionIndex].comments?.length || !showPlaceholder) &&
+        submissions[submissionIndex].state.description === 'pending'
+      "
+    >
+      <form [formGroup]="form">
+        <p *ngIf="commentType === 'askCorrections'" class="bold h6">
+          Estás por pedir correcciones de esta tarea, completá los siguientes
+          campos:
+        </p>
+        <p *ngIf="commentType === 'finishHomework'" class="bold h6">
+          Estás por finalizar esta tarea, completá los siguientes campos:
+        </p>
+        <textarea
+          *ngIf="commentType === 'sendComment'"
+          nbInput
+          fullWidth
+          status="info"
+          placeholder="Escribe un comentario"
+          formControlName="commentText"
+        ></textarea>
+        <textarea
+          *ngIf="commentType === 'askCorrections'"
+          nbInput
+          fullWidth
+          status="info"
+          placeholder="Escribe una corrección de esta tarea"
+          formControlName="commentText"
+        ></textarea>
+        <textarea
+          *ngIf="commentType === 'finishHomework'"
+          nbInput
+          fullWidth
+          status="info"
+          placeholder="Escribe un comentario antes de finalizar esta tarea"
+          formControlName="commentText"
+        ></textarea>
+        <span class="text-danger marginless caption">{{ msgErr }}</span>
+        <p
+          class="marginless score-select"
+          *ngIf="commentType === 'finishHomework'"
+        >
+          Elige una calificación
+        </p>
+        <nb-select
+          *ngIf="commentType === 'finishHomework'"
+          placeholder="Seleccioná una calificación"
+          fullWidth
+          status="info"
+          [(selected)]="score"
+          formControlName="score"
+        >
+          <nb-option *ngFor="let score of scores" value="{{ score }}">{{
+            score
+          }}</nb-option>
+        </nb-select>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6" *ngIf="commentType === 'sendComment'">
+            <button
+              nbButton
+              fullWidth
+              status="info"
+              (click)="openConfirmModal('comment')"
+            >
+              Enviar comentario
+            </button>
+          </div>
+          <div
+            class="col-xs-12 col-sm-6"
+            *ngIf="commentType === 'askCorrections'"
+          >
+            <button
+              nbButton
+              fullWidth
+              status="info"
+              (click)="openConfirmModal('correction')"
+            >
+              Enviar
+            </button>
+          </div>
+          <div
+            class="col-xs-12 col-sm-6"
+            *ngIf="commentType === 'finishHomework'"
+          >
+            <button
+              nbButton
+              fullWidth
+              status="info"
+              (click)="openConfirmModal('approval', score)"
+            >
+              Finalizar
+            </button>
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            <button
+              nbButton
+              status="info"
+              outline
+              fullWidth
+              (click)="setTypeAndPlaceholder('sendComment')"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </form>
+    </nb-card-footer>
+  </nb-card>
+</div>

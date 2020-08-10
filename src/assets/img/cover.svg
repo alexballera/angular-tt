@@ -1,0 +1,21 @@
+<svg width="492" height="328" xmlns="http://www.w3.org/2000/svg">
+ <style type="text/css">.st0{fill:#DDDDDD;}
+	.st1{fill:#B5B5B6;fill-opacity:0;}
+	.st2{fill:#B5B5B6;}</style>
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <rect height="328" width="492" class="st0" id="Rectangle_1172"/>
+  <g id="Layer_2_1_">
+   <g id="image">
+    <rect height="90" width="90" class="st1" y="120" x="202" id="Rectangle_1173"/>
+    <path d="m269.5,130.9l-45,0c-6.2,0 -11.2,5 -11.2,11.2l0,0l0,45c0,6.2 5,11.2 11.2,11.2l45,0c6.2,0 11.2,-5 11.2,-11.2l0,0l0,-45c0,-6.1 -5,-11.2 -11.2,-11.2zm-45,7.5l45,0c2.1,0 3.7,1.7 3.8,3.7l0,0l0,31.3l-12,-10.2c-3.8,-3.2 -9.4,-3.2 -13.2,0l-27.3,22.8l0,-43.8c-0.1,-2.1 1.6,-3.8 3.7,-3.8l0,0zm45,52.5l-42.9,0l26.2,-21.9c1,-0.8 2.5,-0.8 3.5,0l16.9,14.4l0,3.7c0,2.2 -1.7,3.8 -3.7,3.8z" class="st2" id="Path_1993"/>
+    <circle r="5.6" cy="151.6" cx="232" class="st2" id="Ellipse_707"/>
+   </g>
+  </g>
+ </g>
+</svg>

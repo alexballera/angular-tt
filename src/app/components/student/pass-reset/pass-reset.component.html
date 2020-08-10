@@ -1,0 +1,44 @@
+<nb-card>
+  <nb-card-header class="no-line">
+    <button
+      (click)="closeDialog()"
+      nbButton
+      ghost
+      status="basic"
+      size="small"
+      class="plain align-right"
+    >
+      <nb-icon
+        (click)="closeDialog()"
+        icon="close-outline"
+        [options]="{ animation: { type: 'pulse' } }"
+      ></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body class="section">
+    <div *ngIf="userSelect$ | async as userSelect">
+      <div *ngIf="!(recentUserResetData$ | async)">
+        <p>
+          Se restablecerá la contraseña para {{ userSelect.given_name }}
+          {{ userSelect.family_name }}.
+        </p>
+        <button nbButton (click)="resetPass(userSelect)">¿Confirmar?</button>
+      </div>
+      <div *ngIf="recentUserResetData$ | async">
+        <nb-icon status="basic" icon="lock-outline"></nb-icon>
+        <h6 class="text-primary">Se reestableció la contraseña exitosamente</h6>
+        <h6>
+          Usuario:
+          <strong>{{
+            (recentUserResetData$ | async)?.preferred_username
+          }}</strong>
+        </h6>
+        <h6>
+          Contraseña:
+          <strong>{{ (recentUserResetData$ | async)?.password }}</strong>
+        </h6>
+        <p class="grey">Envíale este usuario y contraseña al estudiante</p>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

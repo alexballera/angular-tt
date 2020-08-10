@@ -1,0 +1,35 @@
+<nb-card class="container">
+  <nb-card-header>
+    <h5 class="text-primary">Mi clase</h5>
+    <p class="marginless">
+      Nivel global de los estudiantes en mi clase
+    </p>
+    <button nbButton size="small" status="info" (click)="goToLibrary()">
+      Asignar contenido
+    </button>
+  </nb-card-header>
+  <nb-card-body class="overflow">
+    <nb-accordion
+      multi
+      *ngFor="let group of selectedCourseGroups$ | async; let g = index"
+    >
+      <nb-accordion-item [expanded]="g === 0">
+        <nb-accordion-item-header
+          class="group-class-accordion"
+          *ngIf="group.contents.length"
+        >
+          Contenidos asignados
+          {{ !group.parent ? 'a toda la clase' : 'al grupo ' + group.name }}
+        </nb-accordion-item-header>
+        <nb-accordion-item-body class="group-class-accordion-body">
+          <app-content-detail
+            [isCourseView]="true"
+            [isGroup]="group?.parent"
+            [metrics]="group.metrics"
+            [selectedGroup]="group"
+          ></app-content-detail>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </nb-card-body>
+</nb-card>

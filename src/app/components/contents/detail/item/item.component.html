@@ -1,0 +1,66 @@
+<nb-icon
+  *ngIf="!isCourseView"
+  status="{{ relatedMetrics.completed === true ? 'success' : 'basic' }}"
+  class="check-icon"
+  icon="checkmark-circle-2"
+></nb-icon>
+<p
+  [ngClass]="{
+    'marginless fit': true,
+    max: !isCourseView,
+    min: !isCourseView && relatedMetrics.last_score ? true : false
+  }"
+>
+  {{ asset.title | titlecase }}
+</p>
+<ng-template [ngIf]="!isCourseView">
+  <div
+    *ngIf="isAnActivity"
+    [ngClass]="{
+      results: true,
+      'text-success': relatedMetrics.last_score.success === true ? true : false,
+      'text-danger': relatedMetrics.last_score.success === false ? true : false
+    }"
+  >
+    <ng-template [ngIf]="hasScoreSuccessInfo">
+      {{
+        relatedMetrics.last_score.success === true ? 'Correcto' : 'Incorrecto'
+      }}
+    </ng-template>
+
+    <ng-template [ngIf]="relatedMetrics.last_score.score">
+      <nb-icon
+        *ngIf="hasScoreSuccessInfo"
+        [status]="
+          relatedMetrics.last_score.success === true ? 'success' : 'danger'
+        "
+        class="icon score"
+        icon="{{
+          relatedMetrics.last_score.success === true ? 'checkmark' : 'close'
+        }}-outline"
+      ></nb-icon>
+      <span class="bold">{{ relatedMetrics.last_score.score.raw }}/</span>
+      <span>{{ relatedMetrics.last_score.score.max }}pts</span>
+    </ng-template>
+  </div>
+  <div class="results">
+    <nb-icon status="info" class="icon" icon="eye-outline"></nb-icon>
+    <span class="text-secondary subtitle">{{
+      relatedMetrics.attempted || 0
+    }}</span>
+  </div>
+  <div class="text-secondary results">
+    <nb-icon status="info" class="icon clock" icon="clock-outline"></nb-icon>
+    <ng-template [ngIf]="relatedMetrics.hours > 0">
+      <span class="text-secondary subtitle">{{
+        relatedMetrics.hours || 0
+      }}</span>
+      hs |
+    </ng-template>
+
+    <span class="text-secondary subtitle">{{
+      relatedMetrics.minutes || 0
+    }}</span>
+    min
+  </div>
+</ng-template>

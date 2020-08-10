@@ -1,0 +1,60 @@
+@import '../../../themes.scss';
+
+.bg-hsxxi {
+  background-image: url('/img/hb/home-fondo.png');
+  background-repeat: repeat;
+  background-size: contain;
+}
+
+.hsxxi {
+  min-height: 94vh;
+
+  button.disabled {
+    img {
+      filter: grayscale(100%);
+    }
+  }
+}
+
+.box {
+  .img {
+    border-radius: 100%;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #777;
+  }
+
+  button:hover {
+    .img {
+      border-color: nb-theme(color-primary-300);
+    }
+
+    .title {
+      color: nb-theme(color-primary-500);
+    }
+  }
+
+  &.selected {
+    .img {
+      border-color: nb-theme(color-primary-500);
+    }
+
+    .title {
+      color: nb-theme(color-primary-700);
+    }
+  }
+}
+
+.card-footer {
+  button {
+    margin-right: 10px;
+  }
+}
+
+.home-onboarding-ref-element {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  left: 78px;
+  top: 217px;
+}

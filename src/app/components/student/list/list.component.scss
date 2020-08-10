@@ -1,0 +1,91 @@
+@import '../../../../themes.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  padding: 0px 25px 0px 15px;
+  &:hover,
+  &.isActive {
+    background-color: #f7f7f7;
+  }
+}
+
+.group-icon {
+  color: #b6b6b6;
+  cursor: pointer;
+  margin-left: 5px;
+  width: 20px;
+}
+
+textarea {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #e5e5e5;
+  padding: 3px;
+  padding-right: 27px;
+
+  &::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #777;
+    font-style: italic;
+  }
+  &::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #777;
+    font-style: italic;
+  }
+  &:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #777;
+    font-style: italic;
+  }
+  &:-moz-placeholder {
+    /* Firefox 18- */
+    color: #777;
+    font-style: italic;
+  }
+}
+
+svg {
+  &.tendence {
+    height: 2.5em;
+    width: 3em;
+    fill: green;
+    &.tendence-down {
+      fill: red;
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.progress::-webkit-progress-value {
+  transition: width 0.5s ease;
+}
+
+.progress:before {
+  content: attr(value) '%';
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  font-size: 90%;
+}
+
+.view-comment {
+  margin-left: 55%;
+  cursor: pointer;
+}
+
+.overlay-trigger {
+  width: 2.6em;
+  border: 0;
+  border-radius: 0.3em;
+  padding: 0 0.4em;
+  background-color: transparent;
+
+  svg {
+    vertical-align: middle;
+    fill: currentColor;
+  }
+}

@@ -1,0 +1,125 @@
+@import '../../../../scss/base/colors';
+
+nb-card {
+  &.sidebar {
+    height: initial;
+  }
+
+  &-header {
+    border-bottom: none;
+    h5 {
+      color: var(--color);
+    }
+  }
+
+  &-body {
+    padding-bottom: 0;
+    padding-top: 40px;
+  }
+
+  &.catalog {
+    min-width: 1020px;
+    .header {
+      &-info {
+        color: var(--color-basic-600);
+        font-size: 16px;
+        margin-bottom: 0;
+      }
+    }
+
+    .content {
+      p {
+        color: var(--color);
+      }
+      &-subtitle {
+        font-weight: bold;
+        font-size: 18px;
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+      .list {
+        list-style: none;
+        li {
+          align-items: center;
+          color: var(--color-basic-600);
+          display: flex;
+          font-size: 14px;
+          line-height: 24px;
+          &:not(:last-child) {
+            margin-bottom: 6px;
+          }
+          &::before {
+            content: '\2022';
+            color: var(--color);
+            font-weight: bold;
+            font-size: 32px;
+            display: inline-block;
+            margin-left: -40px;
+            margin-right: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.programming,
+.sxxi {
+  &-content {
+    padding: 0;
+  }
+}
+
+.sxxi {
+  background-image: url('/img/hb/home-fondo.png');
+
+  &-image {
+    width: 92%;
+  }
+}
+
+.abp {
+  &-image {
+    max-height: 260px;
+  }
+
+  &-line {
+    height: 1px;
+    background-color: lightgray;
+    width: 80%;
+    margin-top: 25px;
+    position: absolute;
+  }
+
+  .list {
+    max-width: 210px;
+  }
+
+  .chevron {
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    padding: 15px 40px 16px 50px;
+    margin-right: -30px;
+    background: #29b180;
+    z-index: 1;
+    -webkit-clip-path: polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%, 20% 50%);
+    clip-path: polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%, 20% 50%);
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    &.open {
+      -webkit-clip-path: polygon(
+        0 0,
+        80% 0,
+        100% 50%,
+        80% 100%,
+        0 100%,
+        0% 50%
+      );
+      clip-path: polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%, 0% 50%);
+    }
+  }
+}

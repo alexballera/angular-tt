@@ -1,0 +1,67 @@
+image: registry.gitlab.com/vidatec/ticmas/devops/images/base-builder:master
+
+services:
+  - docker:dind
+
+stages:
+  - code_analyzer
+  - release
+  - build
+  - deploy
+
+.GIT_CONFIG: &git_config
+- git config --global user.email $CI_EMAIL
+- git config --global user.name $CI_USER
+- git config receive.advertisePushOptions true
+- git checkout -B "$CI_COMMIT_REF_NAME" "$CI_COMMIT_SHA"
+
+code_analyzer:
+  stage: code_analyzer
+  except:
+    variables:
+      - $GITLAB_USER_LOGIN == $CI_USER
+  image: registry.gitlab.com/vidatec/ticmas/devops/images/sonarscanner:master
+  script:
+    - npm ci
+    - SONAR_TOKEN=$(curl -H "X-Vault-Token:$VAULT_TOKEN" $VAULT_URL/v1/ticmas/data/sonar | jq -r ".data.data.\"$CI_PROJECT_NAME\"")
+    - PACKAGE_VERSION=$(jq -r ".version" package.json)
+    - sonar-scanner -D sonar.login=$SONAR_TOKEN -D sonar.projectKey=$CI_PROJECT_NAME -D sonar.projectVersion=$PACKAGE_VERSION
+  only:
+    - integration
+
+release_candidate:
+  stage: release
+  script:
+    - *git_config
+    - npx standard-version --prerelease alpha
+    - git push https://${CI_USER}:${CI_ACCESS_TOKEN}@gitlab.com/$CI_PROJECT_PATH.git --follow-tags integration:integration
+  only:
+    - integration
+  except:
+    variables:
+      - $GITLAB_USER_LOGIN == $CI_USER
+
+release:
+  stage: release
+  script:
+    - *git_config
+    - npx standard-version
+    - git push https://${CI_USER}:${CI_ACCESS_TOKEN}@gitlab.com/$CI_PROJECT_PATH.git --follow-tags staging:staging
+    - git checkout integration
+    - git merge staging
+    - git push https://${CI_USER}:${CI_ACCESS_TOKEN}@gitlab.com/$CI_PROJECT_PATH.git integration:integration
+  only:
+    - staging
+  except:
+    variables:
+      - $GITLAB_USER_LOGIN == $CI_USER
+
+build:
+  stage: build
+  before_script:
+    - $(aws ecr get-login --no-include-email --region us-east-1 | tr -d '\r')
+  script:
+    - docker build -t $AWS_ECS_URL/$CI_PROJECT_NAME:$CI_COMMIT_TAG -f Dockerfile .
+    - docker push $AWS_ECS_URL/$CI_PROJECT_NAME:$CI_COMMIT_TAG
+  only:
+    - tags

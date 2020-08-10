@@ -1,0 +1,46 @@
+.upload-file {
+  .field {
+    margin-bottom: 4px;
+
+    label {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    input,
+    textarea {
+      font-size: 12px;
+    }
+  }
+
+  &-label {
+    margin-bottom: 0px !important;
+
+    .coverPreview {
+      bottom: 6px;
+      position: absolute;
+      right: 30px;
+    }
+
+    .attach-option-image {
+      height: 30px;
+
+      img {
+        height: 60%;
+      }
+    }
+  }
+}
+
+.is-hidden {
+  display: none;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.attach-title {
+  margin: 0;
+  margin-left: 10px;
+}

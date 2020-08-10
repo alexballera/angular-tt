@@ -1,0 +1,54 @@
+<nb-card>
+  <nb-card-header class="no-border-bottom paddingless">
+    <button
+      nbButton
+      ghost
+      status="basic"
+      size="small"
+      class="plain"
+      (click)="closeDialog()"
+    >
+      <nb-icon
+        icon="close-outline"
+        [options]="{ animation: { type: 'pulse' } }"
+      ></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-icon
+      status="basic"
+      [icon]="
+        type === 'approval'
+          ? 'checkmark-circle-outline'
+          : type === 'correction'
+          ? 'edit-2-outline'
+          : 'message-square-outline'
+      "
+    ></nb-icon>
+    <div [ngSwitch]="type">
+      <h5 *ngSwitchCase="'comment'" class="text-info">
+        ¿Estás seguro/a que deseas <br />
+        enviar este comentario?
+      </h5>
+      <h5 *ngSwitchCase="'correction'" class="text-info">
+        ¿Estás seguro/a que deseas enviar <br />
+        esta corrección?
+      </h5>
+      <h5 *ngSwitchCase="'approval'" class="text-info">
+        ¿Estás seguro/a que deseas <br />
+        finalizar la tarea?
+      </h5>
+    </div>
+
+    <p>{{ text }}</p>
+    <p *ngIf="type === 'approval'">
+      Calificación: {{ score ? score : 'Prefiero no calificar' }}
+    </p>
+    <button nbButton status="info" (click)="submit()">
+      Aceptar
+    </button>
+    <button nbButton outline status="info" (click)="closeDialog()">
+      Cancelar
+    </button>
+  </nb-card-body>
+</nb-card>

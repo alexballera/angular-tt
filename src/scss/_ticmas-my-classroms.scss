@@ -1,0 +1,46 @@
+app-my-classrooms {
+  nb-context-menu {
+    border-radius: 10px;
+    background-color: #4c4c4c;
+  }
+
+  nb-menu {
+    a {
+      color: white;
+      font-weight: 100;
+      font-size: 12px;
+      padding: 2px;
+    }
+  }
+
+  nb-tabset {
+    ul {
+      justify-content: flex-end;
+      height: 70px;
+      padding-right: 20px !important;
+    }
+  }
+
+  nb-accordion-item {
+    .group-class-accordion {
+      margin: 5px 30px 10px;
+      border-bottom: 3px solid var(--tabset-divider-color);
+      padding: 0;
+      font-weight: 900;
+      color: black;
+      width: fit-content;
+    }
+
+    nb-accordion-item-header {
+      nb-icon {
+        color: #c7c7c7;
+        position: relative !important;
+        right: 0 !important;
+      }
+    }
+
+    .group-class-accordion-body {
+      padding: 0 30px;
+    }
+  }
+}

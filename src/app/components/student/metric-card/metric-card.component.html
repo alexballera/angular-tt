@@ -1,0 +1,15 @@
+<nb-card class="card paddingless">
+  <nb-card-header
+    [ngClass]="{
+      'last-view-header paddingless': true,
+      calendar: type === 'calendar'
+    }"
+  >
+    {{ type === 'calendar' && !value ? 'No iniciado' : title }}
+  </nb-card-header>
+  <nb-card-body class="paddingless">
+    <p class="text-primary marginless last-view-date">
+      {{ type === 'calendar' && !value ? '--' : value }}
+    </p>
+  </nb-card-body>
+</nb-card>

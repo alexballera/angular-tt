@@ -1,0 +1,19 @@
+.container {
+  position: absolute;
+  background-color: #fcfcd4;
+  border-radius: 10px;
+  padding-left: 10px;
+  width: 250px;
+  right: 0px;
+  top: 20px;
+  height: 100px;
+}
+
+.notes-input {
+  background: none;
+  border: none;
+  font-size: 12px;
+  resize: inherit;
+  height: 100%;
+  width: 95%;
+}

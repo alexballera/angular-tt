@@ -1,0 +1,9 @@
+nb-card-header {
+  &.no-line {
+    border-bottom: none;
+    display: flex;
+    button {
+      margin-left: auto;
+    }
+  }
+}

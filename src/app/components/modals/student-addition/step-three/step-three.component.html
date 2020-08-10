@@ -1,0 +1,100 @@
+<p class="subtitle is-6 has-text-centered">
+  Ingresá los datos del nuevo estudiante que deseas agregar al curso
+</p>
+<div class="field">
+  <label class="label"
+    >Nombre <span class="is-size-7">(obligatorio)</span></label
+  >
+  <p class="help has-text-grey-dark">
+    Ingresá el o los nombres del nuevo estudiante.
+  </p>
+  <div class="control">
+    <input
+      nbInput
+      fullWidth
+      status="basic"
+      class="input"
+      type="text"
+      [ngrxFormControlState]="
+        (formState$ | async).controls.name.controls.given_name
+      "
+    />
+  </div>
+  <p
+    *ngIf="
+      (formState$ | async).controls.name.isDirty &&
+      (formState$ | async).controls.name.isInvalid &&
+      (formStateErrors$ | async)._name?._given_name?.required
+    "
+    class="help has-text-danger has-text-weight-bold"
+  >
+    <span class="icon is-small">
+      <i class="fas fa-exclamation-circle"></i>
+    </span>
+    El o los nombres del nuevo estudiente son requeridos
+  </p>
+</div>
+<div class="field">
+  <label class="label"
+    >Apellido <span class="is-size-7">(obligatorio)</span></label
+  >
+  <p class="help has-text-grey-dark">
+    Ingresá el o los apellidos del nuevo estudiante.
+  </p>
+  <div class="control">
+    <input
+      nbInput
+      fullWidth
+      status="basic"
+      class="input"
+      type="text"
+      [ngrxFormControlState]="
+        (formState$ | async).controls.name.controls.family_name
+      "
+    />
+  </div>
+  <p
+    *ngIf="
+      (formState$ | async).controls.name.isDirty &&
+      (formState$ | async).controls.name.isInvalid &&
+      (formStateErrors$ | async)._name?._family_name?.required
+    "
+    class="help has-text-danger has-text-weight-bold"
+  >
+    <span class="icon is-small">
+      <i class="fas fa-exclamation-circle"></i>
+    </span>
+    El o los apellidos del nuevo estudiente son requeridos
+  </p>
+</div>
+<div class="field">
+  <div class="control">
+    <button
+      nbButton
+      status="basic"
+      type="button"
+      (click)="onSubmit()"
+      [ngClass]="{
+        'button is-link is-fullwidth is-normal': true,
+        'is-loading': isLoading
+      }"
+      [disabled]="(formState$ | async).isInvalid"
+    >
+      agregar nuevo estudiante
+    </button>
+  </div>
+</div>
+<div class="field">
+  <div class="control">
+    <button
+      nbButton
+      status="basic"
+      type="button"
+      [disabled]="isLoading"
+      (click)="prev.emit()"
+      class="button is-fullwidth is-text"
+    >
+      Volver al paso anterior
+    </button>
+  </div>
+</div>

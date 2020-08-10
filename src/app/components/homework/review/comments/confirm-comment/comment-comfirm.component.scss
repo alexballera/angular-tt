@@ -1,0 +1,25 @@
+nb-card {
+  padding: 0px 50px;
+  nb-card-header {
+    align-self: flex-end;
+    margin-left: 90px;
+    position: absolute;
+    button {
+      nb-icon {
+        color: black;
+        font-size: 14px;
+      }
+    }
+  }
+  nb-card-body {
+    text-align: center;
+    padding: 20px 100px;
+    h5 {
+      margin: 0px;
+    }
+    button {
+      margin-right: 10px;
+      padding: 11px 35px;
+    }
+  }
+}

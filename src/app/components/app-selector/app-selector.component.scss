@@ -1,0 +1,27 @@
+.icon-container {
+  color: gray;
+  margin: 0 0.5rem;
+}
+
+.apps {
+  background-color: white;
+  border-radius: 3px;
+  flex-direction: row;
+  align-items: start;
+
+  nb-list-item {
+    outline: none;
+    border: 0;
+  }
+
+  .app-item {
+    cursor: pointer;
+    text-align: center;
+    width: min-content;
+  }
+
+  .icons {
+    height: 3rem;
+    width: 3rem;
+  }
+}

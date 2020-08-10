@@ -1,0 +1,161 @@
+<p class="subtitle is-6 has-text-centered">
+  Establecé el nombre de usuario que el nuevo estudiante utilizará para ingresar
+</p>
+<div class="field">
+  <label class="label"
+    >Nombre de Usuario <span class="is-size-7">(obligatorio)</span></label
+  >
+  <p class="help has-text-grey-dark">
+    El nombre de usuario debe tener de 7 a 25 caracteres.
+  </p>
+
+  <div
+    [ngClass]="{
+      'control has-icons-right': true,
+      'is-loading':
+        (formState$ | async).controls.preferred_username.isValid &&
+        !(formState$ | async).controls.preferred_username.userDefinedProperties
+          .success &&
+        !(formState$ | async).controls.preferred_username.userDefinedProperties
+          .registered
+    }"
+  >
+    <input
+      nbInput
+      fullWidth
+      status="basic"
+      class="input"
+      (keydown.enter)="$event.preventDefault()"
+      type="text"
+      (paste)="onKey($event)"
+      (keyup)="onKey($event)"
+      [ngrxFormControlState]="(formState$ | async).controls.preferred_username"
+    />
+    <span
+      class="icon is-small is-right has-text-success"
+      *ngIf="
+        (formState$ | async).controls.preferred_username.isValid &&
+        (formState$ | async).controls.preferred_username.userDefinedProperties
+          .success
+      "
+    >
+      <em class="fas fa-check"></em>
+    </span>
+  </div>
+  <p
+    class="help has-text-danger has-text-weight-bold"
+    *ngIf="
+      (formState$ | async).controls.preferred_username.isValid &&
+      (formState$ | async).controls.preferred_username?.userDefinedProperties
+        ?.registered
+    "
+  >
+    <span class="icon is-small">
+      <em class="fas fa-exclamation-circle"></em>
+    </span>
+    Este estudiante ya pertenece al curso
+  </p>
+  <span
+    *ngIf="
+      (formState$ | async).controls.preferred_username.isDirty &&
+      (formState$ | async).controls.preferred_username.isInvalid
+    "
+    class="help has-text-danger has-text-weight-bold"
+  >
+    <ul *ngIf="(formStateErrors$ | async)._preferred_username">
+      <li *ngIf="(formStateErrors$ | async)._preferred_username?.required">
+        <span class="icon is-small">
+          <em class="fas fa-exclamation-circle"></em>
+        </span>
+        Nombre de usuario es requerido
+      </li>
+      <li *ngIf="(formStateErrors$ | async)._preferred_username?.pattern">
+        <span class="icon is-small">
+          <em class="fas fa-exclamation-circle"></em>
+        </span>
+        Nombre de usuario no puede contener espacios
+      </li>
+      <li *ngIf="(formStateErrors$ | async)._preferred_username?.minLength">
+        <span class="icon is-small">
+          <em class="fas fa-exclamation-circle"></em>
+        </span>
+        Ingrese al menos
+        {{ (formStateErrors$ | async)._preferred_username.minLength.minLength }}
+        caracteres
+      </li>
+      <li *ngIf="(formStateErrors$ | async)._preferred_username?.maxLength">
+        <span class="icon is-small">
+          <em class="fas fa-exclamation-circle"></em>
+        </span>
+        Ingrese máximo
+        {{ (formStateErrors$ | async)._preferred_username.maxLength.maxLength }}
+        caracteres
+      </li>
+    </ul>
+  </span>
+</div>
+<ng-template
+  [ngIf]="
+    (formState$ | async).controls.preferred_username.isValid &&
+    (formState$ | async).controls.preferred_username.userDefinedProperties
+      .success &&
+    !(formState$ | async).controls.password.userDefinedProperties.show
+  "
+  [ngIfElse]="goNext"
+>
+  <article class="message is-info">
+    <div class="message-body">
+      <p>
+        El estudiante
+        <span class="has-text-weight-bold is-capitalized">
+          {{ (formState$ | async).value.name.given_name }}
+          {{ (formState$ | async).value.name.family_name }}
+        </span>
+        ya se encuentra registrado en la plataforma
+      </p>
+      <p class="has-text-black">
+        Puede añadirlo al curso haciendo click en el botón
+        <span class="is-uppercase">Asociar estudiante</span>, o de lo contratrio
+        pruebe con un nuevo nombre de usuario.
+      </p>
+    </div>
+  </article>
+  <div class="field">
+    <div class="control">
+      <button
+        nbButton
+        status="basic"
+        type="button"
+        [ngClass]="{
+          'button is-fullwidth is-normal': true,
+          'is-loading': isLoading
+        }"
+        (click)="onSubmit()"
+      >
+        Asociar estudiante
+      </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #goNext>
+  <div class="field">
+    <div class="control">
+      <button
+        nbButton
+        status="basic"
+        type="button"
+        (click)="next.emit()"
+        class="button is-fullwidth is-normal"
+        [disabled]="
+          !(formState$ | async).controls.preferred_username
+            .userDefinedProperties.success ||
+          !(formState$ | async).controls.password.userDefinedProperties.show ||
+          (formState$ | async).controls.preferred_username.userDefinedProperties
+            .registered
+        "
+      >
+        Siguiente
+      </button>
+    </div>
+  </div>
+</ng-template>

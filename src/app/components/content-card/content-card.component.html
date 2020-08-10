@@ -1,0 +1,164 @@
+<nb-card
+  [style.borderTopColor]="course.color"
+  class="cursor-pointer"
+  (click)="openDetailPage()"
+>
+  <nb-card-header>
+    <div (click)="selectCode($event, course.code)">
+      <span
+        class="courses-onboarding-ref-element"
+        #popover
+        [nbPopover]="template"
+        nbPopoverTrigger="noop"
+        nbPopoverPlacement="right"
+      >
+        <span class="text-hint">
+          Código:
+        </span>
+        <span class="h6 text-primary" nbTooltip="Copiar Código">
+          {{ course.code | lowercase }}
+        </span>
+      </span>
+    </div>
+    <h5 class="card-title">
+      {{ course.name | titlecase }}
+    </h5>
+  </nb-card-header>
+  <ng-template [ngIf]="course.parentGroup.contents.length" [ngIfElse]="message">
+    <nb-card-body>
+      <p class="bold text-primary">Progreso promedio</p>
+      <div class="row progress">
+        <p class="paddingless marginless col-xs-3 col-md-5">Contenido total</p>
+        <nb-progress-bar
+          size="tiny"
+          class="progress-bar col-xs-7 col-md-5"
+          [value]="(courseMetrics$ | async).all.progress || 0"
+        >
+        </nb-progress-bar>
+        <p class="paddingless marginless col-xs-2 text-primary">
+          {{ (courseMetrics$ | async).all.progress || 0 }}%
+          <nb-icon
+            icon="info-outline"
+            class="info-icon"
+            status="basic"
+            nbTooltip="Progreso promedio de la clase con todos los contenidos enviados."
+            nbTooltipPlacement="right"
+          >
+          </nb-icon>
+        </p>
+      </div>
+      <div class="row progress">
+        <p class="paddingless marginless col-xs-3 col-md-5">
+          Contenido vigente
+        </p>
+        <nb-progress-bar
+          size="tiny"
+          class="progress-bar col-xs-7 col-md-5"
+          [value]="(courseMetrics$ | async).active.progress || 0"
+        >
+        </nb-progress-bar>
+        <p class="paddingless marginless col-xs-2 text-primary">
+          {{ (courseMetrics$ | async).active.progress || 0 }}%
+          <nb-icon
+            icon="info-outline"
+            class="info-icon"
+            status="basic"
+            nbTooltip="Progreso promedio de la clase con los contenidos que aún no alcanzaron su fecha de vencimiento."
+            nbTooltipPlacement="right"
+          ></nb-icon>
+        </p>
+      </div>
+      <div class="subtitle text-alternate">
+        <p class="bold text-primary">
+          Interacción promedio con cont. vigentes
+        </p>
+      </div>
+      <div class="flex">
+        <p class="marginless last-week">Últimos 7 días</p>
+        <h6 class="marginless text-primary">
+          {{ (courseMetrics$ | async).fromLastWeek.hours }} Hs
+          {{ (courseMetrics$ | async).fromLastWeek.minutes }} min
+          <nb-icon
+            icon="info-outline"
+            class="info-icon"
+            status="basic"
+            nbTooltip="Tiempo promedio que pasaron los estudiantes recorriendo contenido asignado en la clase."
+            nbTooltipPlacement="right"
+          ></nb-icon>
+        </h6>
+      </div>
+    </nb-card-body>
+  </ng-template>
+  <nb-card-footer>
+    <div
+      class="caption"
+      *ngIf="(courseMetrics$ | async).activeContentList.length; else emptyState"
+    >
+      <strong [ngPlural]="(courseMetrics$ | async).activeContentList.length">
+        {{ (courseMetrics$ | async).activeContentList.length }}
+        <ng-template ngPluralCase="1">
+          Contenido vigente
+        </ng-template>
+        <ng-template ngPluralCase="other">
+          Contenidos vigentes
+        </ng-template>
+        :
+      </strong>
+      <span
+        *ngIf="
+          (courseMetrics$ | async).activeContentList.length > 2;
+          else defaultContents
+        "
+      >
+        {{
+          (courseMetrics$ | async).activeContentList.slice(0, 2).toString()
+            | titlecase
+        }}...
+      </span>
+      <ng-template #defaultContents>
+        {{ (courseMetrics$ | async).activeContentList.toString() | titlecase }}
+      </ng-template>
+    </div>
+    <ng-template #emptyState>
+      <div class="caption">
+        Aquí verás el total de tus contenidos vigentes.
+      </div>
+    </ng-template>
+  </nb-card-footer>
+  <ng-template #message>
+    <nb-card-body class="card-container-empty">
+      <nb-icon icon="trending-up-outline"></nb-icon>
+      <p>
+        Aquí verás el progreso y el tiempo de interacción de tu clase una vez ya
+        asignado el contenido.
+      </p>
+    </nb-card-body>
+  </ng-template>
+  <button class="plain card-edit" (click)="editCourse($event, course)">
+    <nb-icon
+      status="primary"
+      icon="edit-outline"
+      nbTooltip="Editar"
+      [options]="{ animation: { type: 'pulse' } }"
+    >
+    </nb-icon>
+  </button>
+</nb-card>
+
+<ng-template #template>
+  <app-onboarding
+    *ngIf="onboardingNameOpened === 'courses-onboarding-home'"
+    icon="paper-plane-outline"
+    message="Compartí este código con tus estudiantes para que puedan sumarse."
+    (close)="closeOnboarding($event)"
+  >
+  </app-onboarding>
+
+  <app-onboarding
+    *ngIf="onboardingNameOpened === 'courses-2-onboarding-home'"
+    icon="paper-plane-outline"
+    message="No te olvides de compartir el código de la clase con tus estudiantes, para que puedan sumarse a ella."
+    (close)="closeOnboarding($event)"
+    [notShowAgain]="true"
+  ></app-onboarding>
+</ng-template>

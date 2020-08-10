@@ -1,0 +1,112 @@
+@import '../../../themes.scss';
+
+a {
+  text-decoration: none;
+}
+
+.user-selector-col {
+  min-height: 108px;
+}
+
+.home {
+  nb-card {
+    margin-bottom: 0px;
+  }
+}
+
+.home nb-card-header {
+  text-align: left;
+  padding: 1.5rem 1rem;
+
+  .title {
+    font-size: 1rem;
+  }
+  .counter {
+    text-align: right;
+    font-size: 1.2rem;
+  }
+}
+
+.section-selected {
+  margin-top: 0.5em;
+  margin-bottom: 2em;
+  width: 100%;
+  height: 3px;
+
+  &.danger {
+    background-color: nb-theme(color-danger-500);
+  }
+  &.warning {
+    background-color: nb-theme(color-warning-500);
+  }
+
+  &.success {
+    background-color: nb-theme(color-success-500);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .home nb-card-header {
+    text-align: center;
+    .title {
+      font-size: 0.9rem;
+      line-height: 0.9rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    .counter {
+      line-height: 2rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+  }
+}
+
+.home nb-card-body {
+  padding: 1.5rem 1rem;
+
+  .title {
+    font-size: 1rem;
+    font-weight: 800;
+  }
+  .counter {
+    text-align: right;
+    font-size: 0.9rem;
+  }
+
+  .progress-container {
+    margin-top: 0.5em;
+    .progress {
+    }
+
+    .percent {
+      text-align: right;
+    }
+  }
+}
+
+.user-selector-container {
+  display: block;
+  position: relative;
+  margin-bottom: 2rem;
+  text-align: left;
+  text-transform: none !important;
+}
+
+.with-dropdown-arrow {
+  width: 250px;
+
+  &:after {
+    content: '';
+    display: block;
+    background: url('/down-arrow.svg') no-repeat;
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 0;
+    right: 0px;
+    top: 7px;
+    position: relative;
+  }
+}

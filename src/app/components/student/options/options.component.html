@@ -1,0 +1,45 @@
+<div class="container">
+  <p (click)="openDialog(dialog)">
+    {{ isInAgroup ? 'Quitar del grupo' : 'Quitar de la clase' }}
+  </p>
+  <p (click)="resetStudentPassword()">Resetear contraseña</p>
+  <p (click)="displayGroups()">Agregar a un grupo</p>
+  <div *ngIf="displayGroupList" class="groupList">
+    <ng-container *ngIf="filterGroups.length === 0; else options">
+      <p>Ya está agregado a todos los grupos</p>
+    </ng-container>
+    <ng-container #options *ngIf="subGroups$ | async">
+      <ng-container *ngFor="let group of filterGroups">
+        <p (click)="addToSubGroup(group)">
+          {{ group.name }}
+        </p>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header class="paddingless dialog-header">
+      <button (click)="ref.close()" class="close-button" ghost nbButton>
+        <nb-icon
+          icon="close-outline"
+          [options]="{ animation: { type: 'pulse' } }"
+        ></nb-icon>
+      </button>
+    </nb-card-header>
+    <nb-card-body class="dialog-container">
+      <nb-icon icon="alert-triangle-outline" status="basic"></nb-icon>
+      <h6 class="dialog-text text-primary">
+        ¿Estás seguro/a que deseas quitar este <br />
+        estudiante {{ isInAgroup ? 'del grupo' : 'de la clase' }}?
+      </h6>
+      <nb-card-footer class="dialog-footer">
+        <button nbButton status="info" (click)="removeStudent(); ref.close()">
+          Sí
+        </button>
+        <button nbButton status="info" (click)="ref.close()">No</button>
+      </nb-card-footer>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

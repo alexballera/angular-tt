@@ -1,0 +1,53 @@
+<nb-card class="flex-stretch" *ngIf="selectedSkill$ | async as skill">
+  <nb-card-header class="header">
+    <h4 class="text-primary">
+      {{
+        (view$ | async) === 'teacher'
+          ? 'Guía docente de ejercicio'
+          : 'Material estudiante'
+      }}
+    </h4>
+    <div class="subnav">
+      <button
+        *ngIf="(view$ | async) === 'teacher'; else studentOptions"
+        size="small"
+        ghost
+        shape="round"
+        nbButton
+        class="ml-10"
+        (click)="changeView('student')"
+      >
+        Ver material estudiante
+      </button>
+
+      <ng-template #studentOptions>
+        <button
+          class="assignee-btn"
+          size="small"
+          shape="round"
+          nbButton
+          (click)="assignContent(skill)"
+        >
+          Asignar material
+        </button>
+        <button
+          size="small"
+          shape="round"
+          ghost
+          nbButton
+          (click)="changeView('teacher')"
+        >
+          Ver material docente
+        </button>
+      </ng-template>
+    </div>
+  </nb-card-header>
+  <nb-card-body class="flex flex-col">
+    <app-safe-iframe
+      class="flex-stretch"
+      [src]="
+        (view$ | async) === 'teacher' ? skill.guideUrl : skill.assets[0].url
+      "
+    ></app-safe-iframe>
+  </nb-card-body>
+</nb-card>

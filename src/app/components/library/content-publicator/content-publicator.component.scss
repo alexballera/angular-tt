@@ -1,0 +1,117 @@
+$bg-color-greyblue: #f5f8ff;
+nb-card {
+  nb-card-header {
+    .content-label {
+      margin-top: 10px;
+      color: var(--icon-primary-color);
+      display: inline-block;
+      font-size: 17px;
+    }
+  }
+}
+.content-publicator {
+  &.padding-left {
+    padding-left: 24px;
+  }
+  &-content,
+  &-groups,
+  &-calendar,
+  &-tags {
+    padding-bottom: 16px;
+    padding-top: 16px;
+  }
+  .content-title {
+    color: var(--color-primary-500);
+  }
+  &-title {
+    color: var(--color-basic-700);
+  }
+  &-tags {
+    tag-input {
+      div {
+        border-bottom: 0 !important;
+      }
+      input {
+        width: 100%;
+      }
+    }
+  }
+  &-groups {
+    &.groups {
+      nb-select {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  }
+  &-calendar {
+    height: 125px;
+    &-title {
+      align-items: center;
+      display: flex;
+      nb-icon {
+        font-size: 12px;
+      }
+    }
+    &-container {
+      display: flex;
+    }
+    &-form-group {
+      height: 40px;
+      &:first-child {
+        margin-right: 16px;
+        border-right: var(--divider-width) var(--divider-style)
+          var(--divider-color);
+        height: 55px;
+      }
+      &:last-child {
+        margin-left: 16px;
+      }
+      label {
+        display: block;
+        font-size: 13px;
+      }
+      input {
+        background-color: transparent;
+        border-color: transparent;
+        cursor: pointer;
+        color: grey;
+        font-size: 16px;
+        line-height: 12px;
+        padding-left: 0;
+        padding-right: 0px;
+        width: 140px;
+      }
+
+      nb-icon {
+        font-size: 18px;
+        margin-left: 105px;
+        position: absolute;
+        pointer-events: none;
+      }
+    }
+  }
+  .footer-notifications {
+    color: var(--text-disabled-color);
+  }
+}
+
+.attach {
+  &-tags {
+    .tag {
+      margin-right: 8px;
+      margin-bottom: 4px;
+      label {
+        background-color: $bg-color-greyblue;
+        font-size: 12px;
+        display: flex;
+        line-height: 18px;
+        padding: 4px 8px;
+        nb-icon {
+          font-size: 12px;
+          margin-left: 24px;
+        }
+      }
+    }
+  }
+}

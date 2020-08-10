@@ -1,0 +1,38 @@
+@import '../../../themes.scss';
+
+nb-select {
+  width: 110%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.hsxxi-home-dialog {
+  position: fixed !important;
+  top: 60px;
+  right: 0;
+  height: auto;
+  background-color: white;
+  width: 330px;
+  box-shadow: 5px 7px 10px 5px rgba(0, 0, 0, 0.25);
+}
+
+nb-popover {
+  box-shadow: 5px 7px 10px 5px rgba(0, 0, 0, 0.25);
+
+  .arrow::after {
+    top: 0px;
+  }
+}
+
+.onbording-container {
+  p {
+    padding: 15px;
+    font-size: 12px;
+  }
+}
+
+app-training-button {
+  margin-right: 40px;
+}

@@ -1,0 +1,239 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <nb-card class="sidebar animated fadeIn">
+    <nb-card-header>
+      <button
+        nbButton
+        ghost
+        status="basic"
+        size="small"
+        class="plain"
+        (click)="closeSidebar()"
+      >
+        <nb-icon
+          icon="close-outline"
+          [options]="{ animation: { type: 'pulse' } }"
+        ></nb-icon>
+      </button>
+      <h5 class="text-primary">
+        {{ course ? 'Editar clase' : 'Crear clase' }}
+      </h5>
+    </nb-card-header>
+
+    <nb-card-body class="form">
+      <div class="row marginless">
+        <div class="col-xs-12 col-sm-5 paddingless">
+          <div class="row marginless">
+            <div
+              class="col-xs-12 field paddingless"
+              *ngIf="(contextService.schools$ | async).length > 1"
+            >
+              <label>Nombre de la escuela*</label>
+              <ng-template #showOptions>
+                <nb-select
+                  placeholder="Selecciona una escuela"
+                  fullWidth
+                  status="basic"
+                  shape="semi-round"
+                  (selectedChange)="selectSchool($event)"
+                  [disabled]="course"
+                  formControlName="school"
+                >
+                  <nb-option value="">{{ course.parent.name }}</nb-option>
+                </nb-select>
+              </ng-template>
+              <div *ngIf="!course; else showOptions">
+                <nb-select
+                  placeholder="Selecciona una escuela"
+                  fullWidth
+                  status="basic"
+                  shape="semi-round"
+                  (selectedChange)="selectSchool($event)"
+                  [disabled]="course"
+                  formControlName="school"
+                >
+                  <nb-option value="">Selecciona una escuela</nb-option>
+                  <nb-option
+                    [value]="school"
+                    *ngFor="let school of contextService.schools$ | async"
+                    >{{ school.name | titlecase }}</nb-option
+                  >
+                </nb-select>
+              </div>
+            </div>
+            <div class="field col-xs-12 paddingless">
+              <label>Nombre de la clase*</label>
+              <input
+                nbInput
+                status="basic"
+                fieldSize="medium"
+                fullWidth
+                status="basic"
+                name="name"
+                type="text"
+                formControlName="name"
+                placeholder="¿Cómo quieres nombrar la clase?"
+                id="name"
+              />
+            </div>
+            <div class="field col-xs-12 paddingless">
+              <label>Asignatura*</label>
+              <nb-select
+                status="basic"
+                size="medium"
+                fullWidth
+                placeholder="Seleccione una asignatura"
+                [selected]="subject.value"
+                [disabled]="editCategory"
+                (selectedChange)="subject.setValue($event)"
+              >
+                <nb-option
+                  [value]="subject.name"
+                  *ngFor="
+                    let subject of (contextService.school$ | async)?.config
+                      .subjects
+                  "
+                >
+                  {{ subject.name }}
+                </nb-option>
+              </nb-select>
+            </div>
+            <div class="field col-xs-12 paddingless">
+              <label>Nivel*</label>
+              <nb-select
+                status="basic"
+                size="medium"
+                fullWidth
+                placeholder="Seleccione un nivel"
+                [selected]="level.value"
+                (selectedChange)="level.setValue($event)"
+                [disabled]="editLevel"
+              >
+                <nb-option
+                  [value]="level.name"
+                  *ngFor="
+                    let level of (contextService.school$ | async)?.config.levels
+                  "
+                >
+                  {{ level.name | levelSplit }}</nb-option
+                >
+              </nb-select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 paddingless">
+          <div class="row marginless">
+            <div class="field col-xs-12 col-sm-6 paddingless">
+              <div class="row middle-xs day-title">
+                <nb-icon icon="clock-outline"></nb-icon>
+                <p class="marginless">Horarios semanales de la clase*</p>
+              </div>
+              <div class="day-container flex justify-content-between">
+                <button
+                  *ngFor="let day of days"
+                  nbButton
+                  ghost
+                  type="button"
+                  status="{{ activeDay === day.key ? 'info' : 'basic' }}"
+                  shape="round"
+                  size="small"
+                  (click)="selectDay(day.key)"
+                  class="plain"
+                >
+                  {{ day.value | slice: 0:2 }}
+                </button>
+              </div>
+
+              <div *ngFor="let day of days">
+                <div class="schedules">
+                  <div
+                    class="{{ activeDay === day.key ? 'active' : 'in-active' }}"
+                  >
+                    <app-schedule
+                      [day]="day"
+                      (extras)="setSchedule($event)"
+                    ></app-schedule>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-sm-10 paddingless">
+                <p class="text-danger message-error" *ngIf="msgErr">
+                  <em>{{ msgErr }}</em>
+                </p>
+              </div>
+
+              <div class="field col-xs-12 col-sm-9 paddingless">
+                <p>Color para identificar tu clase*</p>
+                <div class="color-selector">
+                  <ul>
+                    <li
+                      *ngFor="let colori of colors"
+                      [ngStyle]="{ backgroundColor: colori }"
+                      [ngClass]="{ active: color.value === colori }"
+                      (click)="color.setValue(colori)"
+                    ></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="field col-xs-12 col-sm-4 paddingless show-schedules">
+              <label>Horarios de mi clase</label>
+              <div class="show-schedules-content">
+                <div *ngFor="let sch of schedule.value; let i = index">
+                  <div class="item" *ngIf="sch.horasEx.length > 0">
+                    <div
+                      class="row between-xs middle-xs marginless"
+                      *ngFor="let hours of sch.horasEx; let j = index"
+                    >
+                      <p class="show-schedules-text col-xs-10">
+                        {{ sch.day }} de {{ hours.from | date: 'H:mm a' }} a
+                        {{ hours.to | date: 'H:mm a' }}
+                      </p>
+
+                      <div class="col-xs-2 button-container">
+                        <button
+                          nbButton
+                          status="danger"
+                          class="plain"
+                          ghost
+                          fullWidth
+                          size="small"
+                          (click)="delete(i, j)"
+                        >
+                          <nb-icon
+                            icon="trash-2-outline"
+                            [options]="{ animation: { type: 'pulse' } }"
+                          ></nb-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="row between-xs middle-xs marginless">
+        <p class="footer-notifications"><em>*campos obligatorios</em></p>
+        <div class="buttons">
+          <button nbButton ghost status="info" (click)="closeSidebar()">
+            Volver
+          </button>
+          <button
+            nbButton
+            status="info"
+            type="submit"
+            [disabled]="form.invalid"
+          >
+            Confirmar
+          </button>
+        </div>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</form>

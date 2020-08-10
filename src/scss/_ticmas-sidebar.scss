@@ -1,0 +1,10 @@
+nb-sidebar {
+  .active {
+    svg {
+      fill: var(--text-sidebar-color-active);
+    }
+  }
+  nb-list-item {
+    border-bottom: none;
+  }
+}

@@ -1,0 +1,1184 @@
+.modal-container{
+    width: 56%;
+}
+.student-list-container{
+    padding-left: 25px;
+    position: relative;
+
+    .student-preview{
+        padding: 0 6px 20px 20px;overflow: auto;
+    }
+    
+}
+.charts-container{
+    transition: all 0.25s ease;
+    height:255px;
+    &.students-expanded{
+        height: 0;
+        overflow: hidden;
+    }
+}
+.student-expand-button{
+    transition: all 0.3s ease;
+    top: 56px;
+    left: 0;
+    &.expanded{
+      transform: rotate(180deg);
+    }
+}
+.classrooms-container {
+  height: 100%;
+  padding-left: 15px;
+}
+
+.classrooms-body {
+  margin-top: 0em;
+  transition: all 0.3s ease;
+  &.students-expanded{
+      margin-top:0;
+  }
+}
+
+.add-person-button {
+  width: 100%;
+  border: 1px solid;
+  text-align: left;
+  justify-content: left;
+  margin: 0;
+}
+
+.donut-container {
+  .card {
+    background: transparent;
+    padding: 1px 0 2px 0;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  // Donut Chart Mixin
+  .donut-chart {
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+
+    .quad {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .chart-center {
+      position: absolute;
+      border-radius: 50%;
+
+      span {
+        display: block;
+        text-align: center;
+      }
+    }
+  }
+
+  @mixin donut-chart(
+    $name,
+    $perc,
+    $size,
+    $width,
+    $speed,
+    $base,
+    $center,
+    $color,
+    $textColor: $color,
+    $textSize: 40px
+  ) {
+    $deg: ($perc/100 * 360) + deg;
+
+    @-webkit-keyframes #{$name} {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate($deg);
+      }
+    }
+
+    @-webkit-keyframes chartRotate2 {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(90deg);
+      }
+    }
+
+    @-webkit-keyframes chartRotate3 {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(180deg);
+      }
+    }
+
+    @-webkit-keyframes chartRotate4 {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(270deg);
+      }
+    }
+
+    @-webkit-keyframes chartCover {
+      0%,
+      90% {
+        opacity: 1;
+      }
+
+      91%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .donut-chart {
+      &.#{$name} {
+        width: $size;
+        height: $size;
+        background: $base;
+        margin: 0 auto;
+
+        .quad {
+          width: $size/2;
+          height: $size/2;
+          top: 0;
+          left: 0;
+          border-radius: 100% 0 0 0;
+          display: none;
+
+          &.one {
+            -webkit-transform: rotate($deg);
+            -webkit-transform-origin: bottom right;
+            background: $color;
+            -webkit-animation: #{$name} $speed linear;
+
+            @if $perc > 0 {
+              display: block;
+            }
+          }
+
+          &.two {
+            -webkit-transform: rotate(90deg);
+            -webkit-transform-origin: bottom right;
+            background: $color;
+            -webkit-animation: chartRotate2 $speed linear;
+
+            @if $perc > 25 {
+              display: block;
+            }
+          }
+
+          &.three {
+            -webkit-transform: rotate(180deg);
+            -webkit-transform-origin: bottom right;
+            background: $color;
+            -webkit-animation: chartRotate3 $speed linear;
+
+            @if $perc > 50 {
+              display: block;
+            }
+          }
+
+          &.four {
+            -webkit-transform: rotate(270deg);
+            -webkit-transform-origin: bottom right;
+            background: $color;
+            -webkit-animation: chartRotate4 $speed linear;
+
+            @if $perc > 75 {
+              display: block;
+            }
+          }
+
+          &.top {
+            display: block;
+            background: $base;
+
+            @if $perc > 75 {
+              opacity: 0;
+              -webkit-animation: chartCover 0.01s linear $speed/1.2 both;
+            }
+          }
+        }
+        // quad
+
+        .chart-center {
+          top: $width;
+          left: $width;
+          width: $size - ($width * 2);
+          height: $size - ($width * 2);
+          background: $center;
+
+          &:after {
+            display: inline-block;
+            width: 100%;
+            font-size: $size / 5;
+            color: $textColor;
+            text-align: center;
+            line-height: $size - ($width * 2);
+            content: "#{$perc}%";
+          }
+        }
+      }
+    }
+  }
+  // mixin
+
+  // Charts
+
+  @include donut-chart("chart1", 1, 150px, 20px, 1.5s, #e1e1e1, #fff, #48b2c1);
+  @include donut-chart("chart2", 2, 150px, 20px, 1.5s, #e1e1e1, #fff, #48b2c1);
+  @include donut-chart("chart3", 3, 150px, 20px, 1.5s, #e1e1e1, #fff, #48b2c1);
+  @include donut-chart("chart4", 4, 150px, 20px, 1.5s, #e1e1e1, #fff, #48b2c1);
+  @include donut-chart("chart5", 5, 150px, 20px, 1.5s, #e1e1e1, #fff, #48b2c1);
+  @include donut-chart("chart6", 6, 150px, 20px, 1.5s, #e1e1e1, #fff, #48b2c1);
+  @include donut-chart("chart7", 7, 150px, 20px, 1.5s, #e1e1e1, #fff, #48b2c1);
+  @include donut-chart("chart8", 8, 150px, 20px, 1.5s, #e1e1e1, #fff, #48b2c1);
+  @include donut-chart("chart9", 9, 150px, 20px, 1.5s, #e1e1e1, #fff, #48b2c1);
+  @include donut-chart(
+      "chart10",
+      10,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart11",
+      11,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart12",
+      12,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart13",
+      13,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart14",
+      14,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart15",
+      15,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart16",
+      16,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart17",
+      17,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart18",
+      18,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart19",
+      19,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart20",
+      20,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart21",
+      21,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart22",
+      22,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart23",
+      23,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart24",
+      24,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart25",
+      25,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart26",
+      26,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart27",
+      27,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart28",
+      28,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart29",
+      29,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart30",
+      30,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart31",
+      31,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart32",
+      32,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart33",
+      33,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart34",
+      34,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart35",
+      35,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart36",
+      36,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart37",
+      37,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart38",
+      38,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart39",
+      39,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart40",
+      40,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart41",
+      41,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart42",
+      42,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart43",
+      43,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart44",
+      44,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart45",
+      45,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart46",
+      46,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart47",
+      47,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart48",
+      48,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart49",
+      49,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart50",
+      50,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart51",
+      51,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart52",
+      52,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart53",
+      53,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart54",
+      54,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart55",
+      55,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart56",
+      56,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart57",
+      57,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart58",
+      58,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart59",
+      59,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart60",
+      60,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart61",
+      61,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart62",
+      62,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart63",
+      63,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart64",
+      64,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart65",
+      65,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart66",
+      66,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart67",
+      67,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart68",
+      68,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart69",
+      69,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart70",
+      70,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart71",
+      71,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart72",
+      72,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart73",
+      73,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart74",
+      74,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart75",
+      75,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart76",
+      76,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart77",
+      77,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart78",
+      78,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart79",
+      79,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart80",
+      80,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart81",
+      81,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart82",
+      82,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart83",
+      83,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart84",
+      84,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart85",
+      85,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart86",
+      86,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart87",
+      87,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart88",
+      88,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart89",
+      89,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart90",
+      90,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart91",
+      91,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart92",
+      92,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart93",
+      93,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart94",
+      94,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart95",
+      95,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart96",
+      96,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart97",
+      97,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart98",
+      98,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart99",
+      99,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+  @include donut-chart(
+      "chart100",
+      100,
+      150px,
+      20px,
+      1.5s,
+      #e1e1e1,
+      #fff,
+      #48b2c1
+  );
+}
+
+.error-form {
+  color: #ff0000;
+}
+
+.loading-small {
+  width: 90%;
+  margin-left: 95%;
+  position: absolute;
+  z-index: 10000;
+  margin-top: -6%;
+}
+
+.empty-data-char {
+    top: -50%;
+    text-align: center;
+    position: relative;
+    border: 1px dashed #ccc;
+    margin: 0 43px;
+    padding: 69px 0;
+    background: #fafafa;
+}
+

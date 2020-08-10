@@ -1,0 +1,18 @@
+<div
+  (mouseenter)="clearTimeout()"
+  class="toast"
+  [ngClass]="{
+    'has-text-info': notification.type === 'info',
+    'has-text-success': notification.type === 'success',
+    'has-text-warning': notification.type === 'warning',
+    'has-text-danger': notification.type === 'error',
+    'has-text-white': ['info', 'success', 'error'].includes(notification.type)
+  }"
+>
+  <div class="text-toast-container">
+    <p class="is-ff-light is-size-6">{{ notification.text }}</p>
+    <div *ngIf="interactive">
+      <a (click)="close()" class="delete"></a>
+    </div>
+  </div>
+</div>

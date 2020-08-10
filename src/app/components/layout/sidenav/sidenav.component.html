@@ -1,0 +1,54 @@
+<nb-list>
+  <nb-list-item
+    *ngFor="let item of items"
+    [routerLink]="item.link"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="layout-icons"
+  >
+    <div class="list-item-container">
+      <div
+        *ngIf="item.id === 'library'"
+        class="courses-onboarding-ref-element"
+        #popover
+        [nbPopover]="template"
+        nbPopoverTrigger="noop"
+        nbPopoverPlacement="start"
+      >
+        <nb-icon
+          [icon]="item.icon"
+          status="basic"
+          [options]="{ animation: { type: 'none' } }"
+        >
+        </nb-icon>
+      </div>
+
+      <div *ngIf="item.id !== 'library'">
+        <nb-icon
+          [icon]="item.icon"
+          status="basic"
+          [options]="{ animation: { type: 'none' } }"
+        >
+        </nb-icon>
+        <nb-badge
+          *ngIf="item.badge | async"
+          text="{{ item.badgeValue | async }}"
+          status="danger"
+        >
+        </nb-badge>
+      </div>
+      <div class="title">
+        {{ item.title }}
+      </div>
+    </div>
+  </nb-list-item>
+</nb-list>
+
+<ng-template #template>
+  <app-onboarding
+    icon="book-open-outline"
+    message="Desde aquí podrás buscar contenido y asignarlo a tus estudiantes."
+    notShowAgain="true"
+    (close)="closeOnboarding($event)"
+  ></app-onboarding>
+</ng-template>

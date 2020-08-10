@@ -1,0 +1,134 @@
+@import '@fullcalendar/core/main.css';
+@import '@fullcalendar/daygrid/main.css';
+@import '@fullcalendar/timegrid/main.css';
+@import 'base/colors';
+.calendar-prime-component {
+  background-color: var(--color-basic-100);
+}
+app-calendar-prime {
+  height: calc(100vh - #{var(--header-height)}) !important;
+}
+p-fullcalendar {
+  padding: 24px 0;
+  .fc {
+    &-view {
+      background: #fafafa;
+    }
+
+    &-header-toolbar.fc-toolbar {
+      background-color: var(--color-basic-100);
+      margin: 0;
+      padding: 32px 16px;
+    }
+
+    &-left {
+      display: flex;
+
+      h2 {
+        color: var(--color-primary-500);
+        margin-left: 0 !important;
+        text-transform: capitalize;
+      }
+    }
+
+    &-right {
+      button {
+        &:hover {
+          opacity: 0.8;
+        }
+        &:active {
+          background-color: $light-violet !important;
+          border-color: $light-violet !important;
+        }
+        @include hover-focus-active {
+          box-shadow: none !important;
+        }
+      }
+    }
+
+    &-next-button,
+    &-prev-button {
+      background: transparent;
+      color: #2c3e50;
+      border: none;
+      &:hover,
+      &:active,
+      &:focus {
+        color: #2c3e50 !important;
+        box-shadow: none !important;
+      }
+      &:active,
+      &:focus {
+        background-color: transparent !important;
+      }
+      &:hover {
+        background-color: var(--color-basic-hover);
+      }
+    }
+
+    &-next-button {
+      margin-left: 0 !important;
+    }
+    &-unthemed {
+      & th,
+      & td,
+      & thead,
+      & tbody,
+      & .fc-divider,
+      & .fc-row,
+      & .fc-popover,
+      & .fc-list-view,
+      & .fc-list-heading td {
+        border: solid 10px var(--color-basic-100);
+      }
+    }
+
+    &-row.fc-widget-header {
+      background: var(--color-basic-100);
+    }
+
+    &-axis.fc-time {
+      background-color: var(--color-basic-100);
+    }
+
+    &-event {
+      border: none;
+    }
+
+    &-content {
+      font-weight: bold;
+
+      &-skeleton {
+        position: absolute;
+        top: 0;
+      }
+    }
+
+    &-showToday {
+      &-button {
+        &,
+        &:hover,
+        &:active {
+          border: none;
+          background-color: #9985d3;
+        }
+      }
+    }
+
+    &-scroller {
+      overflow: hidden !important;
+      height: 100% !important;
+    }
+
+    &-minor {
+      td {
+        border-top: none !important;
+      }
+    }
+  }
+
+  td.fc-today {
+    border-style: unset !important;
+    background: #f2f2f2 !important;
+  }
+}

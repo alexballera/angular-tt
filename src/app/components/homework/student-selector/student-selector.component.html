@@ -1,0 +1,49 @@
+<div class="row middle-xs navigation">
+  <div class="col-xs-1 paddingless">
+    <button
+      nbButton
+      ghost
+      status="basic"
+      size="small"
+      class="plain"
+      [disabled]="currentIndex === 0"
+      (click)="prev()"
+    >
+      <nb-icon
+        icon="arrow-left"
+        [options]="{ animation: { type: 'pulse' } }"
+      ></nb-icon>
+    </button>
+  </div>
+
+  <div class="col-xs-10 paddingless selector">
+    <nb-select
+      placeholder="Seleccione uno"
+      [(selected)]="selectedItem"
+      (selectedChange)="onSelectedChange($event)"
+      fullWidth
+      outline
+    >
+      <nb-option [value]="student.key" *ngFor="let student of students">{{
+        student.text
+      }}</nb-option>
+    </nb-select>
+  </div>
+
+  <div class="col-xs-1 paddingless">
+    <button
+      nbButton
+      ghost
+      status="basic"
+      size="small"
+      class="plain"
+      [disabled]="currentIndex === students.length - 1"
+      (click)="next()"
+    >
+      <nb-icon
+        icon="arrow-right"
+        [options]="{ animation: { type: 'pulse' } }"
+      ></nb-icon>
+    </button>
+  </div>
+</div>

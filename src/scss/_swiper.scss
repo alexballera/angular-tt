@@ -1,0 +1,134 @@
+ticmas-content:hover {
+  .asign-button {
+    display: block !important;
+  }
+}
+.contents-library-sliders-container {
+  swiper {
+    .swiper {
+      &-button {
+        &-prev,
+        &-next {
+          align-items: start;
+          background-size: 54px;
+          display: none;
+          height: 210px;
+          margin: 0;
+          top: 0;
+          width: 80px;
+        }
+
+        &-prev {
+          background-image: url(assets/img/chevron-left-outline.svg);
+          background-position-x: left;
+          left: 0;
+        }
+
+        &-next {
+          background-image: url(assets/img/chevron-right-outline.svg);
+          background-position-x: right;
+          right: 0;
+        }
+      }
+
+      &-container {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      }
+      &-wrapper {
+        height: 186px;
+        padding-top: 24px;
+        // transition: 450ms transform !important;
+
+        nb-card {
+          margin-bottom: 0;
+        }
+
+        &:hover {
+          transform: translate3d(125px, 0, 0);
+        }
+      }
+
+      &-slide {
+        transition-delay: ease-in;
+        transition-duration: 450ms;
+        transform-origin: center left;
+
+        &-prev {
+          .card-content {
+            background: linear-gradient(
+              to top,
+              rgb(0, 0, 0) 0,
+              rgba(0, 0, 0, 0.5) 100%
+            ) !important;
+          }
+        }
+
+        &:hover {
+          ~ ticmas-content {
+            transform: translate3d(54px, 0, 0);
+          }
+          .card-content {
+            background: linear-gradient(
+              to top,
+              rgba(0, 0, 0, 0.34) 0,
+              rgba(0, 0, 0, 0) 100%
+            ) !important;
+          }
+        }
+
+        &:not(:last-child) {
+          &:hover {
+            transform: scale(1.2);
+          }
+        }
+
+        &:last-child {
+          &:hover {
+            transform: scale(1.08, 1.2);
+          }
+        }
+      }
+    }
+
+    &:hover {
+      .swiper {
+        &-button {
+          &-next,
+          &-prev {
+            display: flex;
+            &[disabled='true'] {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+    img.ng-lazyloaded {
+      animation: fadein 0.5s;
+    }
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .hidden-slider {
+      .card-content {
+        background: linear-gradient(
+          to top,
+          rgb(0, 0, 0) 0,
+          rgba(0, 0, 0, 0.5) 100%
+        ) !important;
+      }
+    }
+    .nb-card-body {
+      padding-right: 0 !important;
+    }
+  }
+}

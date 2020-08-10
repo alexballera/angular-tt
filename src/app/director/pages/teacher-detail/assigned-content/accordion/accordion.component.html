@@ -1,0 +1,49 @@
+<div *ngFor="let item of data" class="nb-accordion">
+  <p class="nb-accordion-title">
+    {{ item.title }}
+  </p>
+  <nb-accordion>
+    <nb-accordion-item>
+      <nb-accordion-item-header
+        class="text-hint"
+        [ngClass]="{
+          hideIcon: item.attachments && item.attachments.length === 0
+        }"
+      >
+        <em
+          >({{ item.startDate | date: 'dd/MM/yyyy' }} -
+          {{ item.endDate | date: 'dd/MM/yyyy' }})</em
+        >
+        <div
+          *ngIf="item.attachments && item.attachments.length > 0"
+          class="quantity text-hint"
+        >
+          <nb-icon *ngIf="item.attachments" icon="attach-2-outline"></nb-icon>
+          <em
+            ><span>({{ item.attachments.length }})</span></em
+          >
+        </div>
+      </nb-accordion-item-header>
+
+      <nb-accordion-item-body
+        *ngIf="item.attachments && item.attachments.length > 0"
+      >
+        <div class="quantity">
+          <nb-icon *ngIf="item.attachments" icon="attach-2-outline"></nb-icon>
+          <em
+            ><span>({{ item.attachments.length }})</span> Material adjunto</em
+          >
+        </div>
+        <nb-user
+          *ngFor="let attachment of item.attachments"
+          size="small"
+          class="cursor-pointer"
+          name="{{ attachment.title }}"
+          picture="{{ attachment.cover_url }}"
+          (click)="selectAttachments(attachment.url)"
+        >
+        </nb-user>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+  </nb-accordion>
+</div>

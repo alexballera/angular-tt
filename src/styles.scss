@@ -1,0 +1,45 @@
+@charset "UTF-8";
+@import 'themes';
+
+@import '~@nebular/theme/styles/globals';
+
+@include nb-install() {
+  @include nb-theme-global();
+}
+
+// VENDORS
+@import '~flexboxgrid/dist/flexboxgrid';
+@import '~animate.css/animate.min.css';
+
+// BASE
+@import 'scss/base/base';
+@import 'scss/flex/flex';
+@import 'scss/director';
+
+// CUSTOM NEBULAR
+@import 'scss/nb-menu';
+@import 'scss/nb-select';
+@import 'scss/nb-dialog';
+
+// COMPONENTS
+@import 'scss/ticmas-dialog';
+@import 'scss/ticmas-header';
+@import 'scss/ticmas-calendar';
+@import 'scss/ticmas-chart';
+@import 'scss/ticmas-content-detail';
+@import 'scss/ticmas-content-preview';
+@import 'scss/ticmas-chat';
+@import 'scss/ticmas-director-page';
+@import 'scss/ticmas-sidebar';
+@import 'scss/swiper';
+@import 'scss/sidebar';
+@import 'scss/p-autocomplete';
+@import 'scss/ticmas-my-classroms';
+@import 'scss/onboarding';
+
+//SHARED COMPONENTS
+@import 'scss/shared/ticmas-file-viewer';
+
+.iv-fullscreen {
+  z-index: 1040 !important;
+}

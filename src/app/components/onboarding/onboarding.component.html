@@ -1,0 +1,42 @@
+<div class="onboarding flex">
+  <nb-card class="marginless">
+    <nb-card-header>
+      <div
+        class="icon-container flex align-items-center justify-content-center"
+      >
+        <nb-icon icon="{{ icon }}"></nb-icon>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="onboarding-container text-align-center">
+        <p class="onboarding-message">
+          {{ message }}
+        </p>
+        <button
+          nbButton
+          class="onboarding-button"
+          size="small"
+          (click)="closeOnboarding('close')"
+        >
+          Entendido
+        </button>
+
+        <p *ngIf="notShowAgain">
+          <a
+            class="onboarding-link cursor-pointer"
+            (click)="closeOnboarding('notShowAgain')"
+            >No volver a mostrar</a
+          >
+        </p>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+  <nb-icon
+    status="basic"
+    icon="close-outline"
+    class="cursor-pointer onboarding-close"
+    [options]="{ animation: { type: 'pulse' } }"
+    (click)="closeOnboarding('close')"
+  ></nb-icon>
+</div>

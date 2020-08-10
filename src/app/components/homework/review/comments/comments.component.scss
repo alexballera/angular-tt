@@ -1,0 +1,90 @@
+.comments {
+  nb-card {
+    height: calc(100vh - 170px);
+    margin-bottom: 0;
+    &-header {
+      max-height: 65px;
+
+      .title {
+        color: #707070;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 32px;
+      }
+    }
+    nb-card-body {
+      padding: 0px;
+
+      button {
+        margin-top: 10px;
+      }
+      p {
+        color: gray;
+        margin: 4px 0px;
+      }
+      .comments {
+        margin: 0;
+        padding: 0;
+        top: 60px;
+        height: 100%;
+        width: 100%;
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+          width: var(--card-scrollbar-width);
+          height: var(--card-scrollbar-width);
+        }
+        &::-webkit-scrollbar-thumb {
+          background: var(--card-scrollbar-color);
+          cursor: pointer;
+          border-radius: var(--card-scrollbar-width) / 2;
+        }
+        &::-webkit-scrollbar-track {
+          background: var(--card-scrollbar-background-color);
+        }
+      }
+      .comment-box {
+        padding: 6px 27px;
+        &.student {
+          background-color: #f5f9ff;
+        }
+        &.teacher {
+          background-color: #ece7ff;
+        }
+        &:not(:last-child) {
+          margin-bottom: 18px;
+        }
+        .name {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .date {
+          font-size: 11px;
+          padding-top: 2px;
+          white-space: nowrap;
+        }
+        .comment {
+          font-size: 12px;
+        }
+      }
+    }
+    nb-card-footer {
+      border-top: none;
+      textarea {
+        resize: none;
+        height: 100px;
+      }
+      div {
+        margin-top: 10px;
+      }
+
+      nb-select {
+        margin: 10px 0px;
+      }
+    }
+  }
+}
+
+.score-select {
+  margin-top: 20px;
+}

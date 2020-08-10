@@ -1,0 +1,13 @@
+<p class="marginless">
+  <nb-icon icon="calendar-outline"></nb-icon> {{ componentLabel }}
+</p>
+<input
+  nbInput
+  [nbDatepicker]="ngmodel"
+  [(ngModel)]="ngModelDate"
+  status="basic"
+  fieldSize="small"
+  readonly
+/>
+<nb-datepicker #ngmodel (dateChange)="handleDateChange($event)">
+</nb-datepicker>

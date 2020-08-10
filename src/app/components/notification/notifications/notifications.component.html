@@ -1,0 +1,29 @@
+<div class="is-flex has-column-direction">
+  <h2 class="is-size-6">Notificaciones</h2>
+  <div class="notification-list flex-1">
+    <div
+      *ngFor="let notification of notifications$ | async"
+      class="card"
+      [ngClass]="{
+        'has-text-info': notification.type === 'info',
+        'has-text-success': notification.type === 'success',
+        'has-text-warning': notification.type === 'warning',
+        'has-text-danger': notification.type === 'error',
+        'has-text-white': ['info', 'success', 'error'].includes(
+          notification.type
+        )
+      }"
+    >
+      <header class="card-header">
+        <div class="has-text-right">
+          <span class="has-text-grey-light is-size-7">
+            {{ notification.formattedDate }}
+          </span>
+        </div>
+      </header>
+      <div class="card-content">
+        <p class="has-text-white">{{ notification.text }}</p>
+      </div>
+    </div>
+  </div>
+</div>

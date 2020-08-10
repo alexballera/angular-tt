@@ -1,0 +1,279 @@
+<nb-card class="content-preview">
+  <nb-card-header>
+    <div class="navigation row between-sm middle-sm">
+      <div class="col-xs-12 col-sm-6  col-resource-data">
+        <button
+          nbButton
+          ghost
+          status="Volver"
+          class="btn-back"
+          (click)="goBack()"
+        >
+          <nb-icon icon="arrow-back-outline"></nb-icon> Volver
+        </button>
+        <div class="title">{{ resourceProcessed.title }}</div>
+      </div>
+      <div class="col-xs-12 col-sm-3 dropdown is-active">
+        <div class="row">
+          <button
+            nbButton
+            status="basic"
+            class="plain navigation-button navigation-button-next animated fadeIn"
+            [ngClass]="{ 'visibility-hidden': indexAssets === 1 }"
+            size="small"
+            [disabled]="indexAssets === 1"
+            title="Atrás"
+            (click)="
+              paginator(resourceProcessed.assets.length, 'prev');
+              assetsPreview = resourceProcessed.assets[positionAsset].url;
+              indexAssets = positionAsset + 1;
+              contentPreviewButtonText =
+                resourceProcessed.assets[positionAsset].title
+            "
+          >
+            <nb-icon
+              icon="arrow-left"
+              [options]="{ animation: { type: 'pulse' } }"
+            ></nb-icon>
+          </button>
+
+          <div
+            class="dropdown-trigger cpreview-onboarding-ref-element"
+            #popover
+            [nbPopover]="template"
+            nbPopoverTrigger="noop"
+            nbPopoverPlacement="bottom"
+          >
+            <button
+              class="button plain button-center"
+              nbButton
+              fullWidth
+              outline
+              status="basic"
+              size="small"
+              aria-haspopup="true"
+              aria-controls="dropdown-menu"
+              (click)="toggleDropdown()"
+            >
+              <div class="titleCenter">
+                {{ contentPreviewButtonText }}
+                <nb-icon
+                  icon="arrow-down"
+                  [options]="{ animation: { type: 'pulse' } }"
+                  [ngClass]="{ open: isOpenDropdown }"
+                  class="animated fadeIn"
+                ></nb-icon>
+              </div>
+            </button>
+          </div>
+
+          <button
+            nbButton
+            status="basic"
+            class="plain navigation-button navigation-button-next animated fadeIn"
+            [ngClass]="{
+              'visibility-hidden':
+                indexAssets === resourceProcessed.assets.length
+            }"
+            size="small"
+            [disabled]="indexAssets === resourceProcessed.assets.length"
+            title="Adelante"
+            (click)="
+              paginator(resourceProcessed.assets.length, 'next');
+              assetsPreview = resourceProcessed.assets[positionAsset].url;
+              indexAssets = positionAsset + 1;
+              contentPreviewButtonText =
+                resourceProcessed.assets[positionAsset].title
+            "
+          >
+            <nb-icon
+              icon="arrow-right"
+              [options]="{ animation: { type: 'pulse' } }"
+            ></nb-icon>
+          </button>
+        </div>
+        <nb-card
+          class="dropdown-menu"
+          id="dropdown-menu"
+          role="menu"
+          *ngIf="isOpenDropdown"
+        >
+          <nb-list>
+            <nb-list-item
+              *ngFor="let asset of resourceProcessed.assets; let i = index"
+              class="dropdown-item cursor-pointer"
+              (click)="
+                toggleDropdown();
+                indexAssets = i + 1;
+                positionAsset = i;
+                beforeP = i;
+                afterP = i;
+                assetsPreview = asset.url;
+                contentPreviewButtonText = asset.title
+              "
+            >
+              {{ asset.title }}
+            </nb-list-item>
+          </nb-list>
+        </nb-card>
+      </div>
+      <div class="col-xs-12 col-sm-3">
+        <div class="row">
+          <div class="col-xs-7">
+            <button
+              nbButton
+              class="content-allocation-button"
+              (click)="showPublicatorSidebar(resourceProcessed)"
+              size="small"
+              fullWidth
+              status="info"
+            >
+              Asignar contenido
+            </button>
+          </div>
+          <div class="col-xs-5 options">
+            <div
+              class="row center-xs"
+              [ngClass]="{ 'end-sm middle-sm': resource.guideUrl }"
+            >
+              <div class="col-xs-4" *ngIf="resource.guideUrl">
+                <button
+                  nbButton
+                  ghost
+                  class="plain"
+                  status="basic"
+                  nbTooltip="Ver guía docente"
+                  (click)="viewContentGuide(resource.guideUrl)"
+                >
+                  <nb-icon
+                    icon="map-outline"
+                    [options]="{ animation: { type: 'pulse' } }"
+                  ></nb-icon>
+                </button>
+              </div>
+
+              <div class="col-xs-4" *ngIf="resource.guideUrl">
+                <button
+                  nbButton
+                  ghost
+                  class="plain"
+                  status="basic"
+                  nbTooltip="Descargar guía docente"
+                  (click)="openGuide(resource.guideUrl)"
+                >
+                  <nb-icon
+                    icon="download-outline"
+                    [options]="{ animation: { type: 'pulse' } }"
+                  ></nb-icon>
+                </button>
+              </div>
+
+              <div class="col-xs-4" (click)="versionView()">
+                <button
+                  nbButton
+                  ghost
+                  status="basic"
+                  nbTooltip="Ver mobile"
+                  *ngIf="versionDesk"
+                  class="#"
+                >
+                  <nb-icon
+                    icon="smartphone-outline"
+                    [options]="{ animation: { type: 'pulse' } }"
+                  ></nb-icon>
+                </button>
+                <button
+                  nbButton
+                  ghost
+                  status="basic"
+                  nbTooltip="Ver desktop"
+                  *ngIf="!versionDesk"
+                  class="#"
+                >
+                  <nb-icon
+                    icon="monitor-outline"
+                    [options]="{ animation: { type: 'pulse' } }"
+                  ></nb-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="guide-embed" [ngClass]="{ active: viewGuide }">
+      <div *ngIf="resource.guideUrl" class="content-iframe">
+        <embed
+          class="embed-size"
+          [src]="pdfGuide | safe"
+          type="application/pdf"
+        />
+      </div>
+    </div>
+
+    <div *ngIf="!viewGuide">
+      <div *ngIf="resourceProcessed.assets.length > 1">
+        <div
+          [ngClass]="{ 'mobile-iframe': !versionDesk }"
+          class="content-iframe"
+        >
+          <iframe
+            frameborder="0"
+            [ngClass]="{
+              'content-mobile-iframe': !versionDesk,
+              'video-container': resourceProcessed.type === 'video'
+            }"
+            *ngIf="resourceProcessed.type !== 'planning'"
+            [src]="assetsPreview | safe"
+            allow="microphone"
+            allowfullscreen
+          >
+          </iframe>
+          <p class="text-ind" *ngIf="!versionDesk">
+            Así verán tus estudiantes
+            <br />
+            el contenido en sus dispositivos
+          </p>
+        </div>
+      </div>
+      <div
+        *ngIf="resourceProcessed.assets.length === 1"
+        [ngClass]="{ 'guide-active': !viewGuide }"
+      >
+        <div
+          [ngClass]="{ 'mobile-iframe': !versionDesk }"
+          class="content-iframe"
+        >
+          <iframe
+            frameborder="0"
+            [ngClass]="{
+              'content-mobile-iframe': !versionDesk,
+              'video-container': resourceProcessed.type === 'video'
+            }"
+            *ngIf="resourceProcessed.type !== 'planning'"
+            [src]="resourceProcessed.assets[0].url | safe"
+            allow="microphone"
+            allowfullscreen
+          >
+          </iframe>
+          <p class="text-ind" *ngIf="!versionDesk">
+            Así verán tus estudiantes
+            <br />
+            el contenido en sus dispositivos
+          </p>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<ng-template #template>
+  <app-onboarding
+    icon="list-outline"
+    message="Aquí podrás navegar entre las distintas secciones de las secuencias didácticas, desplegalo o usá las flechas laterales."
+    (close)="closeOnboarding($event)"
+    notShowAgain="true"
+  ></app-onboarding>
+</ng-template>

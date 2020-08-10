@@ -1,0 +1,13 @@
+<ticmas-layout
+  [logo]="logoUrl"
+  defaultAvatar="/defaultAvatar.svg"
+  [sidenavItems]="sidenavItems$ | async"
+>
+  <search-bar layoutHeader></search-bar>
+  <div layoutHeader right class="flex">
+    <app-impersonation-selector></app-impersonation-selector>
+    <app-training-button *ngIf="hasTraining$ | async"></app-training-button>
+    <app-selector></app-selector>
+  </div>
+  <router-outlet layoutMain></router-outlet>
+</ticmas-layout>

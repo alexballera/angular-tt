@@ -1,0 +1,14 @@
+@import '~@nebular/theme/styles/theming';
+@import '~@nebular/theme/styles/themes/default';
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
+
+$nb-enable-css-custom-properties: true;
+
+@import 'nb-themes/default';
+@import 'nb-themes/hb';
+@import 'nb-themes/director';
+@import 'nb-themes/programming';
+@import 'nb-themes/abp';
+@import 'nb-themes/seguimoseducando';
+@import 'nb-themes/parents';

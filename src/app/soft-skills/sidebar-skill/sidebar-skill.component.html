@@ -1,0 +1,81 @@
+<div class="sidebar-skill" *ngIf="selectedSkill$ | async as selectedSkill">
+  <h6 class="h6">{{ selectedSkill.title }}</h6>
+  <p class="paragraph">{{ selectedSkill.abstract }}</p>
+
+  <button
+    *ngIf="selectedSkill.publishedAt"
+    class="btn first"
+    size="small"
+    nbButton
+    shape="round"
+    (click)="goToSkill('teacher')"
+    #popover
+    [nbPopover]="onboarding1"
+    nbPopoverTrigger="noop"
+    nbPopoverPlacement="right"
+  >
+    Material Docente
+  </button>
+  <button
+    *ngIf="selectedSkill.publishedAt"
+    class="btn ml-10"
+    shape="round"
+    size="small"
+    nbButton
+    (click)="goToSkill('student')"
+    #popover2
+    [nbPopover]="onboarding2"
+    nbPopoverTrigger="noop"
+    nbPopoverPlacement="right"
+  >
+    Material Estudiante
+  </button>
+
+  <button
+    nbButton
+    ghost
+    status="basic"
+    size="large"
+    class="close plain"
+    (click)="close()"
+  >
+    <nb-icon
+      icon="close-outline"
+      [options]="{ animation: { type: 'pulse' } }"
+    ></nb-icon>
+  </button>
+</div>
+
+<ng-template #onboarding1>
+  <div class="onbording-container">
+    <p>
+      Aquí encontrarás algunas orientaciones<br />
+      para promover el desarrollo de habilidades en tus estudiantes.
+    </p>
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <button nbButton size="small" (click)="nextOnboarding()">
+          Entendido
+        </button>
+        <br /><br />
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #onboarding2>
+  <div class="onbording-container">
+    <p>
+      Aquí encontrarás secuencias didácticas sobre las habilidades <br />
+      que, a su vez, podrás asignar a tus estudiantes.
+    </p>
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <button nbButton size="small" (click)="closeOnboarding()">
+          Entendido
+        </button>
+        <br /><br />
+      </div>
+    </div>
+  </div>
+</ng-template>

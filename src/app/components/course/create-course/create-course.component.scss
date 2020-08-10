@@ -1,0 +1,124 @@
+@import '../../../../scss/base/mixins';
+:host ::ng-deep {
+  nb-select[size='medium'] .select-button,
+  input[fieldSize='medium'] {
+    background-color: transparent;
+  }
+}
+form {
+  nb-card-header {
+    padding: 0px;
+  }
+  nb-card-body {
+    padding: 0;
+    .field {
+      margin-top: 16px;
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+      }
+      input {
+        @include not-last-child {
+          margin-bottom: 24px;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      nb-icon {
+        font-size: 12px;
+        margin-left: 0;
+        margin-right: 4px;
+
+        &[icon='edit-outline'] {
+          font-size: 16px;
+        }
+      }
+
+      .day-title {
+        margin: 0;
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  nb-card-footer {
+    padding-bottom: 0;
+  }
+}
+
+.schedules {
+  .in-active {
+    display: none;
+  }
+
+  .active {
+    display: block;
+  }
+}
+.show-schedules {
+  @include respond-to(md) {
+    margin-left: 32px;
+  }
+
+  &-content {
+    background-color: var(--input-basic-background-color);
+    border-radius: var(--border-radius);
+    height: 180px;
+    overflow: auto;
+  }
+
+  .item {
+    border-bottom: var(--divider-width) var(--divider-style)
+      var(--divider-color);
+
+    .button-container {
+      text-align: center;
+    }
+  }
+
+  &-text {
+    margin: 0;
+    padding: 8px;
+  }
+}
+
+.day-container {
+  margin-bottom: 15px;
+  button {
+    border: none;
+    font-size: 20px;
+    height: 40px;
+    width: 40px;
+    @include not-last-child {
+      margin-right: 10px;
+    }
+  }
+}
+
+.message-error {
+  font-size: 14px;
+}
+
+.color-selector {
+  ul {
+    padding: 0px;
+    li {
+      display: inline-block;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      margin: 5px 10px 0px 0px;
+      border: 2px solid transparent;
+      &:hover {
+        border: 2px solid #b5d7fd;
+      }
+      &.active {
+        border: 2px solid #b5d7fd;
+      }
+    }
+  }
+}

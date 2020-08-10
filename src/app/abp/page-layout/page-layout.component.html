@@ -1,0 +1,23 @@
+<ticmas-layout [logo]="logoUrl" defaultAvatar="/defaultAvatar.svg">
+  <div layoutHeader class="row">
+    <div class="col-xs projectia-logo-container">
+      <img src="/img/logo-projectia.svg" alt="By Projectia" />
+    </div>
+    <button class="col-xs plain" (click)="service.toggleSidebar()">
+      <nb-icon icon="menu-2-outline" status="control"></nb-icon>
+    </button>
+    <form class="col-xs search-form" (ngSubmit)="service.search(q); q = ''">
+      <input nbInput name="q" [(ngModel)]="q" placeholder="Buscar proyectos" />
+      <button nbButton size="medium" status="control">
+        <nb-icon icon="search-outline"></nb-icon>
+      </button>
+    </form>
+  </div>
+  <div layoutHeader right class="flex">
+    <app-impersonation-selector></app-impersonation-selector>
+    <app-training-button *ngIf="hasTraining$ | async"></app-training-button>
+    <app-selector></app-selector>
+  </div>
+
+  <router-outlet layoutMain></router-outlet>
+</ticmas-layout>

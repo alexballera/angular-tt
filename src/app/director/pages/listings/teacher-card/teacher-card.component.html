@@ -1,0 +1,24 @@
+<div class="card">
+  <div
+    (click)="goDetail(sub)"
+    class="card-img"
+    [ngStyle]="{ 'background-image': ' url(' + avatar + ')' }"
+  >
+    <div *ngIf="!avatar" class="initials" [ngClass]="colors[index % 4]">
+      {{ acronym }}
+    </div>
+  </div>
+  <div (click)="goDetail(sub)" class="card-body">
+    <h3>{{ name }} {{ familyName }}</h3>
+    <div class="metadata">
+      <div class="clases">
+        <p>Clases</p>
+        <h2>{{ countCourses }}</h2>
+      </div>
+      <div class="clases">
+        <p>Estudiantes</p>
+        <h2>{{ countStudent }}</h2>
+      </div>
+    </div>
+  </div>
+</div>

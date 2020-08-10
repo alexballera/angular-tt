@@ -1,0 +1,84 @@
+<div class="logo-container">
+  <img [src]="logo" class="logo" />
+</div>
+
+<div class="container-inner">
+  <div class="left">
+    <ng-content select="[slot=left]" class="modulo-selector"></ng-content>
+  </div>
+
+  <div class="right">
+    <ng-content select="[slot=right]"></ng-content>
+
+    <!-- TODO: descomentar cuando hayan notificaciones -->
+    <!-- <ng-container>
+      <ticmas-notification-launcher
+        [notificationsPending]="pendings"
+        [nbPopover]="notifications"
+        class="icon-container layout-icons"
+      ></ticmas-notification-launcher>
+
+      <ng-template #notifications>
+        <nb-card class="notifications">
+          <nb-card-header>Notificaciones</nb-card-header>
+          <nb-list>
+            <nb-list-item>Notificacion 1</nb-list-item>
+            <nb-list-item>Notificacion 2</nb-list-item>
+            <nb-list-item>Notificacion 3</nb-list-item>
+            <nb-list-item>Notificacion 4</nb-list-item>
+          </nb-list>
+        </nb-card>
+      </ng-template>
+    </ng-container> -->
+
+    <div nbTooltip="Ayuda" nbTooltipPlacement="bottom">
+      <div
+        [nbPopover]="template"
+        #onboarding
+        nbPopoverTrigger="noop"
+        nbPopoverPlacement="right"
+      >
+        <nb-icon
+          icon="question-mark-circle-outline"
+          class="icon-container layout-icons"
+          [options]="{ animation: { type: 'pulse' } }"
+          [nbPopover]="helpItems"
+          (click)="closeOnboarding($event)"
+        ></nb-icon>
+      </div>
+    </div>
+
+    <div
+      class="icon-container"
+      nbTooltip="Mi perfil"
+      nbTooltipPlacement="bottom"
+    >
+      <nb-user
+        *ngIf="auth.userInfo$ | async as userInfo"
+        size="medium"
+        [picture]="(auth.userInfo$ | async).picture || defaultAvatar"
+        onlyPicture
+        class="layout-icons"
+        [nbPopover]="userprofile"
+      >
+      </nb-user>
+    </div>
+  </div>
+</div>
+
+<ng-template #userprofile>
+  <ticmas-profile [defaultAvatar]="defaultAvatar"></ticmas-profile>
+</ng-template>
+
+<ng-template #helpItems>
+  <nb-menu class="navbar-item-help" [items]="items"> </nb-menu>
+</ng-template>
+
+<ng-template #template>
+  <app-onboarding
+    icon="question-mark-circle-outline"
+    message="Si necesitás ayuda podés consultar nuestros instructivos en video y pdf aquí."
+    [notShowAgain]="true"
+    (close)="closeOnboarding($event)"
+  ></app-onboarding>
+</ng-template>

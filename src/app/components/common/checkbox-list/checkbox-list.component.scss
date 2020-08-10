@@ -1,0 +1,17 @@
+:host ::ng-deep {
+  nb-checkbox {
+    display: block;
+
+    .text {
+      font-weight: normal;
+    }
+  }
+}
+
+.padding-left {
+  padding-left: 1.8rem;
+}
+
+.error-message {
+  height: 20px;
+}

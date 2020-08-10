@@ -1,0 +1,43 @@
+:host {
+  flex: 1;
+  margin-left: 2px;
+}
+
+nb-card {
+  height: 100%;
+  box-shadow: 6px 0.5rem 1rem 0 rgba(44, 51, 73, 0.1);
+
+  .whitout-users {
+    height: 45px;
+  }
+
+  &-header {
+    padding-left: 22px;
+    .students-container {
+      min-height: 21px;
+      span {
+        color: var(--color-basic-500);
+        font-size: smaller;
+        &:not(:last-child) {
+          &::after {
+            content: ', ';
+          }
+        }
+      }
+    }
+  }
+}
+
+//Overrides para las clases de Nebular
+
+.title {
+  margin-top: 30px;
+}
+
+.message {
+  background: none !important;
+}
+
+.chat {
+  box-shadow: none !important;
+}

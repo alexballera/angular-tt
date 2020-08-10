@@ -1,0 +1,83 @@
+@import '../../../../scss/base/colors';
+@import '../../../../themes.scss';
+
+:host::ng-deep {
+  .class-selector-container nb-select .select-button {
+    color: var(--text-basic-color) !important;
+  }
+}
+
+.teacher-detail {
+  overflow: hidden;
+  &-avatar {
+    padding: 16px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-header {
+    .teacher-calendar {
+      button {
+        font-size: 14px;
+        font-weight: 300;
+        &.status-basic[disabled] {
+          background-color: transparent !important;
+        }
+        nb-icon {
+          font-size: 32px;
+          height: 32px;
+          margin-right: 4px;
+          width: 32px;
+        }
+      }
+    }
+  }
+
+  &-content {
+    .content-assigned {
+      padding-right: 10%;
+      &:first-child {
+        border-right: var(--card-divider-width) var(--card-divider-style)
+          var(--card-divider-color);
+      }
+    }
+  }
+}
+
+.card-img {
+  max-width: 100%;
+  background: white;
+  height: 200px;
+  border-radius: nb-theme(border-radius);
+  background-size: cover;
+  background-position: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .initials {
+    color: white;
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5625rem;
+    margin-bottom: 2rem;
+    font-weight: bold;
+    &.color-ticmas-1 {
+      background-color: nb-theme(color-ticmas-1);
+    }
+    &.color-ticmas-2 {
+      background-color: nb-theme(color-ticmas-2);
+    }
+    &.color-ticmas-3 {
+      background-color: nb-theme(color-ticmas-3);
+    }
+    &.color-ticmas-4 {
+      background-color: nb-theme(color-ticmas-4);
+    }
+  }
+}

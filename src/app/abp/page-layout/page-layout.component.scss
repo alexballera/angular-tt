@@ -1,0 +1,27 @@
+.projectia-logo-container {
+  height: calc(var(--header-height) - var(--header-padding));
+  padding: 6px;
+
+  img {
+    height: 100%;
+  }
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+
+  input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    vertical-align: bottom;
+  }
+}
+
+app-training-button {
+  margin-right: 40px;
+}

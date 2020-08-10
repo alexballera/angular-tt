@@ -1,0 +1,31 @@
+<nb-card>
+  <nb-card-header>
+    <nb-user
+      size="small"
+      [name]="(channel.parent ? channel.name : channel.groupName) || ''"
+      [color]="channel.color"
+      [ngClass]="{ 'whitout-users': '!channel.users' }"
+    >
+    </nb-user>
+    <p *ngIf="channel.users.length > 0" class="students-container marginless">
+      <span *ngFor="let student of channel.users">{{ student }}</span>
+    </p>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-chat>
+      <nb-chat-message
+        *ngFor="let msg of channel.history; trackBy: trackByFn"
+        [message]="msg.body"
+        [sender]="msg.from.split('@')[0]"
+        [reply]="username === msg.from.split('@')[0].trim()"
+        [date]="msg.timestamp"
+      >
+      </nb-chat-message>
+      <nb-chat-form
+        (send)="sendMessage($event)"
+        class="chat"
+        [showButton]="false"
+      ></nb-chat-form>
+    </nb-chat>
+  </nb-card-body>
+</nb-card>

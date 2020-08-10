@@ -1,0 +1,5 @@
+<app-safe-iframe
+  *ngIf="service.url$ | async as url"
+  [src]="url"
+  [messages]="service.messages$"
+></app-safe-iframe>

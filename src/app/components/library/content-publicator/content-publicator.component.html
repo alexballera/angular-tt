@@ -1,0 +1,185 @@
+<nb-card class="content-publicator padding-left sidebar animated fadeIn">
+  <nb-card-header class="no-border-bottom header">
+    <div class="row">
+      <button
+        nbButton
+        ghost
+        status="basic"
+        size="small"
+        class="plain"
+        (click)="closeSidebar()"
+      >
+        <nb-icon
+          icon="close-outline"
+          [options]="{ animation: { type: 'pulse' } }"
+        ></nb-icon>
+      </button>
+      <p
+        *ngIf="!isEditing"
+        class="col-xs-12 content-publicator-title paddingless marginless"
+      >
+        Asignar Contenido
+      </p>
+      <p
+        *ngIf="isEditing"
+        class="col-xs-12 content-publicator-title paddingless"
+      >
+        Editar Asignación
+      </p>
+      <div class="col-xs-12 paddingless">
+        <label class="text-basic content-label">{{
+          (contentsService.resource$ | async).title
+        }}</label>
+      </div>
+      <hr />
+    </div>
+  </nb-card-header>
+
+  <nb-card-body class="no-padding-top">
+    <div class="row">
+      <div class="col-xs-12 paddingless">
+        <p>
+          {{
+            isEditing
+              ? 'Bloques asignados'
+              : 'Elige los bloques que quieres asignar'
+          }}
+        </p>
+        <div>
+          <app-checkbox-list
+            [items]="items"
+            [errorMessage]="
+              noAssetsSelected
+                ? 'Debe seleccionar al menos un bloque para el contenido'
+                : null
+            "
+            (onItemSelected)="toggleSelected($event)"
+            [disabled]="isEditing"
+          ></app-checkbox-list>
+        </div>
+        <app-group-selector
+          [isError]="noClassSelected"
+          showGroups="true"
+          [isDisabled]="isEditing"
+          [groupPreselected]="groupPreselected"
+        ></app-group-selector>
+      </div>
+      <div class="col-xs-12 content-publicator-calendar paddingless">
+        <div class="content-publicator-calendar-title">
+          <nb-icon icon="calendar-outline"></nb-icon>
+          <p>
+            ¿Cuándo vas a trabajar con este contenido?*
+          </p>
+        </div>
+
+        <div
+          class="col-xs-12 content-publicator-calendar-container paddingless"
+        >
+          <div class="content-publicator-calendar-form-group">
+            <label for="">Desde</label>
+            <div class="flex">
+              <input
+                nbInput
+                placeholder="Desde"
+                [nbDatepicker]="startDateP"
+                [(ngModel)]="startDate"
+                (ngModelChange)="onSelectedDate()"
+                status="basic"
+                fieldSize="small"
+                readonly
+              />
+              <nb-icon icon="calendar-outline" status="primary"></nb-icon>
+            </div>
+            <nb-datepicker
+              #startDateP
+              (dateChange)="onStartDateChange($event)"
+            ></nb-datepicker>
+          </div>
+
+          <div class="content-publicator-calendar-form-group">
+            <label for="">Hasta</label>
+            <div class="flex">
+              <input
+                nbInput
+                placeholder="Hasta"
+                [nbDatepicker]="endDateP"
+                [(ngModel)]="endDate"
+                (ngModelChange)="onSelectedDate()"
+                status="basic"
+                fieldSize="small"
+                readonly
+              />
+              <nb-datepicker #endDateP [min]="startDate"></nb-datepicker>
+              <nb-icon icon="calendar-outline" status="primary"></nb-icon>
+            </div>
+          </div>
+        </div>
+        <div
+          *ngIf="dateIsOverlap"
+          class="col-xs-12 text-danger paddingless error-message"
+        >
+          Este contenido ya fue asignado en esta fecha, si quieres extenderlo
+          edítalo desde datos clase
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 attach-tags paddingless animated fadeIn">
+      <div class="row" *ngIf="distributionGroupService.attachContent$">
+        <div
+          class="tag"
+          *ngFor="let tag of distributionGroupService.attachContent$ | async"
+        >
+          <label>
+            <span>{{ tag.title }}</span>
+            <nb-icon
+              (click)="deleteUrl(tag.url)"
+              class="cursor-pointer"
+              icon="close-outline"
+              [options]="{ animation: { type: 'pulse' } }"
+            ></nb-icon>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 paddingless attach-file-button">
+      <button
+        nbButton
+        ghost
+        status="info"
+        class="plain"
+        (click)="attachContent(dialog)"
+      >
+        <nb-icon
+          icon="attach-2-outline"
+          [options]="{ animation: { type: 'pulse' } }"
+        ></nb-icon>
+        <span class="first-letter-uppercase"
+          >Adjuntar un archivo o
+          <span style="text-transform: uppercase;">URL</span>
+        </span>
+      </button>
+    </div>
+  </nb-card-body>
+
+  <nb-card-footer class="row between-xs middle-xs">
+    <p class="footer-notifications"><em>*campos obligatorios</em></p>
+    <div class="buttons">
+      <button nbButton ghost status="info" (click)="closeSidebar()">
+        Volver
+      </button>
+      <button
+        nbButton
+        status="info"
+        (click)="saveResourceSelected()"
+        [disabled]="assignContentLoading$ | async"
+        [nbSpinner]="assignContentLoading$ | async"
+      >
+        Confirmar
+      </button>
+    </div>
+  </nb-card-footer>
+</nb-card>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <app-attach-content (closeDialog)="ref.close()"></app-attach-content>
+</ng-template>

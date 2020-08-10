@@ -1,0 +1,32 @@
+<nb-card
+  [ngClass]="{
+    animated: true,
+    fadeIn: !resultsContent,
+    'fadeIn slow': resultsContent
+  }"
+>
+  <nb-card-body class="card cursor-pointer" (click)="openSelected(resource)">
+    <figure
+      class="card-image"
+      [ngClass]="{ 'card-image-results': resultsContent }"
+    >
+      <img
+        alt="Imagen de {{ resource.title }}"
+        [defaultImage]="defaultImage"
+        [lazyLoad]="resource.coverUrl ? resource.coverUrl : defaultImage"
+      />
+    </figure>
+    <div class="card-content">
+      <h3 class="card-content-title">
+        {{ resource.title | titlecase }}
+      </h3>
+      <nb-icon
+        icon="plus-outline"
+        nbTooltip="Asignar"
+        class="asign-button animated fadeIn"
+        (click)="asignSelected($event)"
+        [options]="{ animation: { type: 'zoom' } }"
+      ></nb-icon>
+    </div>
+  </nb-card-body>
+</nb-card>

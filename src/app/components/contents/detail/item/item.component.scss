@@ -1,0 +1,30 @@
+.fit {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  &.max {
+    max-width: 67%;
+  }
+  &.min {
+    max-width: 45%;
+  }
+}
+.check-icon {
+  width: 18px;
+  margin-right: 5px;
+}
+
+.icon {
+  height: 24px;
+  &.score {
+    width: 20px;
+    margin-left: -4px;
+    margin-right: 5px;
+  }
+  &.clock {
+    height: 22px;
+  }
+}
+
+.results {
+  margin-left: 5px;
+}

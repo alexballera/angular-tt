@@ -1,0 +1,47 @@
+@import '../flex/breakpoints';
+
+@mixin respond-to($media) {
+  @if $media == xs {
+    @media screen and (min-width: $screen-xs) {
+      @content;
+    }
+  } @else if $media == sm {
+    @media screen and (min-width: $screen-sm) {
+      @content;
+    }
+  } @else if $media == md {
+    @media screen and (min-width: $screen-md) {
+      @content;
+    }
+  } @else if $media == lg {
+    @media screen and (min-width: $screen-lg) {
+      @content;
+    }
+  } @else if $media == xl {
+    @media screen and (min-width: $screen-xl) {
+      @content;
+    }
+  } @else if $media == xxl {
+    @media screen and (min-width: $screen-xxl) {
+      @content;
+    }
+  } @else if $media == xxxl {
+    @media screen and (min-width: $screen-xxxl) {
+      @content;
+    }
+  }
+}
+
+@mixin not-last-child() {
+  &:not(:last-child) {
+    @content;
+  }
+}
+
+@mixin hover-focus-active {
+  &:focus,
+  &:active,
+  &:hover {
+    @content;
+  }
+}

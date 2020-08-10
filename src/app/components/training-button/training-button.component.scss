@@ -1,0 +1,23 @@
+$border-color: #dfe1e5;
+
+button {
+  width: 200px;
+  height: 32px;
+  border: solid 1px $border-color !important;
+  font-size: 16px !important;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.29px;
+  text-align: center;
+  color: #7158d8 !important;
+  background-color: white !important;
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  &:hover {
+    border-color: $border-color !important;
+  }
+}

@@ -1,0 +1,13 @@
+@import '../../../../themes.scss';
+
+.section {
+  text-align: center;
+  margin: 0 7rem;
+  h6 {
+    margin: 1rem;
+  }
+  .grey {
+    font-style: italic;
+    color: nb-theme(link-text-color);
+  }
+}

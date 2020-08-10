@@ -1,0 +1,12 @@
+<div [ngClass]="['card', type]">
+  <p>{{ title }}</p>
+  <div class="columns">
+    <div class="column"><nb-icon icon="clock-outline"></nb-icon></div>
+    <div class="column hr">
+      <h4>{{ hours }} <small>Hs</small></h4>
+    </div>
+    <div class="column min">
+      <h4>{{ minutes }} <small>min</small></h4>
+    </div>
+  </div>
+</div>

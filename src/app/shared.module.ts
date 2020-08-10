@@ -1,0 +1,76 @@
+import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
+import { NbEvaIconsModule } from '@nebular/eva-icons'
+
+import {
+  NbAccordionModule,
+  NbButtonModule,
+  NbCardModule,
+  NbCheckboxModule,
+  NbContextMenuModule,
+  NbIconModule,
+  NbInputModule,
+  NbLayoutModule,
+  NbListModule,
+  NbMenuModule,
+  NbPopoverModule,
+  NbProgressBarModule,
+  NbSelectModule,
+  NbSidebarModule,
+  NbSpinnerModule,
+  NbTabsetModule,
+  NbTooltipModule,
+  NbUserModule,
+} from '@nebular/theme'
+
+import { LevelPipe } from './components/common/pipes/level.pipe'
+
+@NgModule({
+  declarations: [LevelPipe],
+  imports: [
+    NbAccordionModule,
+    CommonModule,
+    NbButtonModule,
+    NbCardModule,
+    NbCheckboxModule,
+    NbEvaIconsModule,
+    NbInputModule,
+    NbIconModule,
+    NbLayoutModule,
+    NbListModule,
+    NbMenuModule,
+    NbPopoverModule,
+    NbProgressBarModule,
+    NbSelectModule,
+    NbTooltipModule,
+    NbSidebarModule,
+    NbTabsetModule,
+    NbUserModule,
+    NbContextMenuModule,
+    NbSpinnerModule,
+  ],
+  exports: [
+    NbAccordionModule,
+    NbButtonModule,
+    NbCardModule,
+    NbCheckboxModule,
+    NbEvaIconsModule,
+    NbInputModule,
+    NbIconModule,
+    NbLayoutModule,
+    NbListModule,
+    NbMenuModule,
+    NbPopoverModule,
+    NbProgressBarModule,
+    NbSelectModule,
+    NbTooltipModule,
+    NbSidebarModule,
+    NbTabsetModule,
+    NbUserModule,
+    NbContextMenuModule,
+    NbSpinnerModule,
+    LevelPipe,
+  ],
+  providers: [],
+})
+export class SharedModule {}

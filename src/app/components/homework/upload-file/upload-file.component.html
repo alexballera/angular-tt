@@ -1,0 +1,24 @@
+<div class="upload-file">
+  <label class="upload-file-label cursor-pointer">
+    <div class="row middle-xs marginless">
+      <div class="row middle-xs marginless attach-option-image">
+        <img *ngIf="src" src="{{ src }}" alt="" />
+        <img *ngIf="!src" src="{{ attachImg }}" alt="" />
+      </div>
+      <p class="text-info bold-text attach-title">{{ title }}</p>
+    </div>
+    <p
+      *ngIf="subtitle"
+      class="text-hint paddingless marginless error-message upload-subtitle"
+    >
+      {{ subtitle }}
+    </p>
+    <input
+      (change)="onChange($event.target.files)"
+      class="file-input is-hidden"
+      type="file"
+      [accept]="allowedMimes.join(', ')"
+      (click)="clearValue($event)"
+    />
+  </label>
+</div>

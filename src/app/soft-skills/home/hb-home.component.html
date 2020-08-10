@@ -1,0 +1,56 @@
+<div
+  class="home-onboarding-ref-element"
+  #popover
+  [nbPopover]="template"
+  nbPopoverTrigger="noop"
+  nbPopoverPlacement="right"
+></div>
+
+<ng-template #template>
+  <div class="onbording-container">
+    <p>
+      Para aprovechar al máximo las funcionalidades de este módulo <br />
+      te sugerimos que inicies el recorrido leyendo el manual de uso.
+    </p>
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <button nbButton size="small" (click)="closeOnboarding()">
+          Entendido
+        </button>
+        <br /><br />
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div *ngIf="selectedSkill$ | async as selectedSkill" class="row hsxxi bg-hsxxi">
+  <div class="col-xs-12">
+    <div class="row center-xs">
+      <div
+        *ngFor="let skill of skills$ | async; index as i"
+        class="col-xs-6 col-md-4 col-lg-3"
+      >
+        <div class="row center-xs">
+          <div
+            class="box col-xs"
+            [ngClass]="{ selected: skill._id === selectedSkill._id }"
+            [style.padding.rem]="boxMarginRem"
+          >
+            <button
+              class="plain"
+              (click)="selectSkill(skill)"
+              [ngClass]="{ disabled: !skill.publishedAt }"
+            >
+              <div>
+                <img class="img" [src]="skill.coverUrl" [alt]="skill.title" />
+              </div>
+              <p class="title paragraph-2">
+                <strong>{{ skill.title }}</strong>
+              </p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

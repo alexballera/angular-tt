@@ -1,0 +1,58 @@
+<div class="profile-avatar">
+  <div
+    class="img"
+    [ngStyle]="{ 'background-image': ' url(' + (displayAvatar$ | async) + ')' }"
+  ></div>
+
+  <input
+    #file
+    (change)="avatarChange($event)"
+    type="file"
+    accept="image/png, image/jpeg"
+  />
+  <button nbButton shape="round" status="primary" (click)="file.click()">
+    <nb-icon icon="camera-outline"></nb-icon>
+  </button>
+</div>
+
+<p *ngIf="auth.userInfo$ | async as userInfo">
+  {{ userInfo.given_name }}
+  {{ userInfo.family_name }}
+</p>
+<label>
+  <nb-alert status="danger" *ngIf="errorMsg">{{ errorMsg }}</nb-alert>
+</label>
+
+<progress *ngIf="isUploading" class="progress is-success">
+  Subiendo
+</progress>
+
+<button nbButton ghost (click)="showPasswordForm()" status="basic">
+  <nb-icon icon="lock-outline"></nb-icon> Modificar contraseña
+</button>
+
+<button nbButton ghost (click)="showEmailForm()" status="basic">
+  <nb-icon icon="email-outline"></nb-icon> Modificar email
+</button>
+
+<button nbButton ghost (click)="faq()" status="basic">
+  <nb-icon icon="question-mark-outline"></nb-icon> Preguntas Frecuentes
+</button>
+
+<button
+  *ngIf="environment.environment === 'seguimoseducando'"
+  nbButton
+  ghost
+  (click)="openInstructions()"
+  status="basic"
+>
+  <nb-icon icon="question-mark-circle-outline"></nb-icon> Centro de Ayuda
+</button>
+
+<button nbButton ghost (click)="logOut()" status="basic">
+  <nb-icon icon="close-circle-outline"></nb-icon> Cerrar sesión
+</button>
+
+<change-password-form
+  *ngIf="service.formVisible$ | async"
+></change-password-form>

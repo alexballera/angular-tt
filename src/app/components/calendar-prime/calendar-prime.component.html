@@ -1,0 +1,5 @@
+<p-fullCalendar
+  [events]="planificationService.schedules$ | async"
+  [options]="options"
+  #fc
+></p-fullCalendar>

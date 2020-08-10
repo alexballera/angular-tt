@@ -1,0 +1,168 @@
+@import '../../../../../scss/base/mixins';
+:host::ng-deep {
+  .assignment {
+    nb-card {
+      @include respond-to(sm) {
+        margin-bottom: 0;
+      }
+      height: calc(100vh - 170px);
+    }
+
+    nb-card-header,
+    nb-card-body {
+      min-height: 65px;
+
+      .minilabel {
+        color: #585858;
+        font-size: 11px;
+        font-weight: normal;
+        nb-icon {
+          width: 1rem;
+          height: 1.5rem;
+        }
+        button {
+          &[disabled] {
+            background-color: transparent;
+          }
+        }
+      }
+
+      .buttons {
+        .container-inner {
+          @include respond-to(md) {
+            flex-basis: 30% !important;
+            max-width: 30% !important;
+          }
+        }
+        button {
+          text-transform: initial;
+
+          &[status='primary'] {
+            border-color: #2aadb6;
+            color: #2aadb6;
+          }
+
+          nb-icon {
+            &[icon='checkmark-outline'] {
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+    }
+
+    &-content {
+      &-title {
+        color: #000000;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      &-link {
+        font-size: 13px;
+        font-weight: bold;
+        color: #3483fa;
+        text-decoration: underline;
+      }
+
+      &-body {
+        height: 100%;
+        swiper {
+          .swiper-button {
+            &-prev,
+            &-next {
+              align-items: start;
+              animation: fadein 0.75s;
+              background-size: 40px;
+              display: none;
+              height: 180px;
+              margin: 0;
+              position: fixed;
+              width: 90px;
+              &[disabled='true'] {
+                display: none;
+              }
+            }
+
+            @keyframes fadein {
+              from {
+                opacity: 0;
+              }
+              to {
+                opacity: 1;
+              }
+            }
+
+            &-prev {
+              background-image: url('/img/chevron-grey-left.svg');
+              background-position-x: left;
+              left: 8.5%;
+            }
+
+            &-next {
+              background-image: url('/img/chevron-grey-right.svg');
+              background-position-x: right;
+              right: 28%;
+            }
+          }
+
+          &:hover {
+            .swiper {
+              &-button {
+                &-next,
+                &-prev {
+                  display: flex;
+                  &[disabled='true'] {
+                    display: none;
+                  }
+                }
+              }
+            }
+          }
+
+          .action-buttons {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+
+            button {
+              &:hover {
+                background-color: transparent;
+              }
+            }
+
+            nb-icon {
+              color: #3a3a3a;
+              height: 24px;
+              width: 24px;
+            }
+          }
+
+          img {
+            width: 100%;
+          }
+          .ngxImageZoomLensEnabled {
+            border: 2px solid white;
+          }
+        }
+      }
+      $font-size: var(--text-paragraph-font-size);
+      $line-height: var(--text-paragraph-line-height);
+      $lines: 3;
+
+      &-description {
+        .short-description {
+          display: inline-block;
+          display: -webkit-box;
+          height: calc(#{$font-size} * #{$line-height} * #{$lines});
+          font-size: $font-size;
+          line-height: $line-height;
+          -webkit-line-clamp: $lines;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+}

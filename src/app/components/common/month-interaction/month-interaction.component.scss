@@ -1,0 +1,52 @@
+.card {
+  padding: 0.5rem 0.7rem;
+  color: white;
+  border-radius: 5px;
+  width: 170px;
+
+  &.teacher {
+    background-color: var(--color-primary-500);
+  }
+  &.student {
+    background-color: var(--color-info-500);
+  }
+  &.default {
+    background-color: var(--color-basic-500);
+  }
+  nb-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  p {
+    font-size: 0.8rem;
+    color: white;
+    margin: 0;
+  }
+  .columns {
+    flex-direction: row;
+    display: flex;
+    width: 100%;
+    .column {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      &.hr {
+        border-right: solid 1px #fff;
+        justify-content: center;
+      }
+      &.min {
+        justify-content: center;
+      }
+      h4 {
+        display: flex;
+        color: white;
+        margin: 0 0.5rem;
+        align-items: baseline;
+        line-height: 1;
+        small {
+          font-size: 40%;
+        }
+      }
+    }
+  }
+}

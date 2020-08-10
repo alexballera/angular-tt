@@ -1,0 +1,8 @@
+<div class="toast-container">
+  <ticmas-toast
+    *ngFor="let notification of notificationService.toastsList$ | async"
+    [notification]="notification"
+    [duration]="duration"
+    (remove)="remove($event)"
+  ></ticmas-toast>
+</div>

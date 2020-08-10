@@ -1,0 +1,14 @@
+:host ::ng-deep {
+  .select-button {
+    background-color: white !important;
+    padding-left: 16px !important;
+    padding-right: 32px !important;
+  }
+}
+nb-select {
+  margin-bottom: 10px;
+  @media (min-width: 736px) {
+    margin-bottom: 0;
+  }
+  display: inherit;
+}

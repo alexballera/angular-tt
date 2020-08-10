@@ -1,0 +1,29 @@
+<nb-card *ngIf="instructions$ | async as instructions">
+  <nb-card-header class="flex flex-row justify-content-between">
+    <span class="text-primary">
+      {{ instructions.title }}
+    </span>
+    <button
+      nbButton
+      ghost
+      status="basic"
+      size="small"
+      class="plain"
+      (click)="closeDialog()"
+    >
+      <nb-icon
+        icon="close-outline"
+        [options]="{ animation: { type: 'pulse' } }"
+      ></nb-icon>
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <span class="content bold">Consigna</span>
+    <p class="content marginless">{{ instructions.content }}</p>
+    <app-file-viewer
+      *ngIf="instructions.attachments.length > 0"
+      id="instructions"
+      [files]="instructions.attachments"
+    ></app-file-viewer>
+  </nb-card-body>
+</nb-card>

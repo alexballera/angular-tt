@@ -1,0 +1,58 @@
+.input-label {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+form {
+  nb-card-body {
+    .container-inner {
+      min-height: 400px;
+    }
+    .field {
+      margin: 16px 0;
+      position: relative;
+
+      > label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      input {
+        background-color: transparent;
+      }
+      nb-icon {
+        color: var(--color-basic-500);
+        font-size: 12px;
+        margin-top: 10px;
+        position: absolute;
+        right: 16px;
+      }
+    }
+  }
+}
+
+%circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 3px;
+}
+
+.circle {
+  @extend %circle;
+  background-color: var(--color-basic-500);
+}
+
+.circle-valid {
+  @extend %circle;
+  background-color: var(--color-success-500);
+}
+
+.circle-error {
+  @extend %circle;
+  background-color: var(--color-danger-500);
+}
+
+.error-text {
+  color: var(--color-danger-500);
+}

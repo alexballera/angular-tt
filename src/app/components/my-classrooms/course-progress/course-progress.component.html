@@ -1,0 +1,127 @@
+<nb-card
+  class="container"
+  *ngIf="
+    (courseMetrics$ | async).general.total.distributed > 0;
+    else showMessage
+  "
+>
+  <nb-card-header>
+    <h5 class="text-primary">Mi clase</h5>
+    <p class="marginless">
+      Nivel global de los estudiantes en mi clase
+    </p>
+  </nb-card-header>
+  <nb-card-body class="row">
+    <div class="col-xs-6">
+      <div class="row">
+        <div
+          class="time-card col-xs-5"
+          *ngIf="courseMetrics$ | async as courseMetrics"
+        >
+          <p class="marginless">Últimos 7 días</p>
+          <div class="time-display">
+            <nb-icon status="primary" icon="clock-outline"></nb-icon>
+            <ng-template [ngIf]="courseMetrics.fromLastWeek.hours">
+              <h5 class="h5 text-primary">
+                {{ courseMetrics.fromLastWeek.hours }}
+              </h5>
+              <p class="marginless">Hs</p>
+              <div class="vertical-divider"></div>
+            </ng-template>
+            <h5 class="h5 text-primary">
+              {{ courseMetrics.fromLastWeek.minutes }}
+            </h5>
+            <p class="marginless">Min</p>
+          </div>
+        </div>
+
+        <div class="time-card col-xs-6">
+          <p class="marginless">Promedio por semana</p>
+          <div
+            class="time-display"
+            size="tiny"
+            [nbSpinner]="spinner$ | async"
+            nbSpinnerStatus="primary"
+          >
+            <ng-container
+              *ngIf="weeklyInteractions$ | async as weeklyInteractions"
+            >
+              <nb-icon status="primary" icon="clock-outline"></nb-icon>
+              <ng-template [ngIf]="weeklyInteractions.average.hours">
+                <h5 class="h5 text-primary">
+                  {{ weeklyInteractions.average.hours }}
+                </h5>
+                <p class="marginless">Hs</p>
+                <div class="vertical-divider"></div>
+              </ng-template>
+              <h5 class="h5 text-primary">
+                {{ weeklyInteractions.average.minutes }}
+              </h5>
+              <p class="marginless">Min</p>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="with-left-border col-xs-6">
+      <strong class="text-secondary">
+        Progreso promedio
+      </strong>
+      <p class="marginless">
+        Interacción con los contenidos
+      </p>
+      <div class="row">
+        <div class="general-progress-bar col-xs-6">
+          Total
+          <div class="progress-bar-container">
+            <nb-progress-bar
+              class="group-progress-bar"
+              giant
+              [displayValue]="true"
+              [value]="(courseMetrics$ | async)?.general.progress || 0"
+            >
+            </nb-progress-bar>
+          </div>
+        </div>
+        <div class="general-progress-bar col-xs-6">
+          Vigente
+          <div class="progress-bar-container">
+            <nb-progress-bar
+              class="group-progress-bar"
+              giant
+              [displayValue]="true"
+              [value]="(courseMetrics$ | async)?.active.progress || 0"
+            >
+            </nb-progress-bar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="week-advance col-xs-12"
+      size="tiny"
+      [nbSpinner]="spinner$ | async"
+      nbSpinnerStatus="primary"
+      nbSpinnerSize="large"
+    >
+      <ticmas-chart
+        type="line"
+        [config]="chartConfig()"
+        height="35"
+        [graphData]="(weeklyInteractions$ | async).detail"
+      >
+      </ticmas-chart>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<ng-template #showMessage>
+  <nb-card-body class="container-empty">
+    <nb-icon status="basic" icon="trending-up-outline"></nb-icon>
+    <p status="basic">
+      Aquí verás el progreso general
+      <br />
+      de la clase
+    </p>
+  </nb-card-body>
+</ng-template>

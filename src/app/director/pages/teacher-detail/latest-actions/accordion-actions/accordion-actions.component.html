@@ -1,0 +1,19 @@
+<div class="nb-accordion nb-scrollbar">
+  <nb-accordion *ngFor="let item of data">
+    <nb-accordion-item>
+      <nb-accordion-item-header
+        [ngClass]="{
+          hideIcon: item.contents.length === 0,
+          'nb-accordion-title': true
+        }"
+      >
+        {{ item.title }}
+      </nb-accordion-item-header>
+      <nb-accordion-item-body *ngIf="item.contents.length > 0">
+        <p class="actions" *ngFor="let item of item.contents">
+          {{ item.type }} <em>{{ item.date }} {{ item.time }}</em>
+        </p>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+  </nb-accordion>
+</div>

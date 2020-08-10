@@ -1,0 +1,110 @@
+<div class="student-adition modal-dialog">
+  <div [ngClass]="{ modal: true, 'is-active': isModalActive }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <div class="close-modal">
+        <button
+          nbButton
+          status="basic"
+          class="cursor-pointer"
+          aria-label="close"
+          (click)="close()"
+          [disabled]="(formState$ | async).isSubmitted ? false : isLoading"
+        >
+          <em class="material-icons">close</em>
+        </button>
+      </div>
+      <section class="modal-card-body">
+        <header class="modal-card-head">
+          <p class="modal-card-title has-text-centered">
+            Agregá un nuevo estudiante a este curso
+          </p>
+        </header>
+        <ng-template
+          [ngIf]="
+            (formState$ | async).isUnsubmitted &&
+            !(formState$ | async).userDefinedProperties.error
+          "
+        >
+          <form [ngrxFormState]="formState$ | async" novalidate>
+            <p class="has-text-centered">
+              <span class="has-text-info has-text-weight-bold tag is-uppercase"
+                >Paso {{ step }}.</span
+              >
+            </p>
+            <app-student-addition-step-one
+              *ngIf="step === 1"
+              (next)="next()"
+              [isLoading]="isLoading"
+              (markAsLoading)="markAsLoading()"
+            ></app-student-addition-step-one>
+            <app-student-addition-step-two
+              *ngIf="step === 2"
+              (prev)="prev()"
+              (next)="next()"
+            ></app-student-addition-step-two>
+            <app-student-addition-step-three
+              *ngIf="step === 3"
+              (prev)="prev()"
+              [isLoading]="isLoading"
+              (markAsLoading)="markAsLoading()"
+            ></app-student-addition-step-three>
+          </form>
+        </ng-template>
+
+        <ng-template [ngIf]="(formState$ | async).isSubmitted">
+          <div class="container has-text-centered">
+            <span class="icon is-large has-text-success ">
+              <em class="fa fa-4x fa-check-circle"></em>
+            </span>
+            <p class="title is-4 is-spaced">
+              El estudiante ha sido añadido exitosamente al curso
+            </p>
+
+            <p class="is-spaced">
+              <button
+                nbButton
+                status="basic"
+                type="button"
+                (click)="reset()"
+                class="button is-fullwidth is-normal"
+              >
+                Agregar otro estudiante
+              </button>
+            </p>
+            <p class="is-spaced">
+              <button
+                nbButton
+                status="basic"
+                (click)="close()"
+                class="button is-fullwidth is-text"
+              >
+                Finalizar
+              </button>
+            </p>
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="(formState$ | async).userDefinedProperties.error">
+          <div class="container has-text-centered">
+            <span class="icon is-large has-text-warning ">
+              <em class="fa fa-4x fa-exclamation-circle"></em>
+            </span>
+            <p class="title is-4 is-spaced">
+              El estudiante no pudo ser añadido al curso
+            </p>
+            <p class="is-spaced">
+              <button
+                nbButton
+                status="basic"
+                (click)="reset()"
+                class="button is-fullwidth is-text"
+              >
+                Intentar nuevamente
+              </button>
+            </p>
+          </div>
+        </ng-template>
+      </section>
+    </div>
+  </div>
+</div>

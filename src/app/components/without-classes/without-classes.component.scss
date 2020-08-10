@@ -1,0 +1,52 @@
+@import 'src/scss/base/_mixins.scss';
+
+.without-class {
+  width: 100%;
+
+  .content-without-class {
+    background-image: url('/img/bg-without.svg');
+    height: 450px;
+    background-repeat: no-repeat, repeat;
+    background-position-x: center;
+
+    .texts-without-class {
+      padding-top: 145px;
+      text-align: center;
+      flex-basis: 76%;
+      max-width: 76%;
+      @include respond-to(sm) {
+        flex-basis: 64%;
+        max-width: 64%;
+      }
+      @include respond-to(md) {
+        flex-basis: 64%;
+        max-width: 64%;
+      }
+      @include respond-to(lg) {
+        flex-basis: 69%;
+        max-width: 69%;
+      }
+      @include respond-to(xl) {
+        flex-basis: 73%;
+        max-width: 73%;
+      }
+      @include respond-to(xxl) {
+        flex-basis: 82%;
+        max-width: 82%;
+      }
+      @include respond-to(xxxl) {
+        flex-basis: 87%;
+        max-width: 87%;
+      }
+      .text-ppal {
+        font-weight: bold;
+        font-size: 1.6rem;
+        line-height: 28px;
+      }
+      .text-sec {
+        color: #989898;
+        font-size: 1rem;
+      }
+    }
+  }
+}

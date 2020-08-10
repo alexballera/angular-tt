@@ -1,0 +1,29 @@
+<div class="app-upload-file">
+  <div class="field">
+    <div class="control">
+      <label class="app-upload-file-label cursor-pointer">
+        <div *ngIf="!hasUploadBox" class="col-xs-7 attach-option-image">
+          <img src="{{ src }}" alt="" />
+        </div>
+        <input
+          (change)="onChange($event.target.files)"
+          class="file-input is-hidden"
+          type="file"
+          [accept]="allowedMimes.join(', ')"
+        />
+        <div
+          *ngIf="hasUploadBox"
+          [ngClass]="{ coverPreview: coverPreviewStyles, paddingless: true }"
+        >
+          <nb-icon
+            icon="image-outline"
+            [options]="{ animation: { type: 'pulse' } }"
+          ></nb-icon>
+        </div>
+        <div *ngIf="!coverPreviewStyles" class="paddingless">
+          <p class="marginless">{{ title }}</p>
+        </div>
+      </label>
+    </div>
+  </div>
+</div>

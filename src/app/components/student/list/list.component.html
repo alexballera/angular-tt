@@ -1,0 +1,64 @@
+<div
+  *ngIf="studentMetrics$ | async as metrics"
+  (click)="onSelectStudent(metrics)"
+  [ngClass]="{
+    container: true,
+    isActive: isActive
+  }"
+>
+  <circle-progress
+    [percent]="metrics.active?.progress || 0"
+    [radius]="18"
+    [outerStrokeWidth]="4"
+    [outerStrokeColor]="'#44d9f2'"
+    [showInnerStroke]="false"
+    [clockwise]="false"
+    [backgroundColor]="'#9b90dd'"
+    [backgroundPadding]="0"
+    [imageSrc]="student.picture || defaultAvatar"
+    [showImage]="true"
+    [imageWidth]="36"
+    [imageHeight]="36"
+  >
+  </circle-progress>
+  <p [ngClass]="{ 'col-xs': true, subtitle: isActive }">
+    {{ student | fullName }}
+  </p>
+
+  <p class="text-primary subtitle">
+    <span
+      [nbSpinner]="true"
+      nbSpinnerSize="tiny"
+      nbSpinnerStatus="primary"
+      style="height: 100%"
+      class="col-sm-12"
+      *ngIf="spinner$ | async; else progress"
+    ></span>
+    <ng-template #progress> {{ metrics.active?.progress || 0 }}% </ng-template>
+  </p>
+  <nb-icon
+    class="group-icon"
+    id="student-comment"
+    icon="file-remove-outline"
+    [nbPopover]="notes"
+  ></nb-icon>
+  <ng-template #notes appendTo="student-comment">
+    <app-student-notes (optionSelect)="notes.hide()"></app-student-notes>
+  </ng-template>
+
+  <nb-icon
+    class="group-icon"
+    icon="more-horizontal-outline"
+    [nbPopover]="options"
+    id="student-menu"
+  ></nb-icon>
+  <ng-template #options>
+    <app-student-options
+      [student]="student"
+      [distributionGroup]="selectedGroup"
+      (optionSelect)="options.hide()"
+      [isInAgroup]="selectedGroup.parent ? true : false"
+    >
+    </app-student-options>
+  </ng-template>
+</div>

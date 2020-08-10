@@ -1,0 +1,18 @@
+<label>{{ title }}</label>
+<nb-select
+  [(ngModel)]="value"
+  [ngModelOptions]="{ standalone: true }"
+  size="small"
+  selected="selected"
+  placeholder="{{ placeholder }}"
+  status="basic"
+>
+  >
+  <nb-option selected="selected" [value]="undefined">
+    {{ placeholder }}
+  </nb-option>
+
+  <nb-option [value]="tag.name" *ngFor="let tag of tags | async">{{
+    tag.name | levelSplit
+  }}</nb-option>
+</nb-select>

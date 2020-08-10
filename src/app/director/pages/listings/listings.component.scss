@@ -1,0 +1,14 @@
+.listing {
+  .breadcrumb {
+    position: absolute;
+    &-item {
+      color: var(--color-basic-600);
+    }
+  }
+
+  nb-card {
+    padding-bottom: 16px;
+    padding-top: 16px;
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,8 @@
+nb-sidebar {
+  &.left {
+    z-index: 2 !important;
+  }
+  .main-container-fixed {
+    top: 0 !important;
+  }
+}

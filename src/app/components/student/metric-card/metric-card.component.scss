@@ -1,0 +1,32 @@
+@import '../../../../themes.scss';
+
+.card {
+  background-color: #f7f7f7;
+  box-shadow: none;
+  height: 80px;
+  text-align: center;
+  width: 110px;
+  margin-right: 15px;
+}
+
+.last-view-header {
+  height: 25px;
+  &.calendar {
+    background-color: nb-theme(color-primary-500);
+    color: white;
+  }
+  &.default {
+    background-color: #f7f7f7;
+    border-bottom: none;
+    margin-top: 5px;
+  }
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-weight: normal;
+}
+
+.last-view-date {
+  font-size: 38px;
+  font-weight: bold;
+  padding-top: 15px;
+}

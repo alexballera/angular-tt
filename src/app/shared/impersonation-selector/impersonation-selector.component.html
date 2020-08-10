@@ -1,0 +1,21 @@
+<div
+  *ngIf="
+    impersonationService && impersonationService.impersonatedUser$
+      | async as impersonatedUser
+  "
+  class="impersonation"
+>
+  <span class="impersonation-name">
+    {{ impersonatedUser.given_name }} {{ impersonatedUser.family_name }}
+  </span>
+  <button
+    (click)="stopImpersonation()"
+    nbButton
+    filled
+    status="info"
+    size="small"
+    class="impersonation-button"
+  >
+    Cambiar
+  </button>
+</div>

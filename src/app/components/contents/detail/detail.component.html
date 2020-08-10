@@ -1,0 +1,197 @@
+<ng-template [ngIf]="contents.length" [ngIfElse]="showMessage">
+  <nb-accordion multi>
+    <nb-accordion-item
+      *ngFor="let content of contents; let i = index"
+      [expanded]="i === 0"
+      class="content-accordion"
+    >
+      <nb-accordion-item-header class="accordion-header hide-arrow">
+        <div class="accordion-container">
+          <div class="group-topic">
+            <a (click)="goToContent(content.resource)" class="topic-name">
+              {{
+                content.title
+                  ? (content.title | titlecase)
+                  : (content.resource.title | titlecase)
+              }}
+            </a>
+            <div class="content-validity"></div>
+            <p
+              [ngClass]="{
+                'topic-date': true,
+                'text-warning': content.status === 'isNextToDue',
+                'text-danger': content.status === 'isDue'
+              }"
+            >
+              ({{ content.startDate }} - {{ content.dueDate }})
+            </p>
+            <nb-icon
+              status="{{
+                content.status === 'isDue'
+                  ? 'danger'
+                  : content.status === 'isNextToDue'
+                  ? 'warning'
+                  : 'basic'
+              }}"
+              icon="clock-outline"
+              class="icon-time"
+            ></nb-icon>
+            <button class="plain card-edit rotable">
+              <nb-icon
+                status="basic"
+                icon="arrow-ios-upward-outline"
+                [options]="{ animation: { type: 'pulse' } }"
+              >
+              </nb-icon>
+            </button>
+            <button
+              *ngIf="isCourseView"
+              class="plain card-edit"
+              nbTooltip="Editar"
+              (click)="edit($event, content)"
+            >
+              <nb-icon
+                status="basic"
+                icon="edit-outline"
+                [options]="{ animation: { type: 'pulse' } }"
+              ></nb-icon>
+            </button>
+            <button
+              *ngIf="
+                isCourseView &&
+                metrics &&
+                !metrics[content._id]?.metrics.assets.progress
+              "
+              class="plain card-edit"
+              (click)="delete(content)"
+            >
+              <nb-icon
+                status="basic"
+                icon="trash-2-outline"
+                [options]="{ animation: { type: 'pulse' } }"
+              ></nb-icon>
+            </button>
+          </div>
+          <div class="group-topic">
+            <nb-progress-bar
+              class="group-progress-bar"
+              giant
+              [displayValue]="true"
+              [value]="
+                (metrics && metrics[content._id]?.metrics.assets.progress) || 0
+              "
+            >
+            </nb-progress-bar>
+            <span
+              *ngIf="
+                !isCourseView &&
+                metrics &&
+                metrics[content._id]?.metrics.assets.total.started === 0 &&
+                metrics[content._id]?.metrics.assets.total.completed === 0
+              "
+              class="text-primary subtitle-2"
+              >No iniciado</span
+            >
+            <div
+              class="last-view"
+              *ngIf="
+                !isCourseView &&
+                metrics &&
+                metrics[content._id]?.metrics.lastInteraction
+              "
+            >
+              <p class="marginless">
+                Últ. vista
+                {{
+                  contentsService.formatedLastInteraction(
+                    metrics[content._id]?.metrics.lastInteraction
+                  ).normal
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
+        <ng-container *ngFor="let asset of content.resource.assets">
+          <ng-template
+            [ngIf]="asset.embeds.length > 0"
+            [ngIfElse]="showOnlyAsset"
+          >
+            <nb-accordion>
+              <nb-accordion-item>
+                <nb-accordion-item-header class="accordion-header">
+                  <app-content-detail-item
+                    class="item-display root"
+                    [asset]="asset"
+                    [metrics]="
+                      (metrics && metrics[content._id]?.relatedMetrics) || []
+                    "
+                    [isCourseView]="isCourseView"
+                  >
+                  </app-content-detail-item>
+                </nb-accordion-item-header>
+                <nb-accordion-item-body class="content-item-container">
+                  <app-content-detail-item
+                    *ngFor="let embed of asset.embeds"
+                    [asset]="embed"
+                    [metrics]="
+                      (metrics && metrics[content._id]?.relatedMetrics) || []
+                    "
+                    [isCourseView]="isCourseView"
+                    class="item-display embed"
+                  >
+                  </app-content-detail-item>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+            </nb-accordion>
+          </ng-template>
+          <ng-template #showOnlyAsset>
+            <app-content-detail-item
+              class="item-display"
+              [asset]="asset"
+              [metrics]="
+                (metrics && metrics[content._id]?.relatedMetrics) || []
+              "
+              [isCourseView]="isCourseView"
+            >
+            </app-content-detail-item>
+          </ng-template>
+        </ng-container>
+        <div *ngIf="content.attachments?.length > 0" class="attachment-detail">
+          <i>
+            <nb-icon icon="attach-2-outline" icon-font-size=""></nb-icon>({{
+              content.attachments.length
+            }}) Material adjunto
+          </i>
+          <div *ngFor="let attached of content.attachments">
+            <div class="data">
+              <a href="{{ attached.url }}" target="_blank">
+                <div
+                  class="avatar"
+                  [ngStyle]="{
+                    'background-image': 'url(' + attached.cover_url + ')'
+                  }"
+                ></div>
+              </a>
+              <a href="{{ attached.url }}" target="_blank"
+                ><strong>{{ attached.title }}</strong></a
+              >
+            </div>
+          </div>
+        </div>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+  </nb-accordion>
+</ng-template>
+<ng-template #showMessage>
+  <div class="container-empty">
+    <nb-icon status="basic" icon="trending-up-outline"></nb-icon>
+    <p status="basic" [ngSwitch]="isCourseView">
+      Aquí verás el progreso detallado
+      <br />
+      <span *ngSwitchCase="false">del estudiante</span>
+      <span *ngSwitchDefault>{{ isGroup ? 'del grupo' : 'de la clase' }}</span>
+    </p>
+  </div>
+</ng-template>

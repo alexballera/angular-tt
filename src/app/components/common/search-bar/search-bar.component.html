@@ -1,0 +1,60 @@
+<div class="input-container">
+  <nb-icon class="search-icon" icon="search-outline" status="basic"></nb-icon>
+  <p-autoComplete
+    [(ngModel)]="search"
+    [suggestions]="results"
+    (completeMethod)="onChangeSearch($event)"
+    [minLength]="1"
+    placeholder="Buscar clase, grupo o estudiante"
+    field="name"
+    emptyMessage="No se encontraron resultados"
+    scrollHeight="300px"
+    (onSelect)="onSelect($event)"
+  >
+    <ng-template let-item pTemplate="item">
+      <nb-card *ngIf="item?.subtitle" class="subtitle">
+        <label>{{ item.subtitle }}</label>
+      </nb-card>
+      <nb-card
+        *ngIf="item.type === 'student'"
+        class="result-container cursor-pointer"
+      >
+        <img src="{{ item.photo }}" class="item-picture" />
+        <div class="item-right-container">
+          <label class="student-name cursor-pointer">{{ item.name }}</label>
+          <label class="cursor-pointer">{{ item.userName }}</label>
+          <label class="cursor-pointer">{{ item.groupName }}</label>
+        </div>
+      </nb-card>
+      <nb-card
+        *ngIf="item.type === 'classroom'"
+        class="result-container cursor-pointer"
+      >
+        <div class="group-logo-container">
+          <label class="group-letter cursor-pointer">{{
+            item.name[0] | uppercase
+          }}</label>
+        </div>
+        <div class="item-right-container">
+          <label class="cursor-pointer">{{ item.name }}</label>
+          <label class="cursor-pointer">{{ item.category }}</label>
+          <label class="cursor-pointer">{{
+            'Estudiantes: ' + item.students
+          }}</label>
+        </div>
+      </nb-card>
+      <nb-card
+        *ngIf="item.type === 'group'"
+        class="result-container cursor-pointer"
+      >
+        <div class="group-logo-container">
+          <label class="group-letter">{{ item.name[0] | uppercase }}</label>
+        </div>
+        <div class="item-right-container">
+          <label class="cursor-pointer">{{ item.name + ' ' }}</label>
+          <label class="cursor-pointer">{{ item.classroomName }}</label>
+        </div>
+      </nb-card>
+    </ng-template>
+  </p-autoComplete>
+</div>

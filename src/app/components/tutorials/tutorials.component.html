@@ -1,0 +1,31 @@
+<div class="row center-xs middle-xs animated fadeIn tutorial marginless">
+  <div
+    class="col-xs-12 col-md-9 tutorial-container paddingless position-relative"
+  >
+    <button
+      nbButton
+      ghost
+      shape="round"
+      status="basic"
+      size="small"
+      class="plain position-absolute"
+      (click)="goBack()"
+    >
+      <nb-icon
+        icon="close-outline"
+        [options]="{ animation: { type: 'pulse' } }"
+      ></nb-icon>
+    </button>
+    <video controls autoplay>
+      <source
+        [src]="
+          'https://' +
+          environment.s3.cdn.bucket +
+          '/public/instructivo-docente-ticmas.mp4'
+        "
+        type="video/mp4"
+      />
+      El navegador no soporta este formato de video
+    </video>
+  </div>
+</div>

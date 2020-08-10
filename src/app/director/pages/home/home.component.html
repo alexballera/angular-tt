@@ -1,0 +1,133 @@
+<div
+  class="container-fluid paddingless"
+  *ngIf="progressOnSubjects$ | async as progressOnSubjects"
+>
+  <nb-card class="container">
+    <nb-card-body class="paddingless">
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 leftcol">
+          <div class="row start-xs">
+            <div class="col-xs-12 col-sm-6">
+              <h6 class="marginless">Métricas de contenidos</h6>
+              <p class="marginless">Por asignaturas y progreso de los mismos</p>
+            </div>
+            <div
+              class="col-xs-12 col-sm-6 datarow"
+              *ngIf="progressOnSubjects.length"
+            >
+              <div class="progress content"></div>
+              Progreso de contenido
+              <div class="progress asigned"></div>
+              Contenido asignado
+            </div>
+          </div>
+          <div
+            *ngIf="!progressOnSubjects.length; else showProgress"
+            [nbSpinner]="true"
+            nbSpinnerStatus="primary"
+            nbSpinnerSize="giant"
+            class="director-spinner"
+          ></div>
+
+          <ng-template class="animated fadeIn" #showProgress>
+            <div class="row middle-xs progress">
+              <div class="col-xs-12 col-sm-9 paddingless">
+                <h5 class="text-hint">
+                  Asignaturas
+                  <em class="text-gray"
+                    >({{ (generalMetrics$ | async)?.subjects }})</em
+                  >
+                </h5>
+              </div>
+              <div class="col-xs-12 col-sm-3 paddingless">
+                <div class="row">
+                  <p class="progress-title text-info">Progreso contenido</p>
+                  <p class="progress-title">Contenido asignado</p>
+                </div>
+              </div>
+            </div>
+
+            <ticmas-chart
+              type="column"
+              height="60"
+              [config]="subjectsChartConfig$ | async"
+              [graphData]="progressOnSubjects"
+            ></ticmas-chart>
+          </ng-template>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 rightcol fullheight">
+          <h6 class="marginless">Métricas generales</h6>
+          <div
+            *ngIf="
+              !(quarterlyInteractions$ | async).length;
+              else showInteractions
+            "
+            [nbSpinner]="true"
+            nbSpinnerStatus="primary"
+            nbSpinnerSize="giant"
+            style="height: 220px;"
+          ></div>
+
+          <ng-template #showInteractions>
+            <span class="text-hint"
+              ><small>Última actualización {{ today }}</small></span
+            >
+            <div
+              class="button-boxes"
+              *ngIf="generalMetrics$ | async as generalMetrics"
+            >
+              <app-button-box
+                title="Clases"
+                [value]="generalMetrics.courses"
+              ></app-button-box>
+              <app-button-box
+                title="Contenidos asignados"
+                [value]="generalMetrics.contents"
+              ></app-button-box>
+              <app-button-box
+                routerLink="listing"
+                title="Docentes"
+                [value]="generalMetrics.teachers"
+              ></app-button-box>
+              <app-button-box
+                title="Estudiantes"
+                [value]="generalMetrics.students"
+              ></app-button-box>
+            </div>
+            <p class="text-hint">
+              Interacción con contenidos de los últimos 30 días
+            </p>
+            <div class="row">
+              <div class="col-xs-12 col-sm-4">
+                <app-month-interaction
+                  *ngIf="
+                    monthlyAvgInteraction$ | async as monthlyAvgInteraction
+                  "
+                  title="Estudiantes"
+                  type="student"
+                  [hours]="monthlyAvgInteraction.hours"
+                  [minutes]="monthlyAvgInteraction.minutes"
+                >
+                </app-month-interaction>
+              </div>
+            </div>
+            <div
+              class="chart-container"
+              size="tiny"
+              [nbSpinner]="!(quarterlyInteractions$ | async)"
+              nbSpinnerStatus="primary"
+            >
+              <ticmas-chart
+                type="line"
+                height="30"
+                [config]="quarterlyChartConfig$ | async"
+                [graphData]="quarterlyInteractions$ | async"
+              ></ticmas-chart>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>
